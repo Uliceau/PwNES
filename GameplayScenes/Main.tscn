@@ -25,9 +25,9 @@ noise = SubResource("FastNoiseLite_qpc07")
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_mx21x"]
 render_priority = 0
 shader = ExtResource("3_qpc07")
-shader_parameter/sphere_position = Vector3(0.69, 83.855, 2.63)
-shader_parameter/sphere_radius = 2.1750000000029104
-shader_parameter/burn_threshold = 1.0
+shader_parameter/sphere_position = Vector3(-0.745, 83.84, 8.895)
+shader_parameter/sphere_radius = 1.8399999999965075
+shader_parameter/burn_threshold = 0.6600000000034925
 shader_parameter/noise_texture = SubResource("NoiseTexture2D_mx21x")
 shader_parameter/noise_strength = 0.3150000000023283
 shader_parameter/noise_scale = 0.14500000000407454
@@ -81,7 +81,7 @@ use_collision = true
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.5, 0, 4)
 calculate_tangents = false
 flip_faces = true
-size = Vector3(5000, 500, 5000)
+size = Vector3(500000, 500, 500000)
 material = SubResource("StandardMaterial3D_4faqr")
 metadata/_edit_lock_ = true
 
@@ -328,9 +328,9 @@ material = ExtResource("4_qpc07")
 curve = SubResource("Curve3D_4faqr")
 
 [node name="CSGSphere3D" type="CSGSphere3D" parent="World/CSGCombiner3D"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.44001675, 2.6515808, 2.809797)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.8015151, 2.8098755, 8.979717)
 operation = 2
-radius = 1.96
+radius = 0.798
 radial_segments = 16
 rings = 9
 material = SubResource("StandardMaterial3D_mx21x")

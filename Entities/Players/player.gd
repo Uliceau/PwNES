@@ -24,8 +24,8 @@ var movement_velocity := Vector3.ZERO
 var floor_damping := 0.9
 var action_speed_multiplier := 1.0
 
-var total_jumps := 5
-var jumps_lefts := 5
+var total_jumps := 3
+var jumps_lefts := 3
 
 var is_crouched := false
 
@@ -110,9 +110,9 @@ func _physics_process(delta: float) -> void:
 	# FLOOR MOVEMENT
 	if is_on_floor():
 		jumps_lefts = total_jumps
-		if extra_temp_velocity > 1.0:
+		if extra_temp_velocity > 1.0 and velocity.length() < 40.0:
 			extra_temp_velocity *= 0.8
-		elif extra_temp_velocity != 1.0:
+		elif extra_temp_velocity < 1.0:
 			extra_temp_velocity = 1.0
 		if input_dir:
 			velocity.x += direction.x * SPEED * action_speed_multiplier

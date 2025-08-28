@@ -14,11 +14,14 @@ var current_wait_time := 0.0
 var delay := 2.5
 
 @onready var ui_indicator: TextureProgressBar = $UiIndicator
+@onready var grapple_position: Sprite3D = $GrapplePosition
 
 func interact_start() -> void:
 	if player.ray_cast_3d.is_colliding() and not is_grappled and can_grapple:
 		ray_cast_point = player.ray_cast_3d.get_collision_point()
 		initial_ray_distance = player.global_position.distance_to(ray_cast_point)
+		grapple_position.show()
+		grapple_position.global_position = ray_cast_point
 		is_grappled = true
 
 func interact_stop() -> void:
@@ -26,6 +29,7 @@ func interact_stop() -> void:
 		initial_ray_distance = 0.0
 		is_grappled = false
 		can_grapple = false
+		grapple_position.hide()
 		current_wait_time = 0.0
 
 func _physics_process(delta: float) -> void:

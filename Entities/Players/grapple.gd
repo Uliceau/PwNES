@@ -12,6 +12,7 @@ var current_wait_time := 0.0
 var delay := 2.0
 
 @onready var ui_indicator: TextureProgressBar = $UiIndicator
+@onready var grapple_position: Sprite3D = $GrapplePosition
 
 func interact_start() -> void:
 	if player.ray_cast_3d.is_colliding() and not is_grappled and can_grapple:
@@ -23,7 +24,7 @@ func interact_start() -> void:
 		is_grappled = false
 
 func interact_stop() -> void:
-	pass # Replace with function body.
+	pass
 
 func _physics_process(delta: float) -> void:
 	if current_wait_time >= delay:
@@ -35,10 +36,26 @@ func _physics_process(delta: float) -> void:
 		ui_indicator.value = current_wait_time / delay
 		ui_indicator.modulate = Color.WHITE
 	
-	if player.ray_cast_3d.is_colliding() and not is_grappled and can_grapple:
-		ui_indicator.visible = true
-	elif ui_indicator.value == 1.0:
-		ui_indicator.visible = false
+	if player.ray_cast_3d.is_colliding():
+		if can_grapple or is_grappled:
+			ui_indicator.visible = true
+			if not grapple_position.visible:
+				grapple_position.modulate.a = 0.0
+				grapple_position.visible = true
+				grapple_position.global_position = player.ray_cast_3d.get_collision_point()
+				await get_tree().physics_frame
+				await get_tree().physics_frame
+				grapple_position.modulate.a = 1.0
+				
+		else:
+			grapple_position.visible = false
+		if can_grapple:
+			grapple_position.global_position = lerp(grapple_position.global_position, player.ray_cast_3d.get_collision_point(), 10*delta)
+	else:
+		if ui_indicator.value == 1.0:
+			ui_indicator.visible = false
+		if not is_grappled or not can_grapple:
+			grapple_position.visible = false
 	if is_grappled:
 		player.velocity += (ray_cast_point - player.global_position).normalized() * pull_strength
 

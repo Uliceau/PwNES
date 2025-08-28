@@ -347,7 +347,6 @@ fill_mode = 4
 texture_progress = ExtResource("4_5vp2d")
 
 [node name="GrapplePosition" type="Sprite3D" parent="Camera3D/MainHand/Grapple"]
-physics_interpolation_mode = 1
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.347353, 0.96950823, -1.4404349)
 top_level = true
 billboard = 1
