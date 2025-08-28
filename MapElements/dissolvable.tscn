@@ -1,0 +1,45 @@
+[gd_scene load_steps=7 format=3 uid="uid://bbek1pugcmwm3"]
+
+[ext_resource type="Script" uid="uid://b0hqw1jexyktf" path="res://Mechanics/dissolvable_wall.gd" id="1_n0fyt"]
+[ext_resource type="Shader" uid="uid://bm4m6vwd310l2" path="res://Materials/new_shader.gdshader" id="2_l3b6t"]
+
+[sub_resource type="FastNoiseLite" id="FastNoiseLite_n0fyt"]
+
+[sub_resource type="NoiseTexture2D" id="NoiseTexture2D_mx21x"]
+noise = SubResource("FastNoiseLite_n0fyt")
+seamless = true
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_mx21x"]
+resource_local_to_scene = true
+render_priority = 0
+shader = ExtResource("2_l3b6t")
+shader_parameter/sphere_position = Vector3(0, 0, 0)
+shader_parameter/sphere_radius = 2.735000000000582
+shader_parameter/burn_threshold = 0.1
+shader_parameter/noise_texture = SubResource("NoiseTexture2D_mx21x")
+shader_parameter/noise_strength = 1.6350000000093132
+shader_parameter/noise_scale = 0.03500000000349246
+shader_parameter/inner_face_neon_intensity = 0.8899999999994179
+shader_parameter/neon_base_color = Color(0.61272854, 0.759768, 1, 1)
+shader_parameter/albedo_color = Color(0.74978, 0.74978, 0.74977994, 1)
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_mx21x"]
+blend_mode = 3
+cull_mode = 1
+shading_mode = 0
+
+[node name="Dissolvable" type="CSGCombiner3D"]
+use_collision = true
+script = ExtResource("1_n0fyt")
+metadata/_edit_group_ = true
+
+[node name="DissolvableWall" type="CSGBox3D" parent="."]
+size = Vector3(13.984569, 2.346405, 14.965189)
+material = SubResource("ShaderMaterial_mx21x")
+
+[node name="CSGSphere3D" type="CSGSphere3D" parent="DissolvableWall"]
+lod_bias = 0.001
+operation = 2
+radial_segments = 16
+rings = 9
+material = SubResource("StandardMaterial3D_mx21x")

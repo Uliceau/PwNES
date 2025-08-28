@@ -1,0 +1,23 @@
+[gd_resource type="ShaderMaterial" load_steps=4 format=3 uid="uid://cin7uisxmy00q"]
+
+[ext_resource type="Shader" uid="uid://bm4m6vwd310l2" path="res://Materials/new_shader.gdshader" id="1_3is3a"]
+
+[sub_resource type="FastNoiseLite" id="FastNoiseLite_qpc07"]
+noise_type = 2
+
+[sub_resource type="NoiseTexture2D" id="NoiseTexture2D_mx21x"]
+noise = SubResource("FastNoiseLite_qpc07")
+
+[resource]
+resource_local_to_scene = true
+render_priority = 0
+shader = ExtResource("1_3is3a")
+shader_parameter/sphere_position = Vector3(-3.551, 82.265, 8.393)
+shader_parameter/sphere_radius = 5.244999999995343
+shader_parameter/burn_threshold = 0.6600000000034925
+shader_parameter/noise_texture = SubResource("NoiseTexture2D_mx21x")
+shader_parameter/noise_strength = 0.3150000000023283
+shader_parameter/noise_scale = 0.14500000000407454
+shader_parameter/inner_face_neon_intensity = 0.86
+shader_parameter/neon_base_color = Color(0.61272854, 0.759768, 1, 1)
+shader_parameter/albedo_color = Color(0.74978, 0.74978, 0.74977994, 1)

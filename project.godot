@@ -29,6 +29,10 @@ window/stretch/mode="canvas_items"
 
 enabled=PackedStringArray("res://addons/children_dock/plugin.cfg")
 
+[global_group]
+
+disolvable=""
+
 [input]
 
 up={

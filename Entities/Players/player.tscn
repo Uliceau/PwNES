@@ -1,4 +1,4 @@
-[gd_scene load_steps=40 format=3 uid="uid://dwh4vaq8esl1w"]
+[gd_scene load_steps=42 format=3 uid="uid://dwh4vaq8esl1w"]
 
 [ext_resource type="Script" uid="uid://c6p3o8fitt0i3" path="res://Entities/Players/player.gd" id="1_xjlfs"]
 [ext_resource type="Texture2D" uid="uid://cvfpul38nawix" path="res://Entities/Players/TESTTEXTURE.webp" id="2_g2faj"]
@@ -8,6 +8,8 @@
 [ext_resource type="Script" uid="uid://fonvtouhojms" path="res://Entities/Players/node.gd" id="5_p4qpu"]
 [ext_resource type="Texture2D" uid="uid://dgehn67uyfvuv" path="res://addons/kenney_particle_pack/star_07.png" id="6_6adbs"]
 [ext_resource type="Texture2D" uid="uid://biormanfwbi2e" path="res://addons/kenney_particle_pack/magic_03.png" id="6_qwtga"]
+[ext_resource type="Script" uid="uid://co1engta66c4b" path="res://Entities/Players/dissolver.gd" id="7_2j33m"]
+[ext_resource type="Texture2D" uid="uid://8icwc5dninev" path="res://addons/kenney_particle_pack/star_09.png" id="8_toava"]
 
 [sub_resource type="CapsuleMesh" id="CapsuleMesh_n3m37"]
 
@@ -322,12 +324,14 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.382142, -0.29827404, -0.151
 
 [node name="Grapple" type="CSGBox3D" parent="Camera3D/MainHand"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.034788996, -0.029127777, -0.288543)
+visible = false
 size = Vector3(0.109131, 0.180359, 0.339722)
 script = ExtResource("3_vb8cd")
 
 [node name="UiIndicator" type="TextureProgressBar" parent="Camera3D/MainHand/Grapple"]
+visible = false
 modulate = Color(0, 1, 0.14999986, 1)
-anchors_preset = 8
+anchors_preset = -1
 anchor_left = 0.5
 anchor_top = 0.5
 anchor_right = 0.5
@@ -356,6 +360,7 @@ texture = ExtResource("6_qwtga")
 
 [node name="Swing" type="CSGBox3D" parent="Camera3D/MainHand"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.034788996, -0.029127777, -0.288543)
+visible = false
 size = Vector3(0.109131, 0.180359, 0.339722)
 material = SubResource("StandardMaterial3D_p4qpu")
 script = ExtResource("4_p4qpu")
@@ -363,7 +368,7 @@ script = ExtResource("4_p4qpu")
 [node name="UiIndicator" type="TextureProgressBar" parent="Camera3D/MainHand/Swing"]
 visible = false
 modulate = Color(0, 1, 0.14999986, 1)
-anchors_preset = 8
+anchors_preset = -1
 anchor_left = 0.5
 anchor_top = 0.5
 anchor_right = 0.5
@@ -389,6 +394,40 @@ billboard = 1
 no_depth_test = true
 texture = ExtResource("6_qwtga")
 
+[node name="Dissolver" type="CSGBox3D" parent="Camera3D/MainHand"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.029478937, -0.029127777, -0.288543)
+visible = false
+size = Vector3(0.18444827, 0.180359, 0.339722)
+material = SubResource("StandardMaterial3D_p4qpu")
+script = ExtResource("7_2j33m")
+
+[node name="UiIndicator" type="TextureProgressBar" parent="Camera3D/MainHand/Dissolver"]
+visible = false
+modulate = Color(0, 1, 0.14999986, 1)
+anchors_preset = -1
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -257.0
+offset_top = -252.0
+offset_right = 255.0
+offset_bottom = 260.0
+grow_horizontal = 2
+grow_vertical = 2
+scale = Vector2(0.175, 0.175)
+pivot_offset = Vector2(257.14258, 251.42871)
+max_value = 1.0
+step = 0.01000000000931322
+value = 1.0
+fill_mode = 4
+texture_progress = ExtResource("8_toava")
+
+[node name="Model" type="CSGBox3D" parent="Camera3D/MainHand/Dissolver"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.0070081055, 0.049801648, -0.055194557)
+size = Vector3(0.08755494, 0.180359, 0.339722)
+material = SubResource("StandardMaterial3D_p4qpu")
+
 [node name="AnimationPlayer" type="AnimationPlayer" parent="Camera3D"]
 libraries = {
 &"": SubResource("AnimationLibrary_vb8cd")
@@ -400,12 +439,12 @@ script = ExtResource("5_p4qpu")
 
 [node name="Label3D" type="Label3D" parent="Node"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.53359, 0)
+visible = false
 billboard = 1
 text = "test"
 
 [node name="Control" type="Control" parent="."]
 layout_mode = 3
-anchors_preset = 8
 anchor_left = 0.5
 anchor_top = 0.5
 anchor_right = 0.5
@@ -465,5 +504,14 @@ offset_bottom = 92.0
 theme_override_font_sizes/font_size = 20
 text = "999"
 horizontal_alignment = 1
+
+[node name="OmniLight3D3" type="OmniLight3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.0966891, 0)
+visible = false
+light_energy = 8.412
+light_size = 0.664
+shadow_enabled = true
+omni_range = 246.94206
+metadata/_edit_group_ = true
 
 [connection signal="animation_finished" from="Camera3D/AnimationPlayer" to="." method="_on_animation_player_animation_finished"]
