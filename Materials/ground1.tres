@@ -1,0 +1,21 @@
+[gd_resource type="StandardMaterial3D" load_steps=4 format=3 uid="uid://b23o6x4r42m7j"]
+
+[ext_resource type="Texture2D" uid="uid://db6pheqyg1ret" path="res://addons/kenney_prototype_textures/dark/texture_03.png" id="1_ey6cs"]
+
+[sub_resource type="FastNoiseLite" id="FastNoiseLite_gdp20"]
+noise_type = 5
+frequency = 0.0431
+
+[sub_resource type="NoiseTexture2D" id="NoiseTexture2D_14o33"]
+generate_mipmaps = false
+noise = SubResource("FastNoiseLite_gdp20")
+seamless = true
+seamless_blend_skirt = 0.431
+
+[resource]
+albedo_texture = ExtResource("1_ey6cs")
+metallic_specular = 0.08
+roughness_texture = SubResource("NoiseTexture2D_14o33")
+uv1_scale = Vector3(0.5, 0.5, 0.5)
+uv1_triplanar = true
+grow_amount = 0.239

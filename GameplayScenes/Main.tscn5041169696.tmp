@@ -1,0 +1,171 @@
+[gd_scene load_steps=12 format=3 uid="uid://bx7fqptkn10rp"]
+
+[ext_resource type="Script" uid="uid://b1hp4w8dvknop" path="res://GameplayScenes/world.gd" id="1_ioe3g"]
+[ext_resource type="Texture2D" uid="uid://ddj8u315ude17" path="res://addons/kenney_prototype_textures/dark/texture_02.png" id="1_x0ulp"]
+[ext_resource type="Texture2D" uid="uid://c5g4hvuff4qt5" path="res://addons/kenney_prototype_textures/dark/texture_04.png" id="2_qpc07"]
+[ext_resource type="Texture2D" uid="uid://3okgkfv1tu2t" path="res://addons/kenney_particle_pack/circle_05.png" id="3_cwe4l"]
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_xu1x1"]
+albedo_texture = ExtResource("2_qpc07")
+uv1_triplanar = true
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_4faqr"]
+size = Vector3(2.09961, 1.47559, 1)
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_rxg2q"]
+albedo_texture = ExtResource("1_x0ulp")
+uv1_triplanar = true
+
+[sub_resource type="BoxMesh" id="BoxMesh_glv2v"]
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_uu6xs"]
+size = Vector3(12.8611, 1, 13.1428)
+
+[sub_resource type="Environment" id="Environment_r0du0"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_4faqr"]
+bg_color = Color(0, 0.719281, 0.346856, 1)
+
+[node name="Main" type="Node"]
+script = ExtResource("1_ioe3g")
+
+[node name="World" type="Node" parent="."]
+
+[node name="CSGBox3D" type="CSGBox3D" parent="World"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -5.01476, 1, 7.04201)
+
+[node name="StaticBody3D" type="StaticBody3D" parent="World"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -3.18057, 1.23932, 7.16932)
+
+[node name="CSGBox3D2" type="CSGBox3D" parent="World/StaticBody3D"]
+material_override = SubResource("StandardMaterial3D_xu1x1")
+size = Vector3(2.10352, 1.47864, 1)
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="World/StaticBody3D"]
+shape = SubResource("BoxShape3D_4faqr")
+
+[node name="Floor" type="StaticBody3D" parent="World"]
+
+[node name="Floor" type="MeshInstance3D" parent="World/Floor"]
+transform = Transform3D(12.7562, 0, 0, 0, 1, 0, 0, 0, 13.1006, 0, 0, 0)
+material_override = SubResource("StandardMaterial3D_rxg2q")
+mesh = SubResource("BoxMesh_glv2v")
+skeleton = NodePath("../../..")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="World/Floor"]
+visible = false
+shape = SubResource("BoxShape3D_uu6xs")
+
+[node name="Floor2" type="StaticBody3D" parent="World"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 12.6472)
+
+[node name="Floor" type="MeshInstance3D" parent="World/Floor2"]
+transform = Transform3D(12.7562, 0, 0, 0, 1, 0, 0, 0, 13.1006, 0, 0, 0)
+material_override = SubResource("StandardMaterial3D_rxg2q")
+mesh = SubResource("BoxMesh_glv2v")
+skeleton = NodePath("../../..")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="World/Floor2"]
+visible = false
+shape = SubResource("BoxShape3D_uu6xs")
+
+[node name="WorldEnvironment" type="WorldEnvironment" parent="World"]
+environment = SubResource("Environment_r0du0")
+
+[node name="DirectionalLight3D" type="DirectionalLight3D" parent="World"]
+transform = Transform3D(1, 0, 0, 0, 0.86984, 0.493335, 0, -0.493335, 0.86984, 0, 0, 0)
+
+[node name="CanvasLayer" type="CanvasLayer" parent="."]
+
+[node name="MainMenu" type="PanelContainer" parent="CanvasLayer"]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = 743.0
+offset_top = 418.0
+offset_right = -743.0
+offset_bottom = -418.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="MarginContainer" type="MarginContainer" parent="CanvasLayer/MainMenu"]
+layout_mode = 2
+theme_override_constants/margin_left = 15
+theme_override_constants/margin_top = 15
+theme_override_constants/margin_right = 15
+theme_override_constants/margin_bottom = 15
+
+[node name="VBoxContainer" type="VBoxContainer" parent="CanvasLayer/MainMenu/MarginContainer"]
+layout_mode = 2
+theme_override_constants/separation = 15
+
+[node name="Label" type="Label" parent="CanvasLayer/MainMenu/MarginContainer/VBoxContainer"]
+layout_mode = 2
+text = "Main Menu"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="HostButton" type="Button" parent="CanvasLayer/MainMenu/MarginContainer/VBoxContainer"]
+layout_mode = 2
+text = "Host"
+
+[node name="JoinButton" type="Button" parent="CanvasLayer/MainMenu/MarginContainer/VBoxContainer"]
+layout_mode = 2
+text = "Join"
+
+[node name="AddressEntry" type="LineEdit" parent="CanvasLayer/MainMenu/MarginContainer/VBoxContainer"]
+layout_mode = 2
+placeholder_text = "Put address here"
+alignment = 1
+
+[node name="HUD" type="Control" parent="CanvasLayer"]
+visible = false
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+pivot_offset = Vector2(959, 540)
+
+[node name="Texture" type="TextureRect" parent="CanvasLayer/HUD"]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -256.0
+offset_top = -256.0
+offset_right = 256.0
+offset_bottom = 256.0
+grow_horizontal = 2
+grow_vertical = 2
+scale = Vector2(0.1, 0.1)
+pivot_offset = Vector2(256, 256)
+texture = ExtResource("3_cwe4l")
+stretch_mode = 3
+
+[node name="HealthBar" type="ProgressBar" parent="CanvasLayer/HUD"]
+layout_mode = 1
+anchors_preset = 5
+anchor_left = 0.5
+anchor_right = 0.5
+offset_left = -175.0
+offset_top = 22.0
+offset_right = 175.0
+offset_bottom = 49.0
+grow_horizontal = 2
+theme_override_styles/fill = SubResource("StyleBoxFlat_4faqr")
+max_value = 3.0
+value = 3.0
+show_percentage = false
+
+[node name="MultiplayerSpawner" type="MultiplayerSpawner" parent="."]
+_spawnable_scenes = PackedStringArray("uid://dwh4vaq8esl1w")
+spawn_path = NodePath("..")
+spawn_limit = 5
+
+[connection signal="pressed" from="CanvasLayer/MainMenu/MarginContainer/VBoxContainer/HostButton" to="." method="_on_host_button_pressed"]
+[connection signal="pressed" from="CanvasLayer/MainMenu/MarginContainer/VBoxContainer/JoinButton" to="." method="_on_join_button_pressed"]
+[connection signal="spawned" from="MultiplayerSpawner" to="." method="_on_multiplayer_spawner_spawned"]

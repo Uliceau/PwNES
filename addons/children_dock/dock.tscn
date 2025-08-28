@@ -1,0 +1,27 @@
+[gd_scene load_steps=2 format=3 uid="uid://co6q66y8o2b5h"]
+
+[ext_resource type="Script" uid="uid://tmr8cao33g05" path="res://addons/children_dock/dock.gd" id="1_lvnn8"]
+
+[node name="Panel" type="Panel"]
+clip_contents = true
+size_flags_vertical = 3
+script = ExtResource("1_lvnn8")
+
+[node name="VBoxContainer" type="VBoxContainer" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="ScrollContainer" type="ScrollContainer" parent="VBoxContainer"]
+clip_contents = false
+layout_mode = 2
+size_flags_vertical = 3
+horizontal_scroll_mode = 3
+vertical_scroll_mode = 2
+
+[node name="VBoxContainer" type="VBoxContainer" parent="VBoxContainer/ScrollContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
