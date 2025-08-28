@@ -326,7 +326,7 @@ script = ExtResource("3_vb8cd")
 
 [node name="UiIndicator" type="TextureProgressBar" parent="Camera3D/MainHand/Grapple"]
 modulate = Color(0, 1, 0.14999986, 1)
-anchors_preset = 8
+anchors_preset = -1
 anchor_left = 0.5
 anchor_top = 0.5
 anchor_right = 0.5
@@ -340,7 +340,7 @@ grow_vertical = 2
 scale = Vector2(0.175, 0.175)
 pivot_offset = Vector2(257.14258, 251.42871)
 max_value = 1.0
-step = 0.010000000009313226
+step = 0.01000000000931322
 value = 1.0
 fill_mode = 4
 texture_progress = ExtResource("4_5vp2d")
@@ -355,7 +355,7 @@ script = ExtResource("4_p4qpu")
 [node name="UiIndicator" type="TextureProgressBar" parent="Camera3D/MainHand/Swing"]
 visible = false
 modulate = Color(0, 1, 0.14999986, 1)
-anchors_preset = 8
+anchors_preset = -1
 anchor_left = 0.5
 anchor_top = 0.5
 anchor_right = 0.5
@@ -369,7 +369,7 @@ grow_vertical = 2
 scale = Vector2(0.175, 0.175)
 pivot_offset = Vector2(257.14258, 251.42871)
 max_value = 1.0
-step = 0.010000000009313226
+step = 0.01000000000931322
 value = 1.0
 fill_mode = 4
 texture_progress = ExtResource("4_5vp2d")
@@ -390,7 +390,6 @@ text = "test"
 
 [node name="Control" type="Control" parent="."]
 layout_mode = 3
-anchors_preset = 8
 anchor_left = 0.5
 anchor_top = 0.5
 anchor_right = 0.5
@@ -404,7 +403,7 @@ grow_vertical = 2
 
 [node name="TextureRect" type="TextureRect" parent="Control"]
 layout_mode = 1
-anchors_preset = 8
+anchors_preset = -1
 anchor_left = 0.5
 anchor_top = 0.5
 anchor_right = 0.5
@@ -431,5 +430,24 @@ alignment = 1
 layout_mode = 2
 texture = SubResource("GradientTexture2D_qwtga")
 stretch_mode = 3
+
+[node name="SpeedLabel" type="Label" parent="Control"]
+layout_mode = 0
+offset_left = -31.0
+offset_top = 92.0
+offset_right = 71.0
+offset_bottom = 115.0
+text = "999"
+horizontal_alignment = 1
+
+[node name="TempSpeedLabel" type="Label" parent="Control"]
+layout_mode = 0
+offset_left = -31.0
+offset_top = 69.0
+offset_right = 71.0
+offset_bottom = 92.0
+theme_override_font_sizes/font_size = 20
+text = "999"
+horizontal_alignment = 1
 
 [connection signal="animation_finished" from="Camera3D/AnimationPlayer" to="." method="_on_animation_player_animation_finished"]

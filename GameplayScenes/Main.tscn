@@ -1,19 +1,10 @@
-[gd_scene load_steps=12 format=3 uid="uid://bx7fqptkn10rp"]
+[gd_scene load_steps=16 format=3 uid="uid://bx7fqptkn10rp"]
 
 [ext_resource type="Script" uid="uid://b1hp4w8dvknop" path="res://GameplayScenes/world.gd" id="1_ioe3g"]
 [ext_resource type="Texture2D" uid="uid://c5g4hvuff4qt5" path="res://addons/kenney_prototype_textures/dark/texture_04.png" id="2_qpc07"]
+[ext_resource type="Shader" uid="uid://bm4m6vwd310l2" path="res://Materials/new_shader.gdshader" id="3_qpc07"]
 [ext_resource type="Material" uid="uid://b23o6x4r42m7j" path="res://Materials/ground1.tres" id="4_qpc07"]
 [ext_resource type="PackedScene" uid="uid://dwh4vaq8esl1w" path="res://Entities/Players/player.tscn" id="5_mx21x"]
-
-[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_xu1x1"]
-albedo_texture = ExtResource("2_qpc07")
-uv1_triplanar = true
-
-[sub_resource type="ConcavePolygonShape3D" id="ConcavePolygonShape3D_4faqr"]
-data = PackedVector3Array(-1.05176, -0.73932, 33.21399, -1.05176, -0.73932, -33.21399, -1.05176, 0.73932, -33.21399, 1.05176, -0.73932, -33.21399, -1.05176, -0.73932, -33.21399, -1.05176, -0.73932, 33.21399, -1.05176, 0.73932, -33.21399, -1.05176, -0.73932, -33.21399, 1.05176, -0.73932, -33.21399, -1.05176, 0.73932, -33.21399, -1.05176, 0.73932, 33.21399, -1.05176, -0.73932, 33.21399, -1.05176, -0.73932, 33.21399, -1.05176, 0.73932, 33.21399, 1.05176, 0.73932, 33.21399, 1.05176, 0.73932, 33.21399, -1.05176, 0.73932, 33.21399, -1.05176, 0.73932, -33.21399, -1.05176, -0.73932, 33.21399, 1.05176, -0.73932, 33.21399, 1.05176, -0.73932, -33.21399, 1.05176, 0.73932, 33.21399, 1.05176, -0.73932, 33.21399, -1.05176, -0.73932, 33.21399, 1.05176, -0.73932, -33.21399, 1.05176, -0.73932, 33.21399, 1.05176, 0.73932, 33.21399, 1.05176, -0.73932, -33.21399, 1.05176, 0.73932, -33.21399, -1.05176, 0.73932, -33.21399, -1.05176, 0.73932, -33.21399, 1.05176, 0.73932, -33.21399, 1.05176, 0.73932, 33.21399, 1.05176, 0.73932, 33.21399, 1.05176, 0.73932, -33.21399, 1.05176, -0.73932, -33.21399)
-
-[sub_resource type="BoxShape3D" id="BoxShape3D_4faqr"]
-size = Vector3(2.09961, 1.47559, 1)
 
 [sub_resource type="Environment" id="Environment_r0du0"]
 ambient_light_source = 2
@@ -26,6 +17,40 @@ glow_blend_mode = 0
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_4faqr"]
 
+[sub_resource type="FastNoiseLite" id="FastNoiseLite_qpc07"]
+
+[sub_resource type="NoiseTexture2D" id="NoiseTexture2D_mx21x"]
+noise = SubResource("FastNoiseLite_qpc07")
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_mx21x"]
+render_priority = 0
+shader = ExtResource("3_qpc07")
+shader_parameter/sphere_position = Vector3(0.69, 83.855, 2.63)
+shader_parameter/sphere_radius = 2.1750000000029104
+shader_parameter/burn_threshold = 1.0
+shader_parameter/noise_texture = SubResource("NoiseTexture2D_mx21x")
+shader_parameter/noise_strength = 0.3150000000023283
+shader_parameter/noise_scale = 0.14500000000407454
+shader_parameter/inner_face_neon_intensity = 0.86
+shader_parameter/neon_base_color = Color(0.61272854, 0.759768, 1, 1)
+shader_parameter/albedo_color = Color(0.74978, 0.74978, 0.74977994, 1)
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_xu1x1"]
+albedo_texture = ExtResource("2_qpc07")
+uv1_triplanar = true
+
+[sub_resource type="Curve3D" id="Curve3D_4faqr"]
+_data = {
+"points": PackedVector3Array(0, 0, 0, 0, 0, 0, 127.4409, 22.549759, -121.66539, 0, 0, 0, 0, 0, 0, 135.8809, 10.287361, -152.05832, 0, 0, 0, 0, 0, 0, 176.38698, 40.908592, -263.16916, 0, 0, 0, 0, 0, 0, 205.10835, -5.6041565, -333.88177, 0, 0, 0, 0, 0, 0, 214.74312, -43.076874, -385.63812, 0, 0, 0, 0, 0, 0, 212.1904, -43.90457, -403.16605, 0, 0, 0, 0, 0, 0, 180.93213, -41.930897, -424.68045, 0, 0, 0, 0, 0, 0, 163.8654, -44.64128, -403.69983, 0, 0, 0, 0, 0, 0, 147.47469, -44.09375, -325.28204, 0, 0, 0, 0, 0, 0, 157.87384, -70.57434, -279.40707, 0, 0, 0, 0, 0, 0, 182.88449, -88.020386, -234.68585, 0, 0, 0, 0, 0, 0, 201.89664, -65.40644, -205.27298, 0, 0, 0, 0, 0, 0, 208.51685, 10.104103, -150.87746),
+"tilts": PackedFloat32Array(0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0)
+}
+point_count = 13
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_mx21x"]
+blend_mode = 3
+cull_mode = 1
+shading_mode = 0
+
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_qpc07"]
 shading_mode = 0
 albedo_color = Color(1.5229772, 1.5229772, 1.5229772, 1)
@@ -37,21 +62,6 @@ script = ExtResource("1_ioe3g")
 
 [node name="World" type="Node3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 81, 0)
-
-[node name="StaticBody3D" type="StaticBody3D" parent="World"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -3.18057, 1.23932, 7.16932)
-
-[node name="CSGBox3D2" type="CSGBox3D" parent="World/StaticBody3D"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 27.80939, 0.5311966, 25.182247)
-material_override = SubResource("StandardMaterial3D_xu1x1")
-size = Vector3(2.10352, 1.47864, 66.42798)
-
-[node name="CSGBakedCollisionShape3D" type="CollisionShape3D" parent="World/StaticBody3D"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 27.80939, 0.5311966, 25.182247)
-shape = SubResource("ConcavePolygonShape3D_4faqr")
-
-[node name="CollisionShape3D" type="CollisionShape3D" parent="World/StaticBody3D"]
-shape = SubResource("BoxShape3D_4faqr")
 
 [node name="WorldEnvironment" type="WorldEnvironment" parent="World"]
 environment = SubResource("Environment_r0du0")
@@ -99,6 +109,18 @@ operation = 2
 size = Vector3(365.1479, 117.950554, 269.3359)
 material = ExtResource("4_qpc07")
 
+[node name="CSGBox3D32" type="CSGBox3D" parent="World/CSGCombiner3D"]
+transform = Transform3D(0.46900916, 0, -0.8831933, 0, 1, 0, 0.8831933, 0, 0.46900916, 242.3047, 54.688065, 191.39928)
+operation = 2
+size = Vector3(192.91269, 50.99432, 43.562126)
+material = ExtResource("4_qpc07")
+
+[node name="CSGBox3D33" type="CSGBox3D" parent="World/CSGCombiner3D"]
+transform = Transform3D(0.024100661, 0, -0.9997096, -0.29645544, 0.95501995, -0.007146848, 0.9547426, 0.29654157, 0.023016613, 277.37903, 32.8058, 348.82343)
+operation = 2
+size = Vector3(192.91269, 50.99432, 43.562126)
+material = ExtResource("4_qpc07")
+
 [node name="CSGBox3D12" type="CSGBox3D" parent="World/CSGCombiner3D"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 57.305664, 17.193527, 243.23706)
 operation = 2
@@ -115,6 +137,18 @@ material = ExtResource("4_qpc07")
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -27.194336, 17.193527, 206.56042)
 operation = 2
 size = Vector3(106, 53.781708, 97)
+material = ExtResource("4_qpc07")
+
+[node name="CSGBox3D34" type="CSGBox3D" parent="World/CSGCombiner3D"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 290.1212, 17.193527, 473.41727)
+operation = 2
+size = Vector3(106, 53.781708, 97)
+material = ExtResource("4_qpc07")
+
+[node name="CSGBox3D35" type="CSGBox3D" parent="World/CSGCombiner3D"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 288.87784, 4.964882, 557.92554)
+operation = 2
+size = Vector3(106, 78.239, 140.93542)
 material = ExtResource("4_qpc07")
 
 [node name="CSGBox3D9" type="CSGBox3D" parent="World/CSGCombiner3D"]
@@ -138,9 +172,9 @@ size = Vector3(29.578293, 22, 10.338211)
 material = ExtResource("4_qpc07")
 
 [node name="CSGBox3D21" type="CSGBox3D" parent="World/CSGCombiner3D"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 86.16661, -32.18933, 71.237434)
-size = Vector3(29.578293, 22, 10.338211)
-material = ExtResource("4_qpc07")
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.4899292, 8.393156)
+size = Vector3(6.882223, 2.346405, 14.965189)
+material = SubResource("ShaderMaterial_mx21x")
 
 [node name="CSGBox3D22" type="CSGBox3D" parent="World/CSGCombiner3D"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 30.964066, -21.869781, 26.919401)
@@ -155,6 +189,11 @@ material = ExtResource("4_qpc07")
 [node name="CSGBox3D23" type="CSGBox3D" parent="World/CSGCombiner3D"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 86.16661, -32.18933, 14.656448)
 size = Vector3(29.578293, 22, 10.338211)
+material = ExtResource("4_qpc07")
+
+[node name="CSGBox3D36" type="CSGBox3D" parent="World/CSGCombiner3D"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 302.26434, -32.18933, 507.756)
+size = Vector3(29.578293, 22, 18.883095)
 material = ExtResource("4_qpc07")
 
 [node name="CSGBox3D24" type="CSGBox3D" parent="World/CSGCombiner3D"]
@@ -234,6 +273,67 @@ material = ExtResource("4_qpc07")
 transform = Transform3D(0.6584137, 0.7526564, 0, -0.7526564, 0.6584137, 0, 0, 0, 1, 67.56262, -24.06961, -0.107803345)
 size = Vector3(55.06958, 9, 163)
 material = ExtResource("4_qpc07")
+
+[node name="CSGBox3D31" type="CSGBox3D" parent="World/CSGCombiner3D"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 24.628819, 1.7705154, 32.351566)
+material_override = SubResource("StandardMaterial3D_xu1x1")
+size = Vector3(2.10352, 1.47864, 66.42798)
+
+[node name="CSGPolygon3D" type="CSGPolygon3D" parent="World/CSGCombiner3D"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 219.85933, -40.246456, 57.215546)
+polygon = PackedVector2Array(0.32234192, 59.945477, 27.973236, 43.74246, 41.609825, 2.8361664, 1, 0)
+mode = 1
+spin_degrees = 360.0
+spin_sides = 8
+material = ExtResource("4_qpc07")
+
+[node name="CSGPolygon3D2" type="CSGPolygon3D" parent="World/CSGCombiner3D"]
+transform = Transform3D(0.9839536, 0.17842442, 0, -0.17842442, 0.9839536, 0, 0, 0, 1, 65.68901, 17.128998, -86.0066)
+polygon = PackedVector2Array(-0.51278687, 14.417576, 3.269165, 14.069157, 25.16687, 11.50132, 44.912476, 9.671562, 56.614716, 2.311119, 68.61928, 10.506882, 86.64792, -5.6402016, 118.0022, 5.36763, 204.11429, -20.59726, 255.45789, -3.8852577, 337.23126, -47.17514, 0, 0)
+depth = 67.52
+material = ExtResource("4_qpc07")
+
+[node name="CSGPolygon3D3" type="CSGPolygon3D" parent="World/CSGCombiner3D"]
+transform = Transform3D(0.99999994, 0, 0, 0, 1, 0, 0, 0, 1, 234.96489, 17.128998, 631.6453)
+polygon = PackedVector2Array(37.619583, -40.43303, -32.057022, -27.07402, 0.29753113, 17.638008, 19.172989, -5.662071)
+depth = 286.9
+material = ExtResource("4_qpc07")
+
+[node name="CSGPolygon3D4" type="CSGPolygon3D" parent="World/CSGCombiner3D"]
+transform = Transform3D(-0.99999994, 0, -8.742278e-08, 0, 1, 0, 8.742277e-08, 0, -1, 284.96542, 17.128975, 584.4329)
+polygon = PackedVector2Array(46.921463, -90.25323, 25.238464, -18.95382, 46.64792, 11.744019, 48.052063, -10.683762)
+mode = 1
+spin_degrees = 179.1
+spin_sides = 8
+material = ExtResource("4_qpc07")
+
+[node name="CSGPolygon3D5" type="CSGPolygon3D" parent="World/CSGCombiner3D"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 7.6925354, 9.799744)
+operation = 2
+polygon = PackedVector2Array(0, 0, 0.14793682, 17.230621, 27.397095, 16.742004, 28.653292, 0.38227844)
+mode = 2
+path_node = NodePath("Path3D")
+path_interval_type = 0
+path_interval = 1.0
+path_simplify_angle = 16.8
+path_rotation = 1
+path_rotation_accurate = false
+path_local = true
+path_continuous_u = true
+path_u_distance = 1.0
+path_joined = false
+material = ExtResource("4_qpc07")
+
+[node name="Path3D" type="Path3D" parent="World/CSGCombiner3D/CSGPolygon3D5"]
+curve = SubResource("Curve3D_4faqr")
+
+[node name="CSGSphere3D" type="CSGSphere3D" parent="World/CSGCombiner3D"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.44001675, 2.6515808, 2.809797)
+operation = 2
+radius = 1.96
+radial_segments = 16
+rings = 9
+material = SubResource("StandardMaterial3D_mx21x")
 
 [node name="OmniLight3D" type="OmniLight3D" parent="World"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -4, 44, 147)
@@ -319,18 +419,6 @@ metadata/_edit_group_ = true
 material_override = SubResource("StandardMaterial3D_qpc07")
 mesh = SubResource("SphereMesh_mx21x")
 
-[node name="OmniLight3D4" type="OmniLight3D" parent="World"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -6, 8, 7)
-light_energy = 16.0
-light_size = 0.664
-shadow_enabled = true
-omni_range = 62.0
-metadata/_edit_group_ = true
-
-[node name="CSGSphere3D" type="MeshInstance3D" parent="World/OmniLight3D4"]
-material_override = SubResource("StandardMaterial3D_qpc07")
-mesh = SubResource("SphereMesh_mx21x")
-
 [node name="OmniLight3D5" type="OmniLight3D" parent="World"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 16.604965, 12, -38.1876)
 light_energy = 16.0
@@ -400,6 +488,174 @@ omni_range = 228.61507
 metadata/_edit_group_ = true
 
 [node name="CSGSphere3D" type="MeshInstance3D" parent="World/OmniLight3D14"]
+material_override = SubResource("StandardMaterial3D_qpc07")
+mesh = SubResource("SphereMesh_mx21x")
+
+[node name="OmniLight3D15" type="OmniLight3D" parent="World"]
+transform = Transform3D(-4.371139e-08, 0, 1, 0, 1, 0, -1, 0, -4.371139e-08, 213.70163, 79.50075, 56.512558)
+light_energy = 16.0
+light_size = 0.664
+shadow_enabled = true
+omni_range = 228.61507
+metadata/_edit_group_ = true
+
+[node name="CSGSphere3D" type="MeshInstance3D" parent="World/OmniLight3D15"]
+material_override = SubResource("StandardMaterial3D_qpc07")
+mesh = SubResource("SphereMesh_mx21x")
+
+[node name="OmniLight3D21" type="OmniLight3D" parent="World"]
+transform = Transform3D(-4.371139e-08, 0, 1, 0, 1, 0, -1, 0, -4.371139e-08, 248.35716, 79.50075, 212.14899)
+light_energy = 16.0
+light_size = 0.664
+shadow_enabled = true
+omni_range = 228.61507
+metadata/_edit_group_ = true
+
+[node name="CSGSphere3D" type="MeshInstance3D" parent="World/OmniLight3D21"]
+material_override = SubResource("StandardMaterial3D_qpc07")
+mesh = SubResource("SphereMesh_mx21x")
+
+[node name="OmniLight3D22" type="OmniLight3D" parent="World"]
+transform = Transform3D(-4.371139e-08, 0, 1, 0, 1, 0, -1, 0, -4.371139e-08, 278.36346, 54.635284, 362.202)
+light_energy = 16.0
+light_size = 0.664
+shadow_enabled = true
+omni_range = 228.61507
+metadata/_edit_group_ = true
+
+[node name="CSGSphere3D" type="MeshInstance3D" parent="World/OmniLight3D22"]
+material_override = SubResource("StandardMaterial3D_qpc07")
+mesh = SubResource("SphereMesh_mx21x")
+
+[node name="OmniLight3D16" type="OmniLight3D" parent="World"]
+transform = Transform3D(-4.371139e-08, 0, 1, 0, 1, 0, -1, 0, -4.371139e-08, 213.70163, 79.50075, -92.62431)
+light_energy = 16.0
+light_size = 0.664
+shadow_enabled = true
+omni_range = 228.61507
+metadata/_edit_group_ = true
+
+[node name="CSGSphere3D" type="MeshInstance3D" parent="World/OmniLight3D16"]
+material_override = SubResource("StandardMaterial3D_qpc07")
+mesh = SubResource("SphereMesh_mx21x")
+
+[node name="OmniLight3D24" type="OmniLight3D" parent="World"]
+transform = Transform3D(-4.371139e-08, 0, 1, 0, 1, 0, -1, 0, -4.371139e-08, 183.43596, 64.92528, -252.81155)
+light_energy = 16.0
+light_size = 0.664
+shadow_enabled = true
+omni_range = 228.61507
+metadata/_edit_group_ = true
+
+[node name="CSGSphere3D" type="MeshInstance3D" parent="World/OmniLight3D24"]
+material_override = SubResource("StandardMaterial3D_qpc07")
+mesh = SubResource("SphereMesh_mx21x")
+
+[node name="OmniLight3D25" type="OmniLight3D" parent="World"]
+transform = Transform3D(-4.371139e-08, 0, 1, 0, 1, 0, -1, 0, -4.371139e-08, 206.89722, 18.018707, -326.2014)
+light_energy = 16.0
+light_size = 0.664
+shadow_enabled = true
+omni_range = 228.61507
+metadata/_edit_group_ = true
+
+[node name="CSGSphere3D" type="MeshInstance3D" parent="World/OmniLight3D25"]
+material_override = SubResource("StandardMaterial3D_qpc07")
+mesh = SubResource("SphereMesh_mx21x")
+
+[node name="OmniLight3D26" type="OmniLight3D" parent="World"]
+transform = Transform3D(-4.371139e-08, 0, 1, 0, 1, 0, -1, 0, -4.371139e-08, 206.89722, -30.780869, -427.10483)
+light_energy = 16.0
+light_size = 0.664
+shadow_enabled = true
+omni_range = 228.61507
+metadata/_edit_group_ = true
+
+[node name="CSGSphere3D" type="MeshInstance3D" parent="World/OmniLight3D26"]
+material_override = SubResource("StandardMaterial3D_qpc07")
+mesh = SubResource("SphereMesh_mx21x")
+
+[node name="OmniLight3D27" type="OmniLight3D" parent="World"]
+transform = Transform3D(-4.371139e-08, 0, 1, 0, 1, 0, -1, 0, -4.371139e-08, 154.76433, -30.780869, -356.75467)
+light_energy = 16.0
+light_size = 0.664
+shadow_enabled = true
+omni_range = 228.61507
+metadata/_edit_group_ = true
+
+[node name="CSGSphere3D" type="MeshInstance3D" parent="World/OmniLight3D27"]
+material_override = SubResource("StandardMaterial3D_qpc07")
+mesh = SubResource("SphereMesh_mx21x")
+
+[node name="OmniLight3D28" type="OmniLight3D" parent="World"]
+transform = Transform3D(-4.371139e-08, 0, 1, 0, 1, 0, -1, 0, -4.371139e-08, 158.53549, -56.38923, -238.67152)
+light_energy = 16.0
+light_size = 0.664
+shadow_enabled = true
+omni_range = 228.61507
+metadata/_edit_group_ = true
+
+[node name="CSGSphere3D" type="MeshInstance3D" parent="World/OmniLight3D28"]
+material_override = SubResource("StandardMaterial3D_qpc07")
+mesh = SubResource("SphereMesh_mx21x")
+
+[node name="OmniLight3D17" type="OmniLight3D" parent="World"]
+transform = Transform3D(-4.371139e-08, 0, 1, 0, 1, 0, -1, 0, -4.371139e-08, 213.70163, 79.50075, -8.315567)
+light_energy = 16.0
+light_size = 0.664
+shadow_enabled = true
+omni_range = 228.61507
+metadata/_edit_group_ = true
+
+[node name="CSGSphere3D" type="MeshInstance3D" parent="World/OmniLight3D17"]
+material_override = SubResource("StandardMaterial3D_qpc07")
+mesh = SubResource("SphereMesh_mx21x")
+
+[node name="OmniLight3D18" type="OmniLight3D" parent="World"]
+transform = Transform3D(-4.371139e-08, 0, 1, 0, 1, 0, -1, 0, -4.371139e-08, 310.81927, 79.50075, 56.512558)
+light_energy = 16.0
+light_size = 0.664
+shadow_enabled = true
+omni_range = 228.61507
+metadata/_edit_group_ = true
+
+[node name="CSGSphere3D" type="MeshInstance3D" parent="World/OmniLight3D18"]
+material_override = SubResource("StandardMaterial3D_qpc07")
+mesh = SubResource("SphereMesh_mx21x")
+
+[node name="OmniLight3D19" type="OmniLight3D" parent="World"]
+transform = Transform3D(-4.371139e-08, 0, 1, 0, 1, 0, -1, 0, -4.371139e-08, 310.81927, 79.50075, -92.62431)
+light_energy = 16.0
+light_size = 0.664
+shadow_enabled = true
+omni_range = 228.61507
+metadata/_edit_group_ = true
+
+[node name="CSGSphere3D" type="MeshInstance3D" parent="World/OmniLight3D19"]
+material_override = SubResource("StandardMaterial3D_qpc07")
+mesh = SubResource("SphereMesh_mx21x")
+
+[node name="OmniLight3D20" type="OmniLight3D" parent="World"]
+transform = Transform3D(-4.371139e-08, 0, 1, 0, 1, 0, -1, 0, -4.371139e-08, 310.81927, 79.50075, -8.315567)
+light_energy = 16.0
+light_size = 0.664
+shadow_enabled = true
+omni_range = 228.61507
+metadata/_edit_group_ = true
+
+[node name="CSGSphere3D" type="MeshInstance3D" parent="World/OmniLight3D20"]
+material_override = SubResource("StandardMaterial3D_qpc07")
+mesh = SubResource("SphereMesh_mx21x")
+
+[node name="OmniLight3D23" type="OmniLight3D" parent="World"]
+transform = Transform3D(-4.371139e-08, 0, 1, 0, 1, 0, -1, 0, -4.371139e-08, 310.81927, 43.50579, 509.42615)
+light_energy = 16.0
+light_size = 0.664
+shadow_enabled = true
+omni_range = 228.61507
+metadata/_edit_group_ = true
+
+[node name="CSGSphere3D" type="MeshInstance3D" parent="World/OmniLight3D23"]
 material_override = SubResource("StandardMaterial3D_qpc07")
 mesh = SubResource("SphereMesh_mx21x")
 

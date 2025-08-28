@@ -11,7 +11,7 @@ var is_grappled := false
 var can_grapple := true
 
 var current_wait_time := 0.0
-var delay := 0.5
+var delay := 2.5
 
 @onready var ui_indicator: TextureProgressBar = $UiIndicator
 

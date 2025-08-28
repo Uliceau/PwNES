@@ -10,6 +10,8 @@ extends CharacterBody3D
 
 @onready var jump_icons: VBoxContainer = $Control/JumpIcons
 @onready var jump_icon: TextureRect = $Control/JumpIcons/JumpIcon
+@onready var speed_label: Label = $Control/SpeedLabel
+@onready var temp_speed_label: Label = $Control/TempSpeedLabel
 
 const SPEED = 1
 const JUMP_VELOCITY = 10
@@ -76,6 +78,7 @@ func change_tool(direction := 0):
 	current_tool.tool_show()
 
 func _physics_process(delta: float) -> void:
+	camera_3d.fov = clamp(75.0 + velocity.length() * 0.3, 75, 100)
 	var anim_suffix := ""
 	var anim_prefix :String
 	if movement_vector != Vector2.ZERO:
@@ -109,6 +112,8 @@ func _physics_process(delta: float) -> void:
 		jumps_lefts = total_jumps
 		if extra_temp_velocity > 1.0:
 			extra_temp_velocity *= 0.8
+		elif extra_temp_velocity != 1.0:
+			extra_temp_velocity = 1.0
 		if input_dir:
 			velocity.x += direction.x * SPEED * action_speed_multiplier
 			velocity.z += direction.z * SPEED * action_speed_multiplier
@@ -139,7 +144,8 @@ func _physics_process(delta: float) -> void:
 			velocity.z = lerp(velocity.z, direction.z * (SPEED * 10 * extra_temp_velocity), 2 * delta)
 		velocity.x *= 0.99
 		velocity.z *= 0.99
-
+	
+	#Interface
 	var id := 0
 	for jump_icon_child in jump_icons.get_children():
 		if jumps_lefts > id:
@@ -147,6 +153,11 @@ func _physics_process(delta: float) -> void:
 		else:
 			jump_icon_child.modulate.a = 0.0
 		id += 1
+	
+	temp_speed_label.text = str(round(extra_temp_velocity*10)*0.1)
+	speed_label.text = str(round(self.velocity.length()))
+	
+	
 	# Handle jump.
 	if Input.is_action_pressed("jump"):
 		if jumps_lefts > 0:
