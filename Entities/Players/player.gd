@@ -1,5 +1,7 @@
 extends CharacterBody3D
 
+const LavaCollision = preload("uid://bjvt0an2jxbon")
+
 @onready var camera_3d: Camera3D = $Camera3D
 @onready var animation_player: AnimationPlayer = $Camera3D/AnimationPlayer
 @onready var ray_cast_3d: RayCast3D = $Camera3D/RayCast3D
@@ -209,3 +211,11 @@ func _physics_process(delta: float) -> void:
 func _on_animation_player_animation_finished(anim_name: StringName) -> void:
 	if anim_name == "shoot":
 		animation_player.play("idle")
+
+
+func _on_hitbox_area_entered(area: Area3D) -> void:
+	print("collided")
+	if area.get_parent() is LavaCollision:
+		self.global_position = Vector3(-1.2, 82, 1)
+		print("ded")
+	pass # Replace with function body.

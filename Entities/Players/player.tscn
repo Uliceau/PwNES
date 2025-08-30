@@ -1,8 +1,10 @@
-[gd_scene load_steps=42 format=3 uid="uid://dwh4vaq8esl1w"]
+[gd_scene load_steps=48 format=3 uid="uid://dwh4vaq8esl1w"]
 
 [ext_resource type="Script" uid="uid://c6p3o8fitt0i3" path="res://Entities/Players/player.gd" id="1_xjlfs"]
 [ext_resource type="Texture2D" uid="uid://cvfpul38nawix" path="res://Entities/Players/TESTTEXTURE.webp" id="2_g2faj"]
+[ext_resource type="Shader" uid="uid://bfnnumd2it218" path="res://Materials/heat_distortion.gdshader" id="3_hwwuc"]
 [ext_resource type="Script" uid="uid://dqat1o4u5vdcp" path="res://Entities/Players/grapple.gd" id="3_vb8cd"]
+[ext_resource type="Script" uid="uid://b6jqybwtjuley" path="res://Entities/Players/heat_post_f.gd" id="4_1ke2e"]
 [ext_resource type="Texture2D" uid="uid://dnwb2jrgan5nk" path="res://addons/kenney_particle_pack/circle_02.png" id="4_5vp2d"]
 [ext_resource type="Script" uid="uid://5g7wulyiuo2n" path="res://Entities/Players/swing.gd" id="4_p4qpu"]
 [ext_resource type="Script" uid="uid://fonvtouhojms" path="res://Entities/Players/node.gd" id="5_p4qpu"]
@@ -198,6 +200,20 @@ animations = [{
 
 [sub_resource type="CapsuleShape3D" id="CapsuleShape3D_xjlfs"]
 
+[sub_resource type="FastNoiseLite" id="FastNoiseLite_0uqvl"]
+frequency = 0.0029
+
+[sub_resource type="NoiseTexture2D" id="NoiseTexture2D_bbsn4"]
+noise = SubResource("FastNoiseLite_0uqvl")
+seamless = true
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_smb38"]
+shader = ExtResource("3_hwwuc")
+shader_parameter/noise_texture = SubResource("NoiseTexture2D_bbsn4")
+shader_parameter/time = 17.31500000000233
+shader_parameter/distortion_strength = 0.00400000019
+shader_parameter/distortion_speed = 0.2310000109725
+
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_p4qpu"]
 albedo_color = Color(1, 0.5529412, 1, 1)
 
@@ -285,7 +301,10 @@ fill = 1
 fill_from = Vector2(0.5, 0.5)
 fill_to = Vector2(0.5, 0)
 
-[node name="Player" type="CharacterBody3D" node_paths=PackedStringArray("current_tool")]
+[sub_resource type="CapsuleShape3D" id="CapsuleShape3D_hwwuc"]
+height = 25.018677
+
+[node name="Player" type="CharacterBody3D" node_paths=PackedStringArray("current_tool") groups=["player"]]
 collision_layer = 2
 slide_on_ceiling = false
 wall_min_slide_angle = 0.0
@@ -311,6 +330,19 @@ animation = &"right"
 [node name="CollisionShape3D" type="CollisionShape3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, 0)
 shape = SubResource("CapsuleShape3D_xjlfs")
+
+[node name="HeatPostF" type="ColorRect" parent="."]
+material = SubResource("ShaderMaterial_smb38")
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("4_1ke2e")
+
+[node name="Timer" type="Timer" parent="HeatPostF"]
+wait_time = 0.1
+autostart = true
 
 [node name="Camera3D" type="Camera3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.29691, 0)
@@ -514,4 +546,15 @@ shadow_enabled = true
 omni_range = 246.94206
 metadata/_edit_group_ = true
 
+[node name="Hitbox" type="Area3D" parent="."]
+collision_layer = 128
+collision_mask = 128
+monitorable = false
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Hitbox"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 12.502079, 0)
+shape = SubResource("CapsuleShape3D_hwwuc")
+
+[connection signal="timeout" from="HeatPostF/Timer" to="HeatPostF" method="_on_timer_timeout"]
 [connection signal="animation_finished" from="Camera3D/AnimationPlayer" to="." method="_on_animation_player_animation_finished"]
+[connection signal="area_entered" from="Hitbox" to="." method="_on_hitbox_area_entered"]
