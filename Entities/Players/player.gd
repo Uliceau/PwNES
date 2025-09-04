@@ -129,8 +129,8 @@ func _physics_process(delta: float) -> void:
 		var normal = get_wall_normal()
 		if abs(normal.dot(Vector3.UP)) < 0.5 or true:
 			wall_velocity = velocity.slide(normal)
-			velocity = wall_velocity
-			extra_temp_velocity = wall_velocity.length()/9
+			velocity = wall_velocity.clamp(Vector3(-100, -100, -100), Vector3(100, 100, 100))
+			extra_temp_velocity = wall_velocity.length() * 0.1
 			velocity.y -= 9.8 * delta  # gravity down slide
 		if input_dir:
 			velocity.x = lerp(velocity.x, direction.x * (SPEED * 10 * extra_temp_velocity), 1.8 * delta)
@@ -140,7 +140,7 @@ func _physics_process(delta: float) -> void:
 	else:
 		# If input lerp toward input direction
 		if input_dir:
-			if extra_temp_velocity < 6.5:
+			if extra_temp_velocity < 6.0:
 				extra_temp_velocity += 0.8 * delta
 			velocity.x = lerp(velocity.x, direction.x * (SPEED * 10 * extra_temp_velocity), 2 * delta)
 			velocity.z = lerp(velocity.z, direction.z * (SPEED * 10 * extra_temp_velocity), 2 * delta)
@@ -181,16 +181,13 @@ func _physics_process(delta: float) -> void:
 	
 	
 	if Input.is_action_pressed("crouch"):
-		
-		if not is_crouched:
+		if not is_crouched and velocity.length() < 20:
 			velocity += direction*10
-		
 		is_crouched = true
 		collision_shape_3d.shape.height = 1.3
 		floor_damping = 0.99
 		action_speed_multiplier = 0.1
-		floor_max_angle = 0 #0.05*PI
-		
+		floor_max_angle = 0.05 #0.05*PI
 	elif collision_shape_3d.shape.height != 2.0:
 		is_crouched = false
 		collision_shape_3d.shape.height = 2.0
@@ -214,6 +211,7 @@ func _on_animation_player_animation_finished(anim_name: StringName) -> void:
 
 
 func _on_hitbox_area_entered(area: Area3D) -> void:
+	return
 	print("collided")
 	if area.get_parent() is LavaCollision:
 		self.global_position = Vector3(-1.2, 82, 1)

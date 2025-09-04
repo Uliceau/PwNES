@@ -310,7 +310,6 @@ slide_on_ceiling = false
 wall_min_slide_angle = 0.0
 floor_stop_on_slope = false
 floor_block_on_wall = false
-safe_margin = 0.01
 script = ExtResource("1_xjlfs")
 current_tool = NodePath("Camera3D/MainHand/Grapple")
 
@@ -363,7 +362,7 @@ script = ExtResource("3_vb8cd")
 [node name="UiIndicator" type="TextureProgressBar" parent="Camera3D/MainHand/Grapple"]
 visible = false
 modulate = Color(0, 1, 0.14999986, 1)
-anchors_preset = -1
+anchors_preset = 8
 anchor_left = 0.5
 anchor_top = 0.5
 anchor_right = 0.5
@@ -400,7 +399,7 @@ script = ExtResource("4_p4qpu")
 [node name="UiIndicator" type="TextureProgressBar" parent="Camera3D/MainHand/Swing"]
 visible = false
 modulate = Color(0, 1, 0.14999986, 1)
-anchors_preset = -1
+anchors_preset = 8
 anchor_left = 0.5
 anchor_top = 0.5
 anchor_right = 0.5
@@ -436,7 +435,7 @@ script = ExtResource("7_2j33m")
 [node name="UiIndicator" type="TextureProgressBar" parent="Camera3D/MainHand/Dissolver"]
 visible = false
 modulate = Color(0, 1, 0.14999986, 1)
-anchors_preset = -1
+anchors_preset = 8
 anchor_left = 0.5
 anchor_top = 0.5
 anchor_right = 0.5
@@ -477,6 +476,7 @@ text = "test"
 
 [node name="Control" type="Control" parent="."]
 layout_mode = 3
+anchors_preset = 8
 anchor_left = 0.5
 anchor_top = 0.5
 anchor_right = 0.5

@@ -1,5 +1,5 @@
 shader_type spatial;
-render_mode depth_draw_opaque;
+render_mode blend_mix, depth_draw_always, cull_disabled;
 
 uniform sampler2D noise_texture;
 uniform sampler2D noise_overlay;
@@ -16,8 +16,10 @@ uniform float time = 0.0;
 uniform float noise_scale = 0.01;
 varying float vert_y;
 
+varying vec3 world_pos;
 
 void vertex() {
+	world_pos = (VIEW_MATRIX * vec4(VERTEX, 1.0)).xyz;
 	vec2 noise_uv = VERTEX.xz;
 	float noise = texture(noise_texture, noise_uv * noise_scale + time*0.1).r +  texture(noise_overlay, noise_uv * noise_scale - time*0.02).r - 0.5;
 	VERTEX.y += noise*wave_amplitude;
@@ -30,33 +32,20 @@ float edge_depth(float near, float far, float depth){
 }
 
 void fragment() {
-    float norm_y = clamp(vert_y, 0.01, 0.99);
-	vec3 initial_lava_color = texture(gradient_texture, vec2(norm_y, 0.0)).rgb;
-    vec3 lava_color = initial_lava_color + initial_lava_color * texture(noise_albedo_overlay, UV*10.0).r;
+	float norm_y = clamp(vert_y, 0.001, 0.8);
+	vec3 initial_lava_color = texture(gradient_texture, vec2(norm_y, 0.0)+texture(noise_albedo_overlay, UV).rg*0.1).rgb;
+	vec3 lava_color = initial_lava_color + initial_lava_color * texture(noise_albedo_overlay, UV*10.0).r;
 
-    // Scene depth (linearized)
-    float z_depth = edge_depth(edge_near, edge_far, texture(depth_texture, SCREEN_UV).x);
-    // Fragment depth (linearized)
-    float z_pos   = edge_depth(edge_near, edge_far, FRAGCOORD.z);
+	float z_depth = edge_depth(edge_near, edge_far, texture(depth_texture, SCREEN_UV).x);
+	float z_pos   = edge_depth(edge_near, edge_far, FRAGCOORD.z);
 
-    // Positive = lava is behind other geometry
-    float depth_diff = z_depth - z_pos;
-    depth_diff = max(depth_diff, 0.0);
+	float depth_diff = z_depth - z_pos;
+	depth_diff = max(depth_diff, 0.0);
 
-    // Create a thin border near the intersection
-    float border = 1.0 - smoothstep(0.0, border_thickness, depth_diff);
+	float border = 1.0 - smoothstep(0.0, border_thickness, depth_diff);
 
-    // Mix lava with border glow
-    vec3 final_color = mix(lava_color, border_color, border);
+	vec3 final_color = mix(lava_color, border_color, border);
 
-    ALBEDO   = final_color;
-    EMISSION = final_color * 0.1;
-	if( !FRONT_FACING){
-		ALBEDO = vec3(1.0, 0.0, 0.0);
-	}
+	ALBEDO   = final_color;
+	EMISSION = final_color * 0.1;
 }
-
-//void light() {
-//	// Called for every pixel for every light affecting the material.
-//	// Uncomment to replace the default light processing function with this one.
-//}

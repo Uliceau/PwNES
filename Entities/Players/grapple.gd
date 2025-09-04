@@ -57,7 +57,7 @@ func _physics_process(delta: float) -> void:
 		if not is_grappled or not can_grapple:
 			grapple_position.visible = false
 	if is_grappled:
-		player.velocity += (ray_cast_point - player.global_position).normalized() * pull_strength
+		player.velocity += (ray_cast_point - player.global_position).normalized() * pull_strength * -1
 
 func tool_hide():
 	self.hide()

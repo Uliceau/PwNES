@@ -1,4 +1,4 @@
-[gd_scene load_steps=30 format=3 uid="uid://bx7fqptkn10rp"]
+[gd_scene load_steps=33 format=3 uid="uid://bx7fqptkn10rp"]
 
 [ext_resource type="Script" uid="uid://b1hp4w8dvknop" path="res://GameplayScenes/world.gd" id="1_ioe3g"]
 [ext_resource type="Texture2D" uid="uid://c5g4hvuff4qt5" path="res://addons/kenney_prototype_textures/dark/texture_04.png" id="2_qpc07"]
@@ -28,16 +28,23 @@ volumetric_fog_length = 20.98
 albedo_texture = ExtResource("2_qpc07")
 uv1_triplanar = true
 
+[sub_resource type="Curve3D" id="Curve3D_sltj4"]
+_data = {
+"points": PackedVector3Array(0, 0, 0, 0, 0, 0, -0.48970795, -24.242836, 53.45675, 0, 0, 0, 0, 0, 0, -45.34654, 1.1459808, 80.40917, 0, 0, 0, 0, 0, 0, -122.75592, 30.988968, 87.94712, 0, 0, 0, 0, 0, 0, -166.03644, 82.52178, 130.19641, 0, 0, 0, 0, 0, 0, -190.38489, 141.9227, 144.1051, 0, 0, 0, 0, 0, 0, -213.89996, 200.54297, 155.42227, 0, 0, 0, 0, 0, 0, -240.71826, 251.52069, 167.7994, 0, 0, 0, 0, 0, 0, -272.03128, 308.45654, 173.24829, 0, 0, 0, 0, 0, 0, -294.28735, 403.39795, 193.66238, 0, 0, 0, 0, 0, 0, -295.4765, 479.8141, 202.85977, 0, 0, 0, 0, 0, 0, -288.08838, 574.1551, 210.38416),
+"tilts": PackedFloat32Array(0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0)
+}
+point_count = 11
+
 [sub_resource type="Curve3D" id="Curve3D_4faqr"]
 _data = {
-"points": PackedVector3Array(0, 0, 0, 0, 0, 0, 127.4409, 22.549759, -121.66539, 0, 0, 0, 0, 0, 0, 135.8809, 10.287361, -152.05832, 0, 0, 0, 0, 0, 0, 176.38698, 40.908592, -263.16916, 0, 0, 0, 0, 0, 0, 205.10835, -5.6041565, -333.88177, 0, 0, 0, 0, 0, 0, 214.74312, -43.076874, -385.63812, 0, 0, 0, 0, 0, 0, 212.1904, -43.90457, -403.16605, 0, 0, 0, 0, 0, 0, 180.93213, -41.930897, -424.68045, 0, 0, 0, 0, 0, 0, 163.8654, -44.64128, -403.69983, 0, 0, 0, 0, 0, 0, 147.47469, -44.09375, -325.28204, 0, 0, 0, 0, 0, 0, 157.87384, -70.57434, -279.40707, 0, 0, 0, 0, 0, 0, 182.88449, -88.020386, -234.68585, 0, 0, 0, 0, 0, 0, 201.89664, -65.40644, -205.27298, 0, 0, 0, 0, 0, 0, 271.60495, -64.661835, -207.5138, 0, 0, 0, 0, 0, 0, 283.9456, -77.1017, -254.67284, 0, 0, 0, 0, 0, 0, 284.38043, -69.187546, -327.60693, 0, 0, 0, 0, 0, 0, 288.27707, -60.61386, -449.1757, 0, 0, 0, 0, 0, 0, 226.88138, 5.4724045, -552.32776, 0, 0, 0, 0, 0, 0, 89.58217, 36.18627, -507.2383, 0, 0, 0, 0, 0, 0, 91.05475, 34.982147, -476.57367, 0, 0, 0, 0, 0, 0, 97.90615, 33.72664, -454.00327, 0, 0, 0, 0, 0, 0, 103.05252, 45.104248, -416.98682, 0, 0, 0, 0, 0, 0, 60.257484, 55.50148, -364.31656, 0, 0, 0, 0, 0, 0, 1.1895065, 22.036804, -344.9845, 0, 0, 0, 0, 0, 0, -16.41793, -18.223373, -294.47916, 0, 0, 0, 0, 0, 0, 123.82171, -19.909012, -121.481995),
-"tilts": PackedFloat32Array(0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0)
+"points": PackedVector3Array(0, 0, 0, 0, 0, 0, 127.4409, 22.549759, -121.66539, 0, 0, 0, 0, 0, 0, 135.8809, 10.287361, -152.05832, 0, 0, 0, 0, 0, 0, 176.38698, 40.908592, -263.16916, 0, 0, 0, 0, 0, 0, 205.10835, -5.6041565, -333.88177, 0, 0, 0, 0, 0, 0, 214.74312, -43.076874, -385.63812, 0, 0, 0, 0, 0, 0, 212.1904, -43.90457, -403.16605, 0, 0, 0, 0, 0, 0, 180.93213, -41.930897, -424.68045, 0, 0, 0, 0, 0, 0, 163.8654, -44.64128, -403.69983, 0, 0, 0, 0, 0, 0, 147.47469, -44.09375, -325.28204, 0, 0, 0, 0, 0, 0, 157.87384, -70.57434, -279.40707, 0, 0, 0, 0, 0, 0, 182.88449, -88.020386, -234.68585, 0, 0, 0, 0, 0, 0, 201.89664, -65.40644, -205.27298, 0, 0, 0, 0, 0, 0, 271.60495, -64.661835, -207.5138, 0, 0, 0, 0, 0, 0, 283.9456, -77.1017, -254.67284, 0, 0, 0, 0, 0, 0, 284.38043, -69.187546, -327.60693, 0, 0, 0, 0, 0, 0, 288.27707, -60.61386, -449.1757, 0, 0, 0, 0, 0, 0, 403.77753, -6.437866, -540.5592, 0, 0, 0, 0, 0, 0, 384.22733, 31.05973, -662.48413, 0, 0, 0, 0, 0, 0, 182.20221, 66.25189, -790.43036, 0, 0, 0, 0, 0, 0, 74.280365, 95.78354, -710.3548, 0, 0, 0, 0, 0, 0, 0.27637482, 36.18627, -582.6511, 0, 0, 0, 0, 0, 0, -73.93805, 34.982147, -485.00015, 0, 0, 0, 0, 0, 0, -206.11917, 33.72664, -429.16953, 0, 0, 0, 0, 0, 0, -200.06143, 65.49196, -375.55704, 0, 0, 0, 0, 0, 0, -177.34885, 33.64865, -291.17926, 0, 0, 0, 0, 0, 0, -126.455154, 27.487595, -240.83493, 0, 0, 0, 0, 0, 0, -109.01013, 22.036804, -320.2929, 0, 0, 0, 0, 0, 0, -16.41793, -18.223373, -294.47916, 0, 0, 0, 0, 0, 0, 123.82171, -19.909012, -121.481995),
+"tilts": PackedFloat32Array(0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0)
 }
-point_count = 25
+point_count = 29
 
 [sub_resource type="Gradient" id="Gradient_xu1x1"]
-offsets = PackedFloat32Array(0.0116959065, 0.046783626, 0.36842105, 0.50877196, 0.80701756)
-colors = PackedColorArray(0.7852611, 0.13482203, 0, 1, 0.92941177, 0.12156863, 0, 1, 0.3764706, 0, 0, 1, 0.16092438, 0, 0, 1, 0.05882353, 0, 0, 1)
+offsets = PackedFloat32Array(0, 0.24479167, 0.32291666, 0.40625, 0.48958334, 0.7760417)
+colors = PackedColorArray(0.79, 0.44766667, 0, 1, 0.92941177, 0.12156863, 0, 1, 0.3764706, 0, 0, 1, 0.29, 0.04833334, 0, 1, 0.16092438, 0, 0, 1, 0.05882353, 0, 0, 1)
 
 [sub_resource type="GradientTexture1D" id="GradientTexture1D_xu1x1"]
 gradient = SubResource("Gradient_xu1x1")
@@ -82,18 +89,28 @@ shader_parameter/noise_texture = SubResource("NoiseTexture2D_sltj4")
 shader_parameter/noise_overlay = SubResource("NoiseTexture2D_6yvdi")
 shader_parameter/noise_albedo_overlay = SubResource("NoiseTexture2D_bbsn4")
 shader_parameter/gradient_texture = SubResource("GradientTexture1D_xu1x1")
-shader_parameter/wave_amplitude = 20.0
+shader_parameter/wave_amplitude = 42.30000000000291
 shader_parameter/edge_near = 0.05
 shader_parameter/edge_far = 4000.0
 shader_parameter/border_thickness = 1.970000000001164
 shader_parameter/border_color = Color(1.3167266, 0.40657628, 0, 1)
-shader_parameter/time = 0.0
-shader_parameter/noise_scale = 0.00500000000465661
+shader_parameter/time = -0.82
+shader_parameter/noise_scale = 0.00200000000768341
+
+[sub_resource type="PlaneMesh" id="PlaneMesh_6yvdi"]
+size = Vector2(500, 400)
+subdivide_width = 200
+subdivide_depth = 200
+
+[sub_resource type="HeightMapShape3D" id="HeightMapShape3D_sltj4"]
+map_width = 6
+map_depth = 6
+map_data = PackedFloat32Array(10.3921585, 10.000001, 11.411766, 9.37255, 6.8627453, 4.039216, 11.09804, 9.529411, 10.705883, 9.294118, 6.2352943, 3.4901965, 12.117647, 11.0196085, 10.862745, 10.54902, 7.960785, 4.4313726, 11.725491, 10.705883, 11.09804, 11.411765, 11.333334, 5.9215693, 10.862745, 10.392158, 11.568628, 9.137256, 9.058824, 8.509805, 8.745099, 7.725491, 8.431374, 6.000001, 8.3529415, 8.039216)
 
 [sub_resource type="PlaneMesh" id="PlaneMesh_sltj4"]
-size = Vector2(500, 500)
-subdivide_width = 100
-subdivide_depth = 100
+size = Vector2(300, 348.24)
+subdivide_width = 200
+subdivide_depth = 200
 
 [sub_resource type="FastNoiseLite" id="FastNoiseLite_n0fyt"]
 
@@ -175,7 +192,7 @@ use_collision = true
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.5, 0, 4)
 calculate_tangents = false
 flip_faces = true
-size = Vector3(500000, 500, 500000)
+size = Vector3(500000, 5000, 500000)
 material = SubResource("StandardMaterial3D_4faqr")
 metadata/_edit_lock_ = true
 
@@ -197,8 +214,30 @@ operation = 2
 size = Vector3(101.46179, 53.781708, 63.176636)
 material = ExtResource("4_qpc07")
 
+[node name="CSGBox3D21" type="CSGBox3D" parent="World/Map"]
+transform = Transform3D(0.8262851, 0, -0.5632521, 0, 1, 0, 0.5632521, 0, 0.8262851, 7.3149643, 82.95474, -600.9995)
+operation = 2
+size = Vector3(114.98157, 218.6848, 292.8636)
+material = ExtResource("4_qpc07")
+
+[node name="CSGBox3D37" type="CSGBox3D" parent="World/Map"]
+transform = Transform3D(0.8262851, 0, -0.5632521, 0, 1, 0, 0.5632521, 0, 0.8262851, -17.32122, 18.875221, -598.6311)
+size = Vector3(48.808258, 90.52576, 116.97591)
+material = ExtResource("4_qpc07")
+
+[node name="CSGBox3D38" type="CSGBox3D" parent="World/Map"]
+transform = Transform3D(0.8262851, 0, -0.5632521, 0, 1, 0, 0.5632521, 0, 0.8262851, -5.1058235, 138.77267, -590.26917)
+size = Vector3(208.67862, 53.611023, 116.97591)
+material = ExtResource("4_qpc07")
+
 [node name="CSGBox3D19" type="CSGBox3D" parent="World/Map"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 210.00284, -30.852951, -12.03685)
+operation = 2
+size = Vector3(365.1479, 222.07635, 269.3359)
+material = ExtResource("4_qpc07")
+
+[node name="CSGBox3D39" type="CSGBox3D" parent="World/Map"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 50.278564, 621.60046, 101.49895)
 operation = 2
 size = Vector3(365.1479, 222.07635, 269.3359)
 material = ExtResource("4_qpc07")
@@ -396,6 +435,26 @@ spin_degrees = 179.1
 spin_sides = 8
 material = ExtResource("4_qpc07")
 
+[node name="CollisionPolygon3D" type="CSGPolygon3D" parent="World/Map"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 142.77063, -6.1500854, -67.91138)
+operation = 2
+polygon = PackedVector2Array(-79.7596, 40.602745, -48.00229, 61.191658, -27.030794, 61.586006, 8.571185, 41.095024, 8.808451, -3.1731873, -81.57919, -4.7826614)
+mode = 2
+path_node = NodePath("Path3D")
+path_interval_type = 0
+path_interval = 1.0
+path_simplify_angle = 12.9
+path_rotation = 2
+path_rotation_accurate = false
+path_local = false
+path_continuous_u = true
+path_u_distance = 1.0
+path_joined = false
+material = ExtResource("4_qpc07")
+
+[node name="Path3D" type="Path3D" parent="World/Map/CollisionPolygon3D"]
+curve = SubResource("Curve3D_sltj4")
+
 [node name="CSGPolygon3D5" type="CSGPolygon3D" parent="World/Map"]
 operation = 2
 polygon = PackedVector2Array(0, 0, -0.39340496, 30.145401, 48.267673, 32.350166, 46.415207, 0.31936646)
@@ -416,25 +475,56 @@ material = ExtResource("4_qpc07")
 curve = SubResource("Curve3D_4faqr")
 
 [node name="Lava2" type="MeshInstance3D" parent="World" groups=["lava"]]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 171.2187, -53.944206, 29.134323)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 244.91675, -81.44331, 42.04178)
+material_override = SubResource("ShaderMaterial_bbsn4")
+cast_shadow = 0
+mesh = SubResource("PlaneMesh_6yvdi")
+skeleton = NodePath("../Map")
+script = ExtResource("5_sltj4")
+collision_radius = 30.0
+
+[node name="StaticBody3D" type="Area3D" parent="World/Lava2"]
+collision_layer = 128
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="World/Lava2/StaticBody3D"]
+transform = Transform3D(8, 0, 0, 0, 1, 0, 0, 0, 8, -197.6038, 0, -19.4984)
+shape = SubResource("HeightMapShape3D_sltj4")
+
+[node name="StaticBody3D2" type="StaticBody3D" parent="World/Lava2"]
+visible = false
+
+[node name="CollisionShapeRigid" type="CollisionShape3D" parent="World/Lava2/StaticBody3D2"]
+transform = Transform3D(8, 0, 0, 0, 1, 0, 0, 0, 8, -197.6038, 0, -19.4984)
+shape = SubResource("HeightMapShape3D_sltj4")
+
+[node name="ColliderTimer" type="Timer" parent="World/Lava2"]
+wait_time = 0.02
+autostart = true
+
+[node name="Lava3" type="MeshInstance3D" parent="World" groups=["lava"]]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.96865845, -3.7657013, -607.96826)
 material_override = SubResource("ShaderMaterial_bbsn4")
 cast_shadow = 0
 mesh = SubResource("PlaneMesh_sltj4")
 skeleton = NodePath("../Map")
 script = ExtResource("5_sltj4")
 
-[node name="StaticBody3D" type="Area3D" parent="World/Lava2"]
+[node name="StaticBody3D" type="Area3D" parent="World/Lava3"]
 collision_layer = 128
 
-[node name="CollisionShape3D" type="CollisionShape3D" parent="World/Lava2/StaticBody3D"]
-transform = Transform3D(20, 0, 0, 0, 1, 0, 0, 0, 20, 0, 0, 0)
+[node name="CollisionShape3D" type="CollisionShape3D" parent="World/Lava3/StaticBody3D"]
+transform = Transform3D(8, 0, 0, 0, 1, 0, 0, 0, 8, -197.6038, 0, -19.4984)
+shape = SubResource("HeightMapShape3D_sltj4")
 
-[node name="StaticBody3D2" type="StaticBody3D" parent="World/Lava2"]
+[node name="StaticBody3D2" type="StaticBody3D" parent="World/Lava3"]
+visible = false
 
-[node name="CollisionShapeRigid" type="CollisionShape3D" parent="World/Lava2/StaticBody3D2"]
+[node name="CollisionShapeRigid" type="CollisionShape3D" parent="World/Lava3/StaticBody3D2"]
+transform = Transform3D(8, 0, 0, 0, 1, 0, 0, 0, 8, -197.6038, 0, -19.4984)
+shape = SubResource("HeightMapShape3D_sltj4")
 
-[node name="ColliderTimer" type="Timer" parent="World/Lava2"]
-wait_time = 0.3
+[node name="ColliderTimer" type="Timer" parent="World/Lava3"]
+wait_time = 0.02
 autostart = true
 
 [node name="Dissolvable" parent="World" instance=ExtResource("4_mx21x")]
@@ -454,7 +544,7 @@ size = Vector3(46.35023, 50.65879, 3.6652117)
 material = SubResource("ShaderMaterial_6yvdi")
 
 [node name="Dissolvable9" parent="World" instance=ExtResource("4_mx21x")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 301.46796, -69.15781, -404.70416)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 309.2803, -69.15781, -404.70416)
 
 [node name="DissolvableWall" parent="World/Dissolvable9" index="0"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -3.8260193, 21.289917, 2.7431717)
@@ -800,6 +890,8 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1.2820386, 82.71687, 1.03557
 
 [connection signal="area_entered" from="World/Lava2/StaticBody3D" to="World/Lava2" method="_on_static_body_3d_area_entered"]
 [connection signal="timeout" from="World/Lava2/ColliderTimer" to="World/Lava2" method="_on_collider_timer_timeout"]
+[connection signal="area_entered" from="World/Lava3/StaticBody3D" to="World/Lava3" method="_on_static_body_3d_area_entered"]
+[connection signal="timeout" from="World/Lava3/ColliderTimer" to="World/Lava3" method="_on_collider_timer_timeout"]
 
 [editable path="World/Dissolvable"]
 [editable path="World/Dissolvable8"]
