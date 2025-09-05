@@ -107,14 +107,14 @@ func generate_collisions(around_position: Vector3 = Vector3.ZERO) -> void:
 	
 	collision_shape_3d.global_position = Vector3(
 		global_position.x + min_x + (section_size_x * mesh_simplify) / 2.0,
-		global_position.y,
+		global_position.y  + 1.2,
 		global_position.z + min_z + (section_size_z * mesh_simplify) / 2.0
 	)
 	
 	collision_shape_3d.scale = Vector3(mesh_simplify, 1.0, mesh_simplify)
 	
 	collision_shape_rigid.shape = heightmap_shape
-	collision_shape_rigid.global_position = collision_shape_3d.global_position + Vector3(0, 1.2, 0)
+	collision_shape_rigid.global_position = collision_shape_3d.global_position
 	collision_shape_rigid.scale = collision_shape_3d.scale
 
 func sample_texture(image: Image, uv: Vector2) -> float:

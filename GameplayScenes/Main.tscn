@@ -1,13 +1,16 @@
-[gd_scene load_steps=33 format=3 uid="uid://bx7fqptkn10rp"]
+[gd_scene load_steps=54 format=3 uid="uid://bx7fqptkn10rp"]
 
 [ext_resource type="Script" uid="uid://b1hp4w8dvknop" path="res://GameplayScenes/world.gd" id="1_ioe3g"]
 [ext_resource type="Texture2D" uid="uid://c5g4hvuff4qt5" path="res://addons/kenney_prototype_textures/dark/texture_04.png" id="2_qpc07"]
-[ext_resource type="Shader" uid="uid://bm4m6vwd310l2" path="res://Materials/new_shader.gdshader" id="3_qpc07"]
+[ext_resource type="Shader" uid="uid://bm4m6vwd310l2" path="res://Materials/dissolve.gdshader" id="3_qpc07"]
+[ext_resource type="Shader" uid="uid://bh77daisgytff" path="res://Materials/blackhole.gdshader" id="4_6yvdi"]
+[ext_resource type="Shader" uid="uid://chyuj4v6tsxpb" path="res://GameplayScenes/Main.gdshader" id="4_bbsn4"]
 [ext_resource type="PackedScene" uid="uid://bbek1pugcmwm3" path="res://MapElements/dissolvable.tscn" id="4_mx21x"]
+[ext_resource type="Script" uid="uid://cy5cin2fjut82" path="res://MapMechanics/black_hole.gd" id="4_ns814"]
 [ext_resource type="Material" uid="uid://b23o6x4r42m7j" path="res://Materials/ground1.tres" id="4_qpc07"]
 [ext_resource type="Shader" uid="uid://dpoqx5vwq1p5j" path="res://Materials/ripples.gdshader" id="4_xu1x1"]
-[ext_resource type="PackedScene" uid="uid://dwh4vaq8esl1w" path="res://Entities/Players/player.tscn" id="5_mx21x"]
-[ext_resource type="Script" uid="uid://bjvt0an2jxbon" path="res://lava_collision.gd" id="5_sltj4"]
+[ext_resource type="PackedScene" uid="uid://dwh4vaq8esl1w" path="res://Entities/Player/player.tscn" id="5_mx21x"]
+[ext_resource type="Script" uid="uid://bjvt0an2jxbon" path="res://MapMechanics/lava_collision.gd" id="5_sltj4"]
 
 [sub_resource type="Environment" id="Environment_r0du0"]
 ambient_light_source = 2
@@ -42,9 +45,122 @@ _data = {
 }
 point_count = 29
 
+[sub_resource type="Gradient" id="Gradient_oqm3q"]
+offsets = PackedFloat32Array(0, 0.97818184, 1)
+colors = PackedColorArray(0, 0, 0, 1, 0.02909091, 0.02909091, 0.02909091, 1, 0, 0, 0, 0)
+
+[sub_resource type="GradientTexture2D" id="GradientTexture2D_sltj4"]
+gradient = SubResource("Gradient_oqm3q")
+width = 128
+height = 128
+fill = 1
+fill_from = Vector2(0.5, 0.5)
+fill_to = Vector2(0.5, 0)
+
+[sub_resource type="Gradient" id="Gradient_6yvdi"]
+colors = PackedColorArray(0.9506173, 0.9506173, 0.9506173, 1, 0, 0, 0, 1)
+metadata/_snap_enabled = true
+
+[sub_resource type="GradientTexture2D" id="GradientTexture2D_0cbrd"]
+gradient = SubResource("Gradient_6yvdi")
+width = 128
+height = 128
+fill = 1
+fill_from = Vector2(0.5, 0.5)
+fill_to = Vector2(0.5, 1)
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_ns814"]
+render_priority = 1
+shader = ExtResource("4_bbsn4")
+shader_parameter/albedo = Color(1, 1, 1, 1)
+shader_parameter/texture_albedo = SubResource("GradientTexture2D_0cbrd")
+shader_parameter/albedo_texture_size = Vector2i(64, 64)
+shader_parameter/point_size = 0.10000000149012
+shader_parameter/roughness = 1.0
+shader_parameter/metallic_texture_channel = Vector4(1, 0, 0, 0)
+shader_parameter/specular = 0.0
+shader_parameter/metallic = 0.0
+shader_parameter/uv1_scale = Vector3(1, 1, 1)
+shader_parameter/uv1_offset = Vector3(0, 0, 0)
+shader_parameter/uv2_scale = Vector3(1, 1, 1)
+shader_parameter/uv2_offset = Vector3(0, 0, 0)
+shader_parameter/blackhole_center = Vector2(0.5, 0.5)
+shader_parameter/distortion_strength = -0.75
+shader_parameter/distortion_radius = 0.515
+shader_parameter/flatness = 1.23
+
+[sub_resource type="Gradient" id="Gradient_xghg3"]
+colors = PackedColorArray(0, 0, 0, 0, 1, 1, 1, 0)
+
+[sub_resource type="GradientTexture2D" id="GradientTexture2D_p4h5m"]
+gradient = SubResource("Gradient_xghg3")
+
+[sub_resource type="Curve" id="Curve_bbsn4"]
+_limits = [-0.0032787323, 2.0, 0.0, 1.0]
+_data = [Vector2(0, -0.0032787323), 0.0, 0.0, 0, 0, Vector2(1, -0.0032787323), 0.0, 0.0, 0, 0]
+point_count = 2
+
+[sub_resource type="Curve" id="Curve_ns814"]
+_limits = [-0.0032787323, 2.0, 0.0, 1.0]
+_data = [Vector2(0, 2), 0.0, 0.0, 0, 0, Vector2(0.7431906, 1.380954), 0.9540914, 0.9540914, 0, 0, Vector2(1, -0.0032787323), -8.500297, 0.0, 0, 0]
+point_count = 3
+
+[sub_resource type="Curve" id="Curve_p4h5m"]
+_limits = [-0.0032787323, 2.0, 0.0, 1.0]
+_data = [Vector2(0, -0.0032787323), 0.0, 0.0, 0, 0, Vector2(1, -0.0032787323), 0.0, 0.0, 0, 0]
+point_count = 2
+
+[sub_resource type="CurveXYZTexture" id="CurveXYZTexture_73pva"]
+curve_x = SubResource("Curve_bbsn4")
+curve_y = SubResource("Curve_ns814")
+curve_z = SubResource("Curve_p4h5m")
+
+[sub_resource type="Curve" id="Curve_wom74"]
+_data = [Vector2(0, 1), 0.0, 0.0, 0, 0, Vector2(1, 0), -5.4587307, 0.0, 0, 0]
+point_count = 2
+
+[sub_resource type="CurveTexture" id="CurveTexture_a4wok"]
+curve = SubResource("Curve_wom74")
+
+[sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_btdi5"]
+particle_flag_align_y = true
+emission_shape_scale = Vector3(1, 0.15, 1)
+emission_shape = 2
+emission_sphere_radius = 37.7
+orbit_velocity_min = 0.1900001
+orbit_velocity_max = 0.6030001
+orbit_velocity_curve = SubResource("CurveXYZTexture_73pva")
+gravity = Vector3(0, 0, 0)
+scale_curve = SubResource("CurveTexture_a4wok")
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_bbsn4"]
+emission_enabled = true
+emission = Color(1, 0.41916662, 0.14999998, 1)
+emission_energy_multiplier = 16.0
+point_size = 6.8
+use_particle_trails = true
+
+[sub_resource type="RibbonTrailMesh" id="RibbonTrailMesh_ns814"]
+material = SubResource("StandardMaterial3D_bbsn4")
+size = 0.146
+sections = 100
+section_length = 0.001
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_p4h5m"]
+render_priority = 0
+shader = ExtResource("4_6yvdi")
+shader_parameter/scale = 18.62
+
+[sub_resource type="SphereMesh" id="SphereMesh_73pva"]
+lightmap_size_hint = Vector2i(630, 316)
+material = SubResource("ShaderMaterial_p4h5m")
+flip_faces = true
+radius = 20.0
+height = 40.0
+
 [sub_resource type="Gradient" id="Gradient_xu1x1"]
 offsets = PackedFloat32Array(0, 0.24479167, 0.32291666, 0.40625, 0.48958334, 0.7760417)
-colors = PackedColorArray(0.79, 0.44766667, 0, 1, 0.92941177, 0.12156863, 0, 1, 0.3764706, 0, 0, 1, 0.29, 0.04833334, 0, 1, 0.16092438, 0, 0, 1, 0.05882353, 0, 0, 1)
+colors = PackedColorArray(0.79, 0.44766667, 0, 1, 0.92941177, 0.05490196, 0, 1, 0.29411766, 0, 0, 1, 0.2901961, 0, 0, 1, 0.16092438, 0, 0, 1, 0.05882353, 0, 0, 1)
 
 [sub_resource type="GradientTexture1D" id="GradientTexture1D_xu1x1"]
 gradient = SubResource("Gradient_xu1x1")
@@ -52,8 +168,9 @@ gradient = SubResource("Gradient_xu1x1")
 [sub_resource type="FastNoiseLite" id="FastNoiseLite_6yvdi"]
 noise_type = 2
 seed = 6
-frequency = 0.063
+frequency = 0.1344
 offset = Vector3(64.52, 0, 0)
+domain_warp_enabled = true
 
 [sub_resource type="NoiseTexture2D" id="NoiseTexture2D_bbsn4"]
 noise = SubResource("FastNoiseLite_6yvdi")
@@ -94,7 +211,7 @@ shader_parameter/edge_near = 0.05
 shader_parameter/edge_far = 4000.0
 shader_parameter/border_thickness = 1.970000000001164
 shader_parameter/border_color = Color(1.3167266, 0.40657628, 0, 1)
-shader_parameter/time = -0.82
+shader_parameter/time = 8.335
 shader_parameter/noise_scale = 0.00200000000768341
 
 [sub_resource type="PlaneMesh" id="PlaneMesh_6yvdi"]
@@ -436,7 +553,7 @@ spin_sides = 8
 material = ExtResource("4_qpc07")
 
 [node name="CollisionPolygon3D" type="CSGPolygon3D" parent="World/Map"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 142.77063, -6.1500854, -67.91138)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 142.71661, -6.3885803, -67.91523)
 operation = 2
 polygon = PackedVector2Array(-79.7596, 40.602745, -48.00229, 61.191658, -27.030794, 61.586006, 8.571185, 41.095024, 8.808451, -3.1731873, -81.57919, -4.7826614)
 mode = 2
@@ -474,10 +591,43 @@ material = ExtResource("4_qpc07")
 [node name="Path3D" type="Path3D" parent="World/Map/CSGPolygon3D5"]
 curve = SubResource("Curve3D_4faqr")
 
+[node name="BlackHole" type="Sprite3D" parent="World"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 128.91672, 14.961258, 23.791311)
+pixel_size = 0.1436
+billboard = 1
+render_priority = 4
+texture = SubResource("GradientTexture2D_sltj4")
+script = ExtResource("4_ns814")
+
+[node name="Distort" type="Sprite3D" parent="World/BlackHole"]
+material_override = SubResource("ShaderMaterial_ns814")
+cast_shadow = 0
+pixel_size = 1.3788
+billboard = 1
+no_depth_test = true
+texture = SubResource("GradientTexture2D_p4h5m")
+
+[node name="GPUParticles3D" type="GPUParticles3D" parent="World"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 128.91672, 14.961258, 23.791311)
+amount = 100
+lifetime = 100.0
+explosiveness = 1.0
+trail_enabled = true
+trail_lifetime = 0.63
+process_material = SubResource("ParticleProcessMaterial_btdi5")
+draw_pass_1 = SubResource("RibbonTrailMesh_ns814")
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="World"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 128.91672, 14.961258, 23.791311)
+visible = false
+mesh = SubResource("SphereMesh_73pva")
+skeleton = NodePath("../BlackHole")
+
 [node name="Lava2" type="MeshInstance3D" parent="World" groups=["lava"]]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 244.91675, -81.44331, 42.04178)
 material_override = SubResource("ShaderMaterial_bbsn4")
 cast_shadow = 0
+extra_cull_margin = 20.0
 mesh = SubResource("PlaneMesh_6yvdi")
 skeleton = NodePath("../Map")
 script = ExtResource("5_sltj4")

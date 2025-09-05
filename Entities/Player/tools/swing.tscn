@@ -1,0 +1,43 @@
+[gd_scene load_steps=5 format=3 uid="uid://b2uneexq7ttw7"]
+
+[ext_resource type="Script" uid="uid://5g7wulyiuo2n" path="res://Entities/Player/tools/swing.gd" id="1_736qb"]
+[ext_resource type="Texture2D" uid="uid://dnwb2jrgan5nk" path="res://addons/kenney_particle_pack/circle_02.png" id="2_5xy0u"]
+[ext_resource type="Texture2D" uid="uid://biormanfwbi2e" path="res://addons/kenney_particle_pack/magic_03.png" id="3_ngie5"]
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_p4qpu"]
+albedo_color = Color(1, 0.5529412, 1, 1)
+
+[node name="Swing" type="CSGBox3D"]
+visible = false
+size = Vector3(0.109131, 0.180359, 0.339722)
+material = SubResource("StandardMaterial3D_p4qpu")
+script = ExtResource("1_736qb")
+
+[node name="UiIndicator" type="TextureProgressBar" parent="."]
+visible = false
+modulate = Color(0, 1, 0.14999986, 1)
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -257.0
+offset_top = -252.0
+offset_right = 255.0
+offset_bottom = 260.0
+grow_horizontal = 2
+grow_vertical = 2
+scale = Vector2(0.175, 0.175)
+pivot_offset = Vector2(257.14258, 251.42871)
+max_value = 1.0
+step = 0.01000000000931322
+value = 1.0
+fill_mode = 4
+texture_progress = ExtResource("2_5xy0u")
+
+[node name="GrapplePosition" type="Sprite3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.347353, 0.96950823, -1.4404349)
+top_level = true
+billboard = 1
+no_depth_test = true
+texture = ExtResource("3_ngie5")

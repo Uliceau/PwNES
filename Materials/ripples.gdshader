@@ -1,6 +1,5 @@
 shader_type spatial;
 render_mode blend_mix, depth_draw_always, cull_disabled;
-
 uniform sampler2D noise_texture;
 uniform sampler2D noise_overlay;
 uniform sampler2D noise_albedo_overlay;

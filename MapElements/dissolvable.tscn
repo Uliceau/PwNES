@@ -1,7 +1,8 @@
 [gd_scene load_steps=7 format=3 uid="uid://bbek1pugcmwm3"]
 
-[ext_resource type="Script" uid="uid://b0hqw1jexyktf" path="res://Mechanics/dissolvable_wall.gd" id="1_n0fyt"]
-[ext_resource type="Shader" uid="uid://bm4m6vwd310l2" path="res://Materials/new_shader.gdshader" id="2_l3b6t"]
+[ext_resource type="Script" uid="uid://b0hqw1jexyktf" path="res://MapMechanics/dissolvable_wall.gd" id="1_n0fyt"]
+[ext_resource type="Shader" uid="uid://bm4m6vwd310l2" path="res://Materials/dissolve.gdshader" id="2_l3b6t"]
+
 
 [sub_resource type="FastNoiseLite" id="FastNoiseLite_n0fyt"]
 

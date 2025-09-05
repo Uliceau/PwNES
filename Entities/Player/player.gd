@@ -1,47 +1,53 @@
 extends CharacterBody3D
 
+#Types
 const LavaCollision = preload("uid://bjvt0an2jxbon")
 
+#Camera
 @onready var camera_3d: Camera3D = $Camera3D
-@onready var animation_player: AnimationPlayer = $Camera3D/AnimationPlayer
+
+#Collisions
+@onready var collision_shape_3d: CollisionShape3D = $CollisionShape3D
 @onready var ray_cast_3d: RayCast3D = $Camera3D/RayCast3D
-@onready var sprite_3d: AnimatedSprite3D = $Sprite3D
+
+#Main hand
+@onready var animation_player: AnimationPlayer = $Camera3D/AnimationPlayer
 @onready var gun_holder: Node3D = $Camera3D/GunHolder
 @onready var main_hand: Node3D = $Camera3D/MainHand
-@onready var collision_shape_3d: CollisionShape3D = $CollisionShape3D
 
+@export var current_tool : Node3D
+var current_tool_id := 0
+
+#UI
 @onready var jump_icons: VBoxContainer = $Control/JumpIcons
 @onready var jump_icon: TextureRect = $Control/JumpIcons/JumpIcon
 @onready var speed_label: Label = $Control/SpeedLabel
 @onready var temp_speed_label: Label = $Control/TempSpeedLabel
 
-const SPEED = 1
-const JUMP_VELOCITY = 10
+#health
+@export var health = 3
 
-var health = 3
-var velocity_residue := Vector3.ZERO
+#Character movement management
+@export var base_speed = 1
+@export var base_jump_velocity = 10
+
 var extra_temp_velocity := 1.0
-var movement_velocity := Vector3.ZERO
+var wall_velocity := Vector3.ZERO
 
-var floor_damping := 0.9
-var action_speed_multiplier := 1.0
+#Parameters
+@export var floor_damping := 0.9
+@export var action_speed_multiplier := 1.0
 
-var total_jumps := 3
+@export var total_jumps := 3
 var jumps_lefts := 3
 
 var is_crouched := false
 
-@export var current_tool : Node3D
-var current_tool_id := 0
-
-@export var movement_vector : Vector2 = Vector2.ZERO
-var wall_velocity := Vector3.ZERO
-
 func _ready() -> void:
-	Global.authority_player = self
-	sprite_3d.visible = false
+	
 	Input.mouse_mode = Input.MOUSE_MODE_CAPTURED
 	camera_3d.current = true
+	
 	for jump in total_jumps-1:
 		var new_jump_icon = jump_icon.duplicate()
 		jump_icons.add_child(new_jump_icon)
@@ -81,34 +87,13 @@ func change_tool(direction := 0):
 
 func _physics_process(delta: float) -> void:
 	camera_3d.fov = clamp(75.0 + velocity.length() * 0.3, 75, 100)
-	var anim_suffix := ""
-	var anim_prefix :String
-	if movement_vector != Vector2.ZERO:
-		anim_suffix = "_walk"
-	
-	var angle_diff :float = angle_difference(Global.authority_player.rotation.y, self.rotation.y)+(PI/4)
-	if angle_diff < -PI/2 and angle_diff > -PI:
-		anim_prefix = "front"
-			
-	elif angle_diff < 0 and angle_diff > -PI/2:
-		anim_prefix = "right"
-			
-	elif angle_diff >= 0 and angle_diff < PI/2:
-		anim_prefix = "back"
-			
-	elif angle_diff >= PI/2 and angle_diff < PI:
-		anim_prefix = "left"
 		
-	if anim_prefix:
-		sprite_3d.play(anim_prefix+anim_suffix)
-		#print("anim: "+anim_prefix+anim_suffix +", vector: "+str(movement_vector))
 	if not is_on_floor():
 		velocity += Vector3(0, -25.0, 0) * delta
-
-
+	
 	var input_dir := Input.get_vector("left", "right", "up", "down")
 	var direction := (transform.basis * Vector3(input_dir.x, 0, input_dir.y)).normalized()
-
+	
 	# FLOOR MOVEMENT
 	if is_on_floor():
 		jumps_lefts = total_jumps
@@ -117,8 +102,8 @@ func _physics_process(delta: float) -> void:
 		elif extra_temp_velocity < 1.0:
 			extra_temp_velocity = 1.0
 		if input_dir:
-			velocity.x += direction.x * SPEED * action_speed_multiplier
-			velocity.z += direction.z * SPEED * action_speed_multiplier
+			velocity.x += direction.x * base_speed * action_speed_multiplier
+			velocity.z += direction.z * base_speed * action_speed_multiplier
 		velocity.x *= floor_damping
 		velocity.z *= floor_damping
 		wall_velocity = Vector3.ZERO   # reset when grounded
@@ -133,8 +118,8 @@ func _physics_process(delta: float) -> void:
 			extra_temp_velocity = wall_velocity.length() * 0.1
 			velocity.y -= 9.8 * delta  # gravity down slide
 		if input_dir:
-			velocity.x = lerp(velocity.x, direction.x * (SPEED * 10 * extra_temp_velocity), 1.8 * delta)
-			velocity.z = lerp(velocity.z, direction.z * (SPEED * 10 * extra_temp_velocity), 1.8 * delta)
+			velocity.x = lerp(velocity.x, direction.x * (base_speed * 10 * extra_temp_velocity), 1.8 * delta)
+			velocity.z = lerp(velocity.z, direction.z * (base_speed * 10 * extra_temp_velocity), 1.8 * delta)
 
 	# AIR MOVEMENT
 	else:
@@ -142,8 +127,8 @@ func _physics_process(delta: float) -> void:
 		if input_dir:
 			if extra_temp_velocity < 6.0:
 				extra_temp_velocity += 0.8 * delta
-			velocity.x = lerp(velocity.x, direction.x * (SPEED * 10 * extra_temp_velocity), 2 * delta)
-			velocity.z = lerp(velocity.z, direction.z * (SPEED * 10 * extra_temp_velocity), 2 * delta)
+			velocity.x = lerp(velocity.x, direction.x * (base_speed * 10 * extra_temp_velocity), 2 * delta)
+			velocity.z = lerp(velocity.z, direction.z * (base_speed * 10 * extra_temp_velocity), 2 * delta)
 		velocity.x *= 0.99
 		velocity.z *= 0.99
 	
@@ -165,17 +150,17 @@ func _physics_process(delta: float) -> void:
 		if jumps_lefts > 0:
 			if is_on_floor():
 				jumps_lefts -= 1
-				velocity += get_floor_normal() * JUMP_VELOCITY
+				velocity += get_floor_normal() * base_jump_velocity
 			elif Input.is_action_just_pressed("jump"):
 				jumps_lefts -= 1
 				if velocity.y > 0:
-					velocity.y += JUMP_VELOCITY
+					velocity.y += base_jump_velocity
 				else:
-					velocity.y = JUMP_VELOCITY
+					velocity.y = base_jump_velocity
 		elif is_on_wall():
 			var normal = get_wall_normal()
 			if abs(normal.dot(Vector3.UP)) > 0.5:
-				velocity += normal * JUMP_VELOCITY
+				velocity += normal * base_jump_velocity
 				velocity.y = -velocity.y
 				wall_velocity = Vector3.ZERO
 	
@@ -211,7 +196,6 @@ func _on_animation_player_animation_finished(anim_name: StringName) -> void:
 
 
 func _on_hitbox_area_entered(area: Area3D) -> void:
-	return
 	print("collided")
 	if area.get_parent() is LavaCollision:
 		self.global_position = Vector3(-1.2, 82, 1)

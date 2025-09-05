@@ -1,0 +1,14 @@
+[gd_resource type="VisualShader" load_steps=2 format=3 uid="uid://d3wo2b51ecxx4"]
+
+[sub_resource type="VisualShaderNodeInput" id="VisualShaderNodeInput_kmt37"]
+input_name = "node_position_world"
+
+[resource]
+code = "shader_type spatial;
+render_mode blend_mix, depth_draw_opaque, depth_test_default, cull_back, diffuse_lambert, specular_schlick_ggx;
+
+
+
+"
+nodes/vertex/2/node = SubResource("VisualShaderNodeInput_kmt37")
+nodes/vertex/2/position = Vector2(-100, 180)

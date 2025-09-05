@@ -1,42 +1,141 @@
-[gd_scene load_steps=9 format=3 uid="uid://dpdbesa6g2ggl"]
-
-[ext_resource type="Shader" uid="uid://dpoqx5vwq1p5j" path="res://Materials/ripples.gdshader" id="1_pwjt3"]
-
-[sub_resource type="Gradient" id="Gradient_ijcvt"]
-offsets = PackedFloat32Array(0.0116959065, 0.12280702, 0.69590646)
-colors = PackedColorArray(1.353256, 0.3534348, 0, 1, 0.92941177, 0.12156863, 0, 1, 0.25921082, 0, 0, 1)
-
-[sub_resource type="GradientTexture1D" id="GradientTexture1D_sltj4"]
-gradient = SubResource("Gradient_ijcvt")
-
-[sub_resource type="FastNoiseLite" id="FastNoiseLite_yqiyx"]
-frequency = 0.0038
-
-[sub_resource type="NoiseTexture2D" id="NoiseTexture2D_sltj4"]
-noise = SubResource("FastNoiseLite_yqiyx")
-seamless = true
-
-[sub_resource type="ShaderMaterial" id="ShaderMaterial_0cbrd"]
-render_priority = 0
-shader = ExtResource("1_pwjt3")
-shader_parameter/noise_texture = SubResource("NoiseTexture2D_sltj4")
-shader_parameter/noise_overlay = SubResource("NoiseTexture2D_sltj4")
-shader_parameter/gradient_texture = SubResource("GradientTexture1D_sltj4")
-
-[sub_resource type="PlaneMesh" id="PlaneMesh_m63dw"]
-size = Vector2(1000, 1000)
-subdivide_width = 1000
-subdivide_depth = 1000
+[gd_scene load_steps=10 format=3 uid="uid://dpdbesa6g2ggl"]
 
 [sub_resource type="CylinderMesh" id="CylinderMesh_xghg3"]
 top_radius = 2.9
 bottom_radius = 100.0
 height = 55.599
 
-[node name="CSGBox3D21" type="MeshInstance3D"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 187.733, 0.9209442, -9.751)
-material_override = SubResource("ShaderMaterial_0cbrd")
-mesh = SubResource("PlaneMesh_m63dw")
+[sub_resource type="Gradient" id="Gradient_oqm3q"]
+offsets = PackedFloat32Array(0, 0.9563636, 1)
+colors = PackedColorArray(0, 0, 0, 1, 0.02909091, 0.02909091, 0.02909091, 1, 0, 0, 0, 0)
+
+[sub_resource type="GradientTexture2D" id="GradientTexture2D_pwjt3"]
+gradient = SubResource("Gradient_oqm3q")
+width = 128
+height = 128
+fill = 1
+fill_from = Vector2(0.5, 0.5)
+fill_to = Vector2(0.5, 0)
+
+[sub_resource type="Shader" id="Shader_ijcvt"]
+code = "// NOTE: Shader automatically converted from Godot Engine 4.5.beta7's StandardMaterial3D.
+
+shader_type spatial;
+render_mode blend_mix, depth_draw_opaque, cull_back, diffuse_burley, specular_schlick_ggx, unshaded;
+
+uniform vec4 albedo : source_color;
+uniform sampler2D texture_albedo : source_color, filter_linear_mipmap, repeat_enable;
+uniform ivec2 albedo_texture_size;
+uniform float point_size : hint_range(0.1, 128.0, 0.1);
+
+uniform float roughness : hint_range(0.0, 1.0);
+uniform sampler2D texture_metallic : hint_default_white, filter_linear_mipmap, repeat_enable;
+uniform vec4 metallic_texture_channel;
+uniform sampler2D texture_roughness : hint_roughness_r, filter_linear_mipmap, repeat_enable;
+
+uniform sampler2D screen_texture : hint_screen_texture;
+
+uniform float specular : hint_range(0.0, 1.0, 0.01);
+uniform float metallic : hint_range(0.0, 1.0, 0.01);
+
+uniform vec3 uv1_scale;
+uniform vec3 uv1_offset;
+uniform vec3 uv2_scale;
+uniform vec3 uv2_offset;
+
+// Black hole controls
+uniform vec2 blackhole_center = vec2(0.5, 0.5); // in screen UV space (0–1)
+uniform float distortion_strength = 0.25;
+uniform float distortion_radius = 0.4;
+
+void vertex() {
+	UV = UV * uv1_scale.xy + uv1_offset.xy;
+
+	// Billboard Mode: Enabled
+	MODELVIEW_MATRIX = VIEW_MATRIX * mat4(
+			MAIN_CAM_INV_VIEW_MATRIX[0],
+			MAIN_CAM_INV_VIEW_MATRIX[1],
+			MAIN_CAM_INV_VIEW_MATRIX[2],
+			MODEL_MATRIX[3]);
+	MODELVIEW_NORMAL_MATRIX = mat3(MODELVIEW_MATRIX);
+}
+
+void fragment() {
+    vec2 screen_uv = SCREEN_UV;
+
+    // Use mesh UV center as the distortion anchor
+    vec2 local_center = vec2(0.5, 0.5);
+    vec2 dir = UV - local_center;
+
+    float dist = length(dir);
+    float mask = smoothstep(distortion_radius, 0.0, dist);
+
+    // Distortion direction (rotate in screen space)
+    vec2 offset_uv = screen_uv + normalize(dir + 1e-6) * distortion_strength * mask;
+
+    // Distorted screen behind mesh
+    vec4 screen_tex = texture(screen_texture, offset_uv);
+
+    // Optional: combine with mesh texture
+    vec4 albedo_tex = texture(texture_albedo, UV);
+    ALBEDO = albedo.rgb * albedo_tex.rgb + screen_tex.rgb;
+
+	vec4 roughness_texture_channel = vec4(1.0, 0.0, 0.0, 0.0);
+	float roughness_tex = dot(texture(texture_roughness, UV), roughness_texture_channel);
+	ROUGHNESS = roughness_tex * roughness;
+}
+"
+
+[sub_resource type="Gradient" id="Gradient_yqiyx"]
+colors = PackedColorArray(1, 1, 1, 1, 0, 0, 0, 1)
+
+[sub_resource type="GradientTexture2D" id="GradientTexture2D_0cbrd"]
+gradient = SubResource("Gradient_yqiyx")
+width = 128
+height = 128
+fill = 1
+fill_from = Vector2(0.5, 0.5)
+fill_to = Vector2(0.5, 1)
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_m63dw"]
+render_priority = 0
+shader = SubResource("Shader_ijcvt")
+shader_parameter/albedo = Color(1, 1, 1, 1)
+shader_parameter/texture_albedo = SubResource("GradientTexture2D_0cbrd")
+shader_parameter/albedo_texture_size = Vector2i(64, 64)
+shader_parameter/point_size = 0.10000000149012
+shader_parameter/roughness = 1.0
+shader_parameter/metallic_texture_channel = Vector4(1, 0, 0, 0)
+shader_parameter/specular = 0.0
+shader_parameter/metallic = 0.0
+shader_parameter/uv1_scale = Vector3(1, 1, 1)
+shader_parameter/uv1_offset = Vector3(0, 0, 0)
+shader_parameter/uv2_scale = Vector3(1, 1, 1)
+shader_parameter/uv2_offset = Vector3(0, 0, 0)
+shader_parameter/blackhole_center = Vector2(0.5, 0.5)
+shader_parameter/distortion_strength = -0.775
+shader_parameter/distortion_radius = 0.49
+
+[sub_resource type="Gradient" id="Gradient_xghg3"]
+
+[sub_resource type="GradientTexture2D" id="GradientTexture2D_smgo5"]
+gradient = SubResource("Gradient_xghg3")
+
+[node name="CSGBox3D21" type="Node3D"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 187.22476, 19.790028, -9.432549)
 
 [node name="MeshInstance3D" type="MeshInstance3D" parent="."]
 mesh = SubResource("CylinderMesh_xghg3")
+
+[node name="BlackHole" type="Sprite3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.25289917, 77.72484, 6.1133423)
+pixel_size = 0.1436
+billboard = 1
+render_priority = 1
+texture = SubResource("GradientTexture2D_pwjt3")
+
+[node name="Distort" type="Sprite3D" parent="BlackHole"]
+material_override = SubResource("ShaderMaterial_m63dw")
+pixel_size = 0.6893
+billboard = 1
+texture = SubResource("GradientTexture2D_smgo5")

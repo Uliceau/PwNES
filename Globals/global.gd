@@ -1,7 +1,8 @@
 extends Node
 
-const Player = preload("res://Entities/Players/player.gd")
-var authority_player : Player
+const Player = preload("uid://c6p3o8fitt0i3")
+var player : Player
+
 
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
