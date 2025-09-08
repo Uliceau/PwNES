@@ -111,7 +111,7 @@ fill_from = Vector2(0.5, 0.5)
 fill_to = Vector2(0.5, 0)
 
 [sub_resource type="CapsuleShape3D" id="CapsuleShape3D_hwwuc"]
-height = 25.018677
+height = 2.0241394
 
 [node name="Player" type="CharacterBody3D" node_paths=PackedStringArray("current_tool") groups=["player"]]
 collision_layer = 2
@@ -153,6 +153,7 @@ target_position = Vector3(0, 0, -50)
 
 [node name="MainHand" type="Node3D" parent="Camera3D"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.382142, -0.29827404, -0.151892)
+visible = false
 
 [node name="Grapple" parent="Camera3D/MainHand" instance=ExtResource("4_7a1se")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.034788996, -0.029127777, -0.288543)
@@ -248,7 +249,7 @@ collision_mask = 128
 monitorable = false
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="Hitbox"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 12.502079, 0)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.0048103, 0)
 shape = SubResource("CapsuleShape3D_hwwuc")
 
 [connection signal="timeout" from="HeatPostFX/Timer" to="HeatPostFX" method="_on_timer_timeout"]

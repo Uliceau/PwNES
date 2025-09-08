@@ -1,4 +1,4 @@
-extends Sprite3D
+extends Node3D
 
 func _physics_process(delta: float) -> void:
 	if Global.player:

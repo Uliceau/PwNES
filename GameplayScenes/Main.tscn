@@ -1,12 +1,12 @@
-[gd_scene load_steps=54 format=3 uid="uid://bx7fqptkn10rp"]
+[gd_scene load_steps=64 format=3 uid="uid://bx7fqptkn10rp"]
 
 [ext_resource type="Script" uid="uid://b1hp4w8dvknop" path="res://GameplayScenes/world.gd" id="1_ioe3g"]
 [ext_resource type="Texture2D" uid="uid://c5g4hvuff4qt5" path="res://addons/kenney_prototype_textures/dark/texture_04.png" id="2_qpc07"]
 [ext_resource type="Shader" uid="uid://bm4m6vwd310l2" path="res://Materials/dissolve.gdshader" id="3_qpc07"]
-[ext_resource type="Shader" uid="uid://bh77daisgytff" path="res://Materials/blackhole.gdshader" id="4_6yvdi"]
 [ext_resource type="Shader" uid="uid://chyuj4v6tsxpb" path="res://GameplayScenes/Main.gdshader" id="4_bbsn4"]
 [ext_resource type="PackedScene" uid="uid://bbek1pugcmwm3" path="res://MapElements/dissolvable.tscn" id="4_mx21x"]
 [ext_resource type="Script" uid="uid://cy5cin2fjut82" path="res://MapMechanics/black_hole.gd" id="4_ns814"]
+[ext_resource type="Texture2D" uid="uid://yfgk1ixcvpe8" path="res://addons/kenney_particle_pack/star_06.png" id="4_p4h5m"]
 [ext_resource type="Material" uid="uid://b23o6x4r42m7j" path="res://Materials/ground1.tres" id="4_qpc07"]
 [ext_resource type="Shader" uid="uid://dpoqx5vwq1p5j" path="res://Materials/ripples.gdshader" id="4_xu1x1"]
 [ext_resource type="PackedScene" uid="uid://dwh4vaq8esl1w" path="res://Entities/Player/player.tscn" id="5_mx21x"]
@@ -27,6 +27,10 @@ volumetric_fog_length = 20.98
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_4faqr"]
 
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_73pva"]
+shading_mode = 0
+albedo_color = Color(0, 0, 0, 1)
+
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_xu1x1"]
 albedo_texture = ExtResource("2_qpc07")
 uv1_triplanar = true
@@ -45,17 +49,130 @@ _data = {
 }
 point_count = 29
 
-[sub_resource type="Gradient" id="Gradient_oqm3q"]
-offsets = PackedFloat32Array(0, 0.97818184, 1)
-colors = PackedColorArray(0, 0, 0, 1, 0.02909091, 0.02909091, 0.02909091, 1, 0, 0, 0, 0)
+[sub_resource type="Curve" id="Curve_a4wok"]
+_limits = [-1.0, 1.0, 0.0, 1.0]
+_data = [Vector2(0, 1), 0.0, 0.0, 0, 0, Vector2(1, -1), 0.0, 0.0, 0, 0]
+point_count = 2
 
-[sub_resource type="GradientTexture2D" id="GradientTexture2D_sltj4"]
-gradient = SubResource("Gradient_oqm3q")
-width = 128
-height = 128
-fill = 1
-fill_from = Vector2(0.5, 0.5)
-fill_to = Vector2(0.5, 0)
+[sub_resource type="CurveTexture" id="CurveTexture_pcrw0"]
+curve = SubResource("Curve_a4wok")
+
+[sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_j1dju"]
+emission_shape_scale = Vector3(300, 300, 300)
+emission_shape = 3
+emission_box_extents = Vector3(1, 1, 1)
+initial_velocity_min = 0.099999994
+initial_velocity_max = 1.0
+gravity = Vector3(0, 0, 0)
+scale_min = 0.29999998
+scale_max = 1.1999999
+hue_variation_curve = SubResource("CurveTexture_pcrw0")
+collision_mode = 2
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_y6c37"]
+transparency = 3
+alpha_hash_scale = 1.0
+alpha_antialiasing_mode = 0
+shading_mode = 0
+albedo_texture = ExtResource("4_p4h5m")
+fixed_size = true
+
+[sub_resource type="QuadMesh" id="QuadMesh_2wlmo"]
+material = SubResource("StandardMaterial3D_y6c37")
+size = Vector2(0.05, 0.05)
+
+[sub_resource type="Curve" id="Curve_bbsn4"]
+_limits = [-0.0032787323, 2.0, 0.0, 1.0]
+_data = [Vector2(0, -0.0032787323), 0.0, 0.0, 0, 0, Vector2(1, -0.0032787323), 0.0, 0.0, 0, 0]
+point_count = 2
+
+[sub_resource type="Curve" id="Curve_ns814"]
+_limits = [-0.0032787323, 2.0, 0.0, 1.0]
+_data = [Vector2(0, 2), 0.0, 0.0, 0, 0, Vector2(0.74895394, 1.8649476), 0.9540914, 0.9540914, 0, 0, Vector2(1, -0.0032787323), -8.500297, 0.0, 0, 0]
+point_count = 3
+
+[sub_resource type="Curve" id="Curve_p4h5m"]
+_limits = [-0.0032787323, 2.0, 0.0, 1.0]
+_data = [Vector2(0, -0.0032787323), 0.0, 0.0, 0, 0, Vector2(1, -0.0032787323), 0.0, 0.0, 0, 0]
+point_count = 2
+
+[sub_resource type="CurveXYZTexture" id="CurveXYZTexture_73pva"]
+curve_x = SubResource("Curve_bbsn4")
+curve_y = SubResource("Curve_ns814")
+curve_z = SubResource("Curve_p4h5m")
+
+[sub_resource type="Curve" id="Curve_wom74"]
+_data = [Vector2(0, 1), 0.0, 0.0, 0, 0, Vector2(0.98054475, 0.98934424), 0.0, 0.0, 0, 0, Vector2(1, 0), -5.4587307, 0.0, 0, 0]
+point_count = 3
+
+[sub_resource type="CurveTexture" id="CurveTexture_a4wok"]
+curve = SubResource("Curve_wom74")
+
+[sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_btdi5"]
+particle_flag_align_y = true
+emission_shape = 6
+emission_ring_axis = Vector3(0, 1, 0)
+emission_ring_height = 0.4
+emission_ring_radius = 12.5
+emission_ring_inner_radius = 52.43
+emission_ring_cone_angle = 90.0
+orbit_velocity_min = 0.1460001
+orbit_velocity_max = 0.2130001
+orbit_velocity_curve = SubResource("CurveXYZTexture_73pva")
+gravity = Vector3(0, 0, 0)
+attractor_interaction_enabled = false
+scale_curve = SubResource("CurveTexture_a4wok")
+
+[sub_resource type="Curve" id="Curve_73pva"]
+_data = [Vector2(0, 1), 0.0, 0.0, 0, 0, Vector2(0.7958478, 0.51203966), 0.0, 0.0, 0, 0, Vector2(1, 0), -1.8633883, 0.0, 0, 0]
+point_count = 3
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_bbsn4"]
+emission_enabled = true
+emission = Color(1, 0.41916662, 0.14999998, 1)
+emission_energy_multiplier = 4.01
+rim = 0.0
+rim_tint = 0.0
+disable_receive_shadows = true
+point_size = 6.8
+use_particle_trails = true
+
+[sub_resource type="RibbonTrailMesh" id="RibbonTrailMesh_ns814"]
+material = SubResource("StandardMaterial3D_bbsn4")
+size = 0.881
+sections = 50
+section_length = 0.035
+section_segments = 1
+curve = SubResource("Curve_73pva")
+
+[sub_resource type="FastNoiseLite" id="FastNoiseLite_ns814"]
+noise_type = 2
+frequency = 0.0002
+
+[sub_resource type="NoiseTexture2D" id="NoiseTexture2D_p4h5m"]
+width = 10
+height = 10
+noise = SubResource("FastNoiseLite_ns814")
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_wom74"]
+emission_enabled = true
+emission = Color(1, 0.6616612, 0.4763096, 1)
+emission_energy_multiplier = 16.0
+emission_operator = 1
+emission_texture = SubResource("NoiseTexture2D_p4h5m")
+rim = 0.0
+rim_tint = 0.0
+disable_receive_shadows = true
+point_size = 6.8
+use_particle_trails = true
+
+[sub_resource type="RibbonTrailMesh" id="RibbonTrailMesh_p4h5m"]
+material = SubResource("StandardMaterial3D_wom74")
+size = 0.276
+sections = 128
+section_length = 0.001
+section_segments = 8
+curve = SubResource("Curve_73pva")
 
 [sub_resource type="Gradient" id="Gradient_6yvdi"]
 colors = PackedColorArray(0.9506173, 0.9506173, 0.9506173, 1, 0, 0, 0, 1)
@@ -85,9 +202,9 @@ shader_parameter/uv1_offset = Vector3(0, 0, 0)
 shader_parameter/uv2_scale = Vector3(1, 1, 1)
 shader_parameter/uv2_offset = Vector3(0, 0, 0)
 shader_parameter/blackhole_center = Vector2(0.5, 0.5)
-shader_parameter/distortion_strength = -0.75
-shader_parameter/distortion_radius = 0.515
-shader_parameter/flatness = 1.23
+shader_parameter/distortion_strength = -0.635
+shader_parameter/distortion_radius = 0.24
+shader_parameter/flatness = 1.0
 
 [sub_resource type="Gradient" id="Gradient_xghg3"]
 colors = PackedColorArray(0, 0, 0, 0, 1, 1, 1, 0)
@@ -95,68 +212,19 @@ colors = PackedColorArray(0, 0, 0, 0, 1, 1, 1, 0)
 [sub_resource type="GradientTexture2D" id="GradientTexture2D_p4h5m"]
 gradient = SubResource("Gradient_xghg3")
 
-[sub_resource type="Curve" id="Curve_bbsn4"]
-_limits = [-0.0032787323, 2.0, 0.0, 1.0]
-_data = [Vector2(0, -0.0032787323), 0.0, 0.0, 0, 0, Vector2(1, -0.0032787323), 0.0, 0.0, 0, 0]
-point_count = 2
+[sub_resource type="SphereShape3D" id="SphereShape3D_ns814"]
+radius = 7.8211117
 
-[sub_resource type="Curve" id="Curve_ns814"]
-_limits = [-0.0032787323, 2.0, 0.0, 1.0]
-_data = [Vector2(0, 2), 0.0, 0.0, 0, 0, Vector2(0.7431906, 1.380954), 0.9540914, 0.9540914, 0, 0, Vector2(1, -0.0032787323), -8.500297, 0.0, 0, 0]
-point_count = 3
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_ns814"]
+shading_mode = 0
+albedo_color = Color(0, 0, 0, 1)
+refraction_enabled = true
+grow_amount = 16.0
+point_size = 34.5
 
-[sub_resource type="Curve" id="Curve_p4h5m"]
-_limits = [-0.0032787323, 2.0, 0.0, 1.0]
-_data = [Vector2(0, -0.0032787323), 0.0, 0.0, 0, 0, Vector2(1, -0.0032787323), 0.0, 0.0, 0, 0]
-point_count = 2
-
-[sub_resource type="CurveXYZTexture" id="CurveXYZTexture_73pva"]
-curve_x = SubResource("Curve_bbsn4")
-curve_y = SubResource("Curve_ns814")
-curve_z = SubResource("Curve_p4h5m")
-
-[sub_resource type="Curve" id="Curve_wom74"]
-_data = [Vector2(0, 1), 0.0, 0.0, 0, 0, Vector2(1, 0), -5.4587307, 0.0, 0, 0]
-point_count = 2
-
-[sub_resource type="CurveTexture" id="CurveTexture_a4wok"]
-curve = SubResource("Curve_wom74")
-
-[sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_btdi5"]
-particle_flag_align_y = true
-emission_shape_scale = Vector3(1, 0.15, 1)
-emission_shape = 2
-emission_sphere_radius = 37.7
-orbit_velocity_min = 0.1900001
-orbit_velocity_max = 0.6030001
-orbit_velocity_curve = SubResource("CurveXYZTexture_73pva")
-gravity = Vector3(0, 0, 0)
-scale_curve = SubResource("CurveTexture_a4wok")
-
-[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_bbsn4"]
-emission_enabled = true
-emission = Color(1, 0.41916662, 0.14999998, 1)
-emission_energy_multiplier = 16.0
-point_size = 6.8
-use_particle_trails = true
-
-[sub_resource type="RibbonTrailMesh" id="RibbonTrailMesh_ns814"]
-material = SubResource("StandardMaterial3D_bbsn4")
-size = 0.146
-sections = 100
-section_length = 0.001
-
-[sub_resource type="ShaderMaterial" id="ShaderMaterial_p4h5m"]
-render_priority = 0
-shader = ExtResource("4_6yvdi")
-shader_parameter/scale = 18.62
-
-[sub_resource type="SphereMesh" id="SphereMesh_73pva"]
-lightmap_size_hint = Vector2i(630, 316)
-material = SubResource("ShaderMaterial_p4h5m")
-flip_faces = true
-radius = 20.0
-height = 40.0
+[sub_resource type="SphereMesh" id="SphereMesh_p4h5m"]
+radius = 10.0
+height = 20.0
 
 [sub_resource type="Gradient" id="Gradient_xu1x1"]
 offsets = PackedFloat32Array(0, 0.24479167, 0.32291666, 0.40625, 0.48958334, 0.7760417)
@@ -211,7 +279,7 @@ shader_parameter/edge_near = 0.05
 shader_parameter/edge_far = 4000.0
 shader_parameter/border_thickness = 1.970000000001164
 shader_parameter/border_color = Color(1.3167266, 0.40657628, 0, 1)
-shader_parameter/time = 8.335
+shader_parameter/time = 0.0
 shader_parameter/noise_scale = 0.00200000000768341
 
 [sub_resource type="PlaneMesh" id="PlaneMesh_6yvdi"]
@@ -354,10 +422,10 @@ size = Vector3(365.1479, 222.07635, 269.3359)
 material = ExtResource("4_qpc07")
 
 [node name="CSGBox3D39" type="CSGBox3D" parent="World/Map"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 50.278564, 621.60046, 101.49895)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 224.75471, 740.5094, -36.749344)
 operation = 2
-size = Vector3(365.1479, 222.07635, 269.3359)
-material = ExtResource("4_qpc07")
+size = Vector3(714.1002, 459.89423, 545.8325)
+material = SubResource("StandardMaterial3D_73pva")
 
 [node name="CSGBox3D32" type="CSGBox3D" parent="World/Map"]
 transform = Transform3D(0.46900916, 0, -0.8831933, 0, 1, 0, 0.8831933, 0, 0.46900916, 242.3047, 54.688065, 191.39928)
@@ -591,39 +659,77 @@ material = ExtResource("4_qpc07")
 [node name="Path3D" type="Path3D" parent="World/Map/CSGPolygon3D5"]
 curve = SubResource("Curve3D_4faqr")
 
-[node name="BlackHole" type="Sprite3D" parent="World"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 128.91672, 14.961258, 23.791311)
+[node name="SpaceSection" type="Node3D" parent="World"]
+
+[node name="Stars" type="GPUParticles3D" parent="World/SpaceSection"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 188.70079, 746.49414, -6.5502777)
+gi_mode = 0
+amount = 10001
+lifetime = 600.0
+explosiveness = 1.0
+visibility_aabb = AABB(-300, -300, -300, 600, 600, 600)
+transform_align = 1
+process_material = SubResource("ParticleProcessMaterial_j1dju")
+draw_pass_1 = SubResource("QuadMesh_2wlmo")
+
+[node name="BlackHole" type="Sprite3D" parent="World/SpaceSection" groups=["deadly"]]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 128.91672, 668.48883, 23.791311)
 pixel_size = 0.1436
 billboard = 1
 render_priority = 4
-texture = SubResource("GradientTexture2D_sltj4")
 script = ExtResource("4_ns814")
 
-[node name="Distort" type="Sprite3D" parent="World/BlackHole"]
-material_override = SubResource("ShaderMaterial_ns814")
-cast_shadow = 0
-pixel_size = 1.3788
-billboard = 1
-no_depth_test = true
-texture = SubResource("GradientTexture2D_p4h5m")
+[node name="GPUParticlesCollisionSphere3D" type="GPUParticlesCollisionSphere3D" parent="World/SpaceSection/BlackHole"]
+radius = 10.0
 
-[node name="GPUParticles3D" type="GPUParticles3D" parent="World"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 128.91672, 14.961258, 23.791311)
-amount = 100
+[node name="GPUParticlesAttractorSphere3D" type="GPUParticlesAttractorSphere3D" parent="World/SpaceSection/BlackHole"]
+radius = 300.0
+
+[node name="GPUParticles3D" type="GPUParticles3D" parent="World/SpaceSection/BlackHole"]
+visible = false
+amount = 102
 lifetime = 100.0
 explosiveness = 1.0
+visibility_aabb = AABB(-40, -40, -40, 80, 80, 80)
 trail_enabled = true
 trail_lifetime = 0.63
 process_material = SubResource("ParticleProcessMaterial_btdi5")
 draw_pass_1 = SubResource("RibbonTrailMesh_ns814")
 
-[node name="MeshInstance3D" type="MeshInstance3D" parent="World"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 128.91672, 14.961258, 23.791311)
-visible = false
-mesh = SubResource("SphereMesh_73pva")
-skeleton = NodePath("../BlackHole")
+[node name="GPUParticles3D2" type="GPUParticles3D" parent="World/SpaceSection/BlackHole"]
+amount = 200
+lifetime = 100.0
+explosiveness = 1.0
+visibility_aabb = AABB(-40, -40, -40, 80, 80, 80)
+trail_enabled = true
+trail_lifetime = 1.84
+process_material = SubResource("ParticleProcessMaterial_btdi5")
+draw_pass_1 = SubResource("RibbonTrailMesh_p4h5m")
 
-[node name="Lava2" type="MeshInstance3D" parent="World" groups=["lava"]]
+[node name="Distort" type="Sprite3D" parent="World/SpaceSection/BlackHole"]
+material_override = SubResource("ShaderMaterial_ns814")
+cast_shadow = 0
+pixel_size = 1.4198
+billboard = 1
+no_depth_test = true
+texture = SubResource("GradientTexture2D_p4h5m")
+
+[node name="Area3D" type="Area3D" parent="World/SpaceSection/BlackHole"]
+collision_layer = 128
+collision_mask = 128
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="World/SpaceSection/BlackHole/Area3D"]
+shape = SubResource("SphereShape3D_ns814")
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="World/SpaceSection/BlackHole"]
+material_override = SubResource("StandardMaterial3D_ns814")
+mesh = SubResource("SphereMesh_p4h5m")
+
+[node name="Camera3D" type="Camera3D" parent="World/SpaceSection"]
+transform = Transform3D(-0.9414266, 0.013507111, 0.33694747, 0, 0.9991975, -0.040054534, -0.33721808, -0.037708398, -0.9406711, 148.72023, 669.154, -28.701195)
+current = true
+
+[node name="Lava2" type="MeshInstance3D" parent="World" groups=["deadly", "lava"]]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 244.91675, -81.44331, 42.04178)
 material_override = SubResource("ShaderMaterial_bbsn4")
 cast_shadow = 0
@@ -651,7 +757,7 @@ shape = SubResource("HeightMapShape3D_sltj4")
 wait_time = 0.02
 autostart = true
 
-[node name="Lava3" type="MeshInstance3D" parent="World" groups=["lava"]]
+[node name="Lava3" type="MeshInstance3D" parent="World" groups=["deadly", "lava"]]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.96865845, -3.7657013, -607.96826)
 material_override = SubResource("ShaderMaterial_bbsn4")
 cast_shadow = 0
