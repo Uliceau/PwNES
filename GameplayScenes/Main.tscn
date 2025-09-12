@@ -1,4 +1,4 @@
-[gd_scene load_steps=64 format=3 uid="uid://bx7fqptkn10rp"]
+[gd_scene load_steps=77 format=3 uid="uid://bx7fqptkn10rp"]
 
 [ext_resource type="Script" uid="uid://b1hp4w8dvknop" path="res://GameplayScenes/world.gd" id="1_ioe3g"]
 [ext_resource type="Texture2D" uid="uid://c5g4hvuff4qt5" path="res://addons/kenney_prototype_textures/dark/texture_04.png" id="2_qpc07"]
@@ -11,6 +11,8 @@
 [ext_resource type="Shader" uid="uid://dpoqx5vwq1p5j" path="res://Materials/ripples.gdshader" id="4_xu1x1"]
 [ext_resource type="PackedScene" uid="uid://dwh4vaq8esl1w" path="res://Entities/Player/player.tscn" id="5_mx21x"]
 [ext_resource type="Script" uid="uid://bjvt0an2jxbon" path="res://MapMechanics/lava_collision.gd" id="5_sltj4"]
+[ext_resource type="PackedScene" uid="uid://ccn0e8q8n6v2n" path="res://MapMechanics/portals/portal.tscn" id="7_73pva"]
+[ext_resource type="Shader" uid="uid://c43fh75x4c5oa" path="res://Materials/portal.gdshader" id="8_73pva"]
 
 [sub_resource type="Environment" id="Environment_r0du0"]
 ambient_light_source = 2
@@ -178,7 +180,7 @@ curve = SubResource("Curve_73pva")
 colors = PackedColorArray(0.9506173, 0.9506173, 0.9506173, 1, 0, 0, 0, 1)
 metadata/_snap_enabled = true
 
-[sub_resource type="GradientTexture2D" id="GradientTexture2D_0cbrd"]
+[sub_resource type="GradientTexture2D" id="GradientTexture2D_73pva"]
 gradient = SubResource("Gradient_6yvdi")
 width = 128
 height = 128
@@ -190,7 +192,7 @@ fill_to = Vector2(0.5, 1)
 render_priority = 1
 shader = ExtResource("4_bbsn4")
 shader_parameter/albedo = Color(1, 1, 1, 1)
-shader_parameter/texture_albedo = SubResource("GradientTexture2D_0cbrd")
+shader_parameter/texture_albedo = SubResource("GradientTexture2D_73pva")
 shader_parameter/albedo_texture_size = Vector2i(64, 64)
 shader_parameter/point_size = 0.10000000149012
 shader_parameter/roughness = 1.0
@@ -206,11 +208,11 @@ shader_parameter/distortion_strength = -0.635
 shader_parameter/distortion_radius = 0.24
 shader_parameter/flatness = 1.0
 
-[sub_resource type="Gradient" id="Gradient_xghg3"]
+[sub_resource type="Gradient" id="Gradient_wom74"]
 colors = PackedColorArray(0, 0, 0, 0, 1, 1, 1, 0)
 
 [sub_resource type="GradientTexture2D" id="GradientTexture2D_p4h5m"]
-gradient = SubResource("Gradient_xghg3")
+gradient = SubResource("Gradient_wom74")
 
 [sub_resource type="SphereShape3D" id="SphereShape3D_ns814"]
 radius = 7.8211117
@@ -225,6 +227,111 @@ point_size = 34.5
 [sub_resource type="SphereMesh" id="SphereMesh_p4h5m"]
 radius = 10.0
 height = 20.0
+
+[sub_resource type="ViewportTexture" id="ViewportTexture_73pva"]
+viewport_path = NodePath("World/Portals/Portal/SubViewport")
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_wom74"]
+resource_local_to_scene = true
+render_priority = 0
+shader = ExtResource("8_73pva")
+shader_parameter/albedo = Color(1, 1, 1, 1)
+shader_parameter/texture_albedo = SubResource("ViewportTexture_73pva")
+shader_parameter/point_size = 0.0
+shader_parameter/roughness = 0.0
+shader_parameter/metallic_texture_channel = Vector4(0, 0, 0, 0)
+shader_parameter/specular = 0.0
+shader_parameter/metallic = 0.0
+shader_parameter/uv1_scale = Vector3(0, 0, 0)
+shader_parameter/uv1_offset = Vector3(0, 0, 0)
+shader_parameter/uv2_scale = Vector3(0, 0, 0)
+shader_parameter/uv2_offset = Vector3(0, 0, 0)
+
+[sub_resource type="Gradient" id="Gradient_iy42t"]
+colors = PackedColorArray(0.9506173, 0.9506173, 0.9506173, 1, 0, 0, 0, 1)
+metadata/_snap_enabled = true
+
+[sub_resource type="GradientTexture2D" id="GradientTexture2D_0cbrd"]
+gradient = SubResource("Gradient_iy42t")
+width = 128
+height = 128
+fill = 1
+fill_from = Vector2(0.5, 0.5)
+fill_to = Vector2(0.5, 1)
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_pcrw0"]
+resource_local_to_scene = true
+render_priority = 1
+shader = ExtResource("4_bbsn4")
+shader_parameter/albedo = Color(1, 1, 1, 1)
+shader_parameter/texture_albedo = SubResource("GradientTexture2D_0cbrd")
+shader_parameter/albedo_texture_size = Vector2i(64, 64)
+shader_parameter/point_size = 0.10000000149012
+shader_parameter/roughness = 1.0
+shader_parameter/metallic_texture_channel = Vector4(1, 0, 0, 0)
+shader_parameter/specular = 0.0
+shader_parameter/metallic = 0.0
+shader_parameter/uv1_scale = Vector3(1, 1, 1)
+shader_parameter/uv1_offset = Vector3(0, 0, 0)
+shader_parameter/uv2_scale = Vector3(1, 1, 1)
+shader_parameter/uv2_offset = Vector3(0, 0, 0)
+shader_parameter/blackhole_center = Vector2(0.5, 0.5)
+shader_parameter/distortion_strength = -0.12
+shader_parameter/distortion_radius = 0.145
+shader_parameter/flatness = 1.0
+
+[sub_resource type="ViewportTexture" id="ViewportTexture_wom74"]
+viewport_path = NodePath("World/Portals/Portal2/SubViewport")
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_a4wok"]
+resource_local_to_scene = true
+render_priority = 0
+shader = ExtResource("8_73pva")
+shader_parameter/albedo = Color(1, 1, 1, 1)
+shader_parameter/texture_albedo = SubResource("ViewportTexture_wom74")
+shader_parameter/point_size = 0.0
+shader_parameter/roughness = 0.0
+shader_parameter/metallic_texture_channel = Vector4(0, 0, 0, 0)
+shader_parameter/specular = 0.0
+shader_parameter/metallic = 0.0
+shader_parameter/uv1_scale = Vector3(0, 0, 0)
+shader_parameter/uv1_offset = Vector3(0, 0, 0)
+shader_parameter/uv2_scale = Vector3(0, 0, 0)
+shader_parameter/uv2_offset = Vector3(0, 0, 0)
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_j1dju"]
+resource_local_to_scene = true
+render_priority = 1
+shader = ExtResource("4_bbsn4")
+shader_parameter/albedo = Color(1, 1, 1, 1)
+shader_parameter/texture_albedo = SubResource("GradientTexture2D_0cbrd")
+shader_parameter/albedo_texture_size = Vector2i(64, 64)
+shader_parameter/point_size = 0.10000000149012
+shader_parameter/roughness = 1.0
+shader_parameter/metallic_texture_channel = Vector4(1, 0, 0, 0)
+shader_parameter/specular = 0.0
+shader_parameter/metallic = 0.0
+shader_parameter/uv1_scale = Vector3(1, 1, 1)
+shader_parameter/uv1_offset = Vector3(0, 0, 0)
+shader_parameter/uv2_scale = Vector3(1, 1, 1)
+shader_parameter/uv2_offset = Vector3(0, 0, 0)
+shader_parameter/blackhole_center = Vector2(0.5, 0.5)
+shader_parameter/distortion_strength = -0.12
+shader_parameter/distortion_radius = 0.145
+shader_parameter/flatness = 1.0
+
+[sub_resource type="Animation" id="Animation_73pva"]
+resource_name = "new_animation"
+loop_mode = 1
+
+[sub_resource type="Animation" id="Animation_wom74"]
+length = 0.001
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_a4wok"]
+_data = {
+&"RESET": SubResource("Animation_wom74"),
+&"new_animation": SubResource("Animation_73pva")
+}
 
 [sub_resource type="Gradient" id="Gradient_xu1x1"]
 offsets = PackedFloat32Array(0, 0.24479167, 0.32291666, 0.40625, 0.48958334, 0.7760417)
@@ -274,12 +381,12 @@ shader_parameter/noise_texture = SubResource("NoiseTexture2D_sltj4")
 shader_parameter/noise_overlay = SubResource("NoiseTexture2D_6yvdi")
 shader_parameter/noise_albedo_overlay = SubResource("NoiseTexture2D_bbsn4")
 shader_parameter/gradient_texture = SubResource("GradientTexture1D_xu1x1")
-shader_parameter/wave_amplitude = 42.30000000000291
+shader_parameter/wave_amplitude = 74.745
 shader_parameter/edge_near = 0.05
 shader_parameter/edge_far = 4000.0
-shader_parameter/border_thickness = 1.970000000001164
+shader_parameter/border_thickness = 5.55
 shader_parameter/border_color = Color(1.3167266, 0.40657628, 0, 1)
-shader_parameter/time = 0.0
+shader_parameter/time = 10.25
 shader_parameter/noise_scale = 0.00200000000768341
 
 [sub_resource type="PlaneMesh" id="PlaneMesh_6yvdi"]
@@ -683,7 +790,7 @@ script = ExtResource("4_ns814")
 radius = 10.0
 
 [node name="GPUParticlesAttractorSphere3D" type="GPUParticlesAttractorSphere3D" parent="World/SpaceSection/BlackHole"]
-radius = 300.0
+radius = 348.28735
 
 [node name="GPUParticles3D" type="GPUParticles3D" parent="World/SpaceSection/BlackHole"]
 visible = false
@@ -729,8 +836,37 @@ mesh = SubResource("SphereMesh_p4h5m")
 transform = Transform3D(-0.9414266, 0.013507111, 0.33694747, 0, 0.9991975, -0.040054534, -0.33721808, -0.037708398, -0.9406711, 148.72023, 669.154, -28.701195)
 current = true
 
+[node name="Portals" type="Node3D" parent="World"]
+
+[node name="Portal" parent="World/Portals" node_paths=PackedStringArray("portal_end") instance=ExtResource("7_73pva")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 135.11469, 562.66077, 16.872253)
+portal_end = NodePath("../Portal2")
+
+[node name="PortalMesh" parent="World/Portals/Portal" index="1"]
+material_override = SubResource("ShaderMaterial_wom74")
+
+[node name="Distort" parent="World/Portals/Portal" index="4"]
+material_override = SubResource("ShaderMaterial_pcrw0")
+
+[node name="Portal2" parent="World/Portals" node_paths=PackedStringArray("portal_end") instance=ExtResource("7_73pva")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 295.75247, -21.96624, -119.36207)
+portal_end = NodePath("../Portal")
+
+[node name="PortalMesh" parent="World/Portals/Portal2" index="1"]
+material_override = SubResource("ShaderMaterial_a4wok")
+
+[node name="Distort" parent="World/Portals/Portal2" index="4"]
+material_override = SubResource("ShaderMaterial_j1dju")
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="World/Portals"]
+libraries = {
+&"": SubResource("AnimationLibrary_a4wok")
+}
+autoplay = "new_animation"
+speed_scale = 0.6
+
 [node name="Lava2" type="MeshInstance3D" parent="World" groups=["deadly", "lava"]]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 244.91675, -81.44331, 42.04178)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 244.91675, -145.92596, 42.04178)
 material_override = SubResource("ShaderMaterial_bbsn4")
 cast_shadow = 0
 extra_cull_margin = 20.0
@@ -1149,6 +1285,8 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1.2820386, 82.71687, 1.03557
 [connection signal="area_entered" from="World/Lava3/StaticBody3D" to="World/Lava3" method="_on_static_body_3d_area_entered"]
 [connection signal="timeout" from="World/Lava3/ColliderTimer" to="World/Lava3" method="_on_collider_timer_timeout"]
 
+[editable path="World/Portals/Portal"]
+[editable path="World/Portals/Portal2"]
 [editable path="World/Dissolvable"]
 [editable path="World/Dissolvable8"]
 [editable path="World/Dissolvable9"]

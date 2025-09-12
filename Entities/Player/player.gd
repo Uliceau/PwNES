@@ -38,8 +38,8 @@ var wall_velocity := Vector3.ZERO
 @export var floor_damping := 0.9
 @export var action_speed_multiplier := 1.0
 
-@export var total_jumps := 3
-var jumps_lefts := 3
+@export var total_jumps := 10
+var jumps_lefts := 10
 
 var is_crouched := false
 

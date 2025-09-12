@@ -1,0 +1,122 @@
+[gd_scene load_steps=14 format=3 uid="uid://ccn0e8q8n6v2n"]
+
+[ext_resource type="Script" uid="uid://bsv815k5nxrgj" path="res://MapMechanics/portals/camera_portal.gd" id="1_3up26"]
+[ext_resource type="Shader" uid="uid://c43fh75x4c5oa" path="res://Materials/portal.gdshader" id="2_i1dum"]
+[ext_resource type="Shader" uid="uid://chyuj4v6tsxpb" path="res://GameplayScenes/Main.gdshader" id="3_i1dum"]
+
+[sub_resource type="ViewportTexture" id="ViewportTexture_73pva"]
+viewport_path = NodePath("World/Portals/Portal/SubViewport")
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_wom74"]
+resource_local_to_scene = true
+render_priority = 0
+shader = ExtResource("2_i1dum")
+shader_parameter/albedo = Color(1, 1, 1, 1)
+shader_parameter/texture_albedo = SubResource("ViewportTexture_73pva")
+shader_parameter/point_size = 0.0
+shader_parameter/roughness = 0.0
+shader_parameter/metallic_texture_channel = Vector4(0, 0, 0, 0)
+shader_parameter/specular = 0.0
+shader_parameter/metallic = 0.0
+shader_parameter/uv1_scale = Vector3(0, 0, 0)
+shader_parameter/uv1_offset = Vector3(0, 0, 0)
+shader_parameter/uv2_scale = Vector3(0, 0, 0)
+shader_parameter/uv2_offset = Vector3(0, 0, 0)
+
+[sub_resource type="SphereMesh" id="SphereMesh_wom74"]
+radius = 5.0
+height = 10.0
+
+[sub_resource type="SphereShape3D" id="SphereShape3D_73pva"]
+radius = 5.0639863
+
+[sub_resource type="SphereShape3D" id="SphereShape3D_wom74"]
+radius = 5.7226977
+
+[sub_resource type="Gradient" id="Gradient_iy42t"]
+offsets = PackedFloat32Array(0.053333335, 0.25333333, 0.5733333, 1)
+colors = PackedColorArray(0, 0, 0, 1, 0.8907359, 0.8907359, 0.8907359, 1, 0.9506173, 0.9506173, 0.9506173, 1, 0, 0, 0, 1)
+
+[sub_resource type="GradientTexture2D" id="GradientTexture2D_0cbrd"]
+gradient = SubResource("Gradient_iy42t")
+width = 128
+height = 128
+fill = 1
+fill_from = Vector2(0.5, 0.5)
+fill_to = Vector2(0.5, 1)
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_pm06w"]
+resource_local_to_scene = true
+render_priority = 1
+shader = ExtResource("3_i1dum")
+shader_parameter/albedo = Color(1, 1, 1, 1)
+shader_parameter/texture_albedo = SubResource("GradientTexture2D_0cbrd")
+shader_parameter/albedo_texture_size = Vector2i(64, 64)
+shader_parameter/point_size = 0.10000000149012
+shader_parameter/roughness = 1.0
+shader_parameter/metallic_texture_channel = Vector4(1, 0, 0, 0)
+shader_parameter/specular = 0.0
+shader_parameter/metallic = 0.0
+shader_parameter/uv1_scale = Vector3(1, 1, 1)
+shader_parameter/uv1_offset = Vector3(0, 0, 0)
+shader_parameter/uv2_scale = Vector3(1, 1, 1)
+shader_parameter/uv2_offset = Vector3(0, 0, 0)
+shader_parameter/blackhole_center = Vector2(0.5, 0.5)
+shader_parameter/distortion_strength = 0.43
+shader_parameter/distortion_radius = 0.185
+shader_parameter/flatness = 1.0
+
+[sub_resource type="Gradient" id="Gradient_xghg3"]
+colors = PackedColorArray(0, 0, 0, 0, 1, 1, 1, 0)
+
+[sub_resource type="GradientTexture2D" id="GradientTexture2D_5ri1i"]
+gradient = SubResource("Gradient_xghg3")
+
+[node name="Portal" type="Node3D"]
+script = ExtResource("1_3up26")
+
+[node name="SubViewport" type="SubViewport" parent="."]
+handle_input_locally = false
+snap_2d_transforms_to_pixel = true
+snap_2d_vertices_to_pixel = true
+oversampling = false
+size = Vector2i(1152, 648)
+
+[node name="Camera3D" type="Camera3D" parent="SubViewport"]
+keep_aspect = 0
+cull_mask = 1048573
+current = true
+fov = 120.0
+size = 100.0
+
+[node name="PortalMesh" type="MeshInstance3D" parent="."]
+layers = 2
+material_override = SubResource("ShaderMaterial_wom74")
+mesh = SubResource("SphereMesh_wom74")
+skeleton = NodePath("../..")
+
+[node name="CollisionInside" type="Area3D" parent="."]
+collision_layer = 2
+collision_mask = 2
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="CollisionInside"]
+shape = SubResource("SphereShape3D_73pva")
+
+[node name="CollisionOutside" type="Area3D" parent="."]
+collision_layer = 2
+collision_mask = 2
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="CollisionOutside"]
+shape = SubResource("SphereShape3D_wom74")
+
+[node name="Distort" type="Sprite3D" parent="."]
+layers = 2
+material_override = SubResource("ShaderMaterial_pm06w")
+cast_shadow = 0
+pixel_size = 1.4198
+billboard = 1
+no_depth_test = true
+texture = SubResource("GradientTexture2D_5ri1i")
+
+[connection signal="body_entered" from="CollisionInside" to="." method="_on_collision_inside_body_entered"]
+[connection signal="body_exited" from="CollisionOutside" to="." method="_on_collision_outside_body_exited"]
