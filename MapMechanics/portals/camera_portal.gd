@@ -24,6 +24,7 @@ func _physics_process(delta: float) -> void:
 	
 	camera_3d.global_transform = portal_end.global_transform * local_pos
 	camera_3d.fov = Global.player.camera_3d.fov + 30
+	camera_3d.near = abs(self.global_position - Global.player.global_position).length()
 	#if self.global_position.y < portal_end.global_position.y:
 		#camera_3d.global_transform.origin.y -= portal_end.global_position.y - self.global_position.y
 	#if name == "Portal2":
@@ -38,8 +39,8 @@ func _on_collision_inside_body_entered(body: Node3D) -> void:
 		distort.hide()
 		portal_end.distort.hide()
 		
-		portal_mesh.mesh.radius = 7.5
-		portal_mesh.mesh.height = 15.0
+		portal_mesh.mesh.radius = 10
+		portal_mesh.mesh.height = 20.0
 
 
 func _on_collision_outside_body_exited(body: Node3D) -> void:
