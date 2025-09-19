@@ -6,6 +6,7 @@ extends MeshInstance3D
 
 @export var mesh_simplify := 4.0
 @export var collision_radius := 20.0
+@export var speed := 0.1
 const Player = preload("uid://c6p3o8fitt0i3")
 
 @export_tool_button("generate") var test := generate_collisions
@@ -133,7 +134,7 @@ func _process(delta: float) -> void:
 	if Engine.is_editor_hint():
 		return
 	
-	time += delta * 0.1
+	time += delta * speed
 	material_override.set_shader_parameter("time", time)
 	
 	# Update collisions periodically around player

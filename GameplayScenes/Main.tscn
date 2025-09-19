@@ -1,4 +1,4 @@
-[gd_scene load_steps=80 format=3 uid="uid://bx7fqptkn10rp"]
+[gd_scene load_steps=104 format=3 uid="uid://bx7fqptkn10rp"]
 
 [ext_resource type="Script" uid="uid://b1hp4w8dvknop" path="res://GameplayScenes/world.gd" id="1_ioe3g"]
 [ext_resource type="Texture2D" uid="uid://c5g4hvuff4qt5" path="res://addons/kenney_prototype_textures/dark/texture_04.png" id="2_qpc07"]
@@ -299,6 +299,39 @@ shader_parameter/uv1_offset = Vector3(0, 0, 0)
 shader_parameter/uv2_scale = Vector3(0, 0, 0)
 shader_parameter/uv2_offset = Vector3(0, 0, 0)
 
+[sub_resource type="Gradient" id="Gradient_73pva"]
+offsets = PackedFloat32Array(0.51111114, 0.64, 0.71555555, 1)
+colors = PackedColorArray(0, 0, 0, 1, 0.9506173, 0.9506173, 0.9506173, 1, 0.8907359, 0.8907359, 0.8907359, 1, 0, 0, 0, 1)
+
+[sub_resource type="GradientTexture2D" id="GradientTexture2D_wom74"]
+gradient = SubResource("Gradient_73pva")
+width = 128
+height = 128
+fill = 1
+fill_from = Vector2(0.5, 0.5)
+fill_to = Vector2(0.5, 1)
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_a4wok"]
+resource_local_to_scene = true
+render_priority = 1
+shader = ExtResource("4_bbsn4")
+shader_parameter/albedo = Color(1, 1, 1, 1)
+shader_parameter/texture_albedo = SubResource("GradientTexture2D_wom74")
+shader_parameter/albedo_texture_size = Vector2i(64, 64)
+shader_parameter/point_size = 0.10000000149012
+shader_parameter/roughness = 1.0
+shader_parameter/metallic_texture_channel = Vector4(1, 0, 0, 0)
+shader_parameter/specular = 0.0
+shader_parameter/metallic = 0.0
+shader_parameter/uv1_scale = Vector3(1, 1, 1)
+shader_parameter/uv1_offset = Vector3(0, 0, 0)
+shader_parameter/uv2_scale = Vector3(1, 1, 1)
+shader_parameter/uv2_offset = Vector3(0, 0, 0)
+shader_parameter/blackhole_center = Vector2(0.5, 0.5)
+shader_parameter/distortion_strength = -0.42
+shader_parameter/distortion_radius = 0.515
+shader_parameter/flatness = 1.19
+
 [sub_resource type="ViewportTexture" id="ViewportTexture_a4wok"]
 viewport_path = NodePath("World/Portals/Portal3/SubViewport")
 
@@ -317,6 +350,27 @@ shader_parameter/uv1_scale = Vector3(0, 0, 0)
 shader_parameter/uv1_offset = Vector3(0, 0, 0)
 shader_parameter/uv2_scale = Vector3(0, 0, 0)
 shader_parameter/uv2_offset = Vector3(0, 0, 0)
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_2wlmo"]
+resource_local_to_scene = true
+render_priority = 1
+shader = ExtResource("4_bbsn4")
+shader_parameter/albedo = Color(1, 1, 1, 1)
+shader_parameter/texture_albedo = SubResource("GradientTexture2D_wom74")
+shader_parameter/albedo_texture_size = Vector2i(64, 64)
+shader_parameter/point_size = 0.10000000149012
+shader_parameter/roughness = 1.0
+shader_parameter/metallic_texture_channel = Vector4(1, 0, 0, 0)
+shader_parameter/specular = 0.0
+shader_parameter/metallic = 0.0
+shader_parameter/uv1_scale = Vector3(1, 1, 1)
+shader_parameter/uv1_offset = Vector3(0, 0, 0)
+shader_parameter/uv2_scale = Vector3(1, 1, 1)
+shader_parameter/uv2_offset = Vector3(0, 0, 0)
+shader_parameter/blackhole_center = Vector2(0.5, 0.5)
+shader_parameter/distortion_strength = -0.42
+shader_parameter/distortion_radius = 0.515
+shader_parameter/flatness = 1.19
 
 [sub_resource type="ViewportTexture" id="ViewportTexture_pcrw0"]
 viewport_path = NodePath("World/Portals/Portal4/SubViewport")
@@ -337,6 +391,27 @@ shader_parameter/uv1_offset = Vector3(0, 0, 0)
 shader_parameter/uv2_scale = Vector3(0, 0, 0)
 shader_parameter/uv2_offset = Vector3(0, 0, 0)
 
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_btdi5"]
+resource_local_to_scene = true
+render_priority = 1
+shader = ExtResource("4_bbsn4")
+shader_parameter/albedo = Color(1, 1, 1, 1)
+shader_parameter/texture_albedo = SubResource("GradientTexture2D_wom74")
+shader_parameter/albedo_texture_size = Vector2i(64, 64)
+shader_parameter/point_size = 0.10000000149012
+shader_parameter/roughness = 1.0
+shader_parameter/metallic_texture_channel = Vector4(1, 0, 0, 0)
+shader_parameter/specular = 0.0
+shader_parameter/metallic = 0.0
+shader_parameter/uv1_scale = Vector3(1, 1, 1)
+shader_parameter/uv1_offset = Vector3(0, 0, 0)
+shader_parameter/uv2_scale = Vector3(1, 1, 1)
+shader_parameter/uv2_offset = Vector3(0, 0, 0)
+shader_parameter/blackhole_center = Vector2(0.5, 0.5)
+shader_parameter/distortion_strength = -0.42
+shader_parameter/distortion_radius = 0.515
+shader_parameter/flatness = 1.19
+
 [sub_resource type="Animation" id="Animation_wom74"]
 length = 0.001
 
@@ -351,7 +426,7 @@ _data = {
 }
 
 [sub_resource type="Gradient" id="Gradient_xu1x1"]
-offsets = PackedFloat32Array(0, 0.24479167, 0.32291666, 0.40625, 0.48958334, 0.7760417)
+offsets = PackedFloat32Array(0, 0.2488889, 0.32291666, 0.40625, 0.48958334, 0.7760417)
 colors = PackedColorArray(0.79, 0.44766667, 0, 1, 0.92941177, 0.05490196, 0, 1, 0.29411766, 0, 0, 1, 0.2901961, 0, 0, 1, 0.16092438, 0, 0, 1, 0.05882353, 0, 0, 1)
 
 [sub_resource type="GradientTexture1D" id="GradientTexture1D_xu1x1"]
@@ -360,7 +435,7 @@ gradient = SubResource("Gradient_xu1x1")
 [sub_resource type="FastNoiseLite" id="FastNoiseLite_6yvdi"]
 noise_type = 2
 seed = 6
-frequency = 0.1344
+frequency = 0.0634
 offset = Vector3(64.52, 0, 0)
 domain_warp_enabled = true
 
@@ -416,10 +491,157 @@ map_width = 6
 map_depth = 6
 map_data = PackedFloat32Array(10.3921585, 10.000001, 11.411766, 9.37255, 6.8627453, 4.039216, 11.09804, 9.529411, 10.705883, 9.294118, 6.2352943, 3.4901965, 12.117647, 11.0196085, 10.862745, 10.54902, 7.960785, 4.4313726, 11.725491, 10.705883, 11.09804, 11.411765, 11.333334, 5.9215693, 10.862745, 10.392158, 11.568628, 9.137256, 9.058824, 8.509805, 8.745099, 7.725491, 8.431374, 6.000001, 8.3529415, 8.039216)
 
+[sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_3oobv"]
+emission_shape_offset = Vector3(0, -2.55, 0)
+emission_shape_scale = Vector3(200, 0.6, 200)
+emission_shape = 3
+emission_box_extents = Vector3(1, 1, 1)
+angle_min = -51.99999
+angle_max = 67.500015
+direction = Vector3(0, 1, 0)
+spread = 16.47
+initial_velocity_min = 90.25
+initial_velocity_max = 101.079994
+gravity = Vector3(0, -90, 0)
+
+[sub_resource type="Curve" id="Curve_gsrlf"]
+_data = [Vector2(0, 0), 0.0, 0.0, 0, 0, Vector2(1e-05, 1), 0.0, 0.0, 0, 0, Vector2(0.99999, 0), 0.033373643, 0.033373643, 0, 0, Vector2(1, 0), 0.0, 0.0, 0, 0]
+point_count = 4
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_gnq0e"]
+albedo_color = Color(1, 0, 0, 1)
+emission_enabled = true
+emission = Color(1, 0.03333336, 0, 1)
+emission_energy_multiplier = 6.2
+billboard_mode = 3
+particles_anim_h_frames = 1
+particles_anim_v_frames = 1
+particles_anim_loop = false
+use_particle_trails = true
+
+[sub_resource type="RibbonTrailMesh" id="RibbonTrailMesh_vnatn"]
+material = SubResource("StandardMaterial3D_gnq0e")
+shape = 0
+curve = SubResource("Curve_gsrlf")
+
+[sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_lxlnl"]
+particle_flag_align_y = true
+emission_shape_offset = Vector3(0, -2.55, 0)
+emission_shape_scale = Vector3(200, 0.6, 200)
+emission_shape = 3
+emission_box_extents = Vector3(1, 1, 1)
+angle_min = -51.99999
+angle_max = 67.500015
+direction = Vector3(0, 1, 0)
+spread = 12.659
+initial_velocity_min = 68.59
+initial_velocity_max = 79.42
+gravity = Vector3(0, -90, 0)
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_t3k42"]
+shading_mode = 2
+albedo_color = Color(1, 0, 0, 1)
+emission_enabled = true
+emission = Color(1, 0.38333333, 0, 1)
+emission_energy_multiplier = 4.65
+stencil_flags = 2
+
+[sub_resource type="SphereMesh" id="SphereMesh_5j13o"]
+material = SubResource("StandardMaterial3D_t3k42")
+radius = 1.0
+height = 2.0
+radial_segments = 5
+rings = 3
+
+[sub_resource type="Gradient" id="Gradient_a4wok"]
+offsets = PackedFloat32Array(0, 0.18222222, 0.34666666, 0.83555555)
+colors = PackedColorArray(5.8612432, 6.051546, 0, 1, 0.39036232, 1.0979093, 0, 1, 0.08216666, 0.29, 0, 1, 0.19000004, 0.6, 0, 1)
+
+[sub_resource type="GradientTexture1D" id="GradientTexture1D_pcrw0"]
+gradient = SubResource("Gradient_a4wok")
+
+[sub_resource type="FastNoiseLite" id="FastNoiseLite_j1dju"]
+noise_type = 2
+seed = 6
+frequency = 0.0634
+offset = Vector3(64.52, 0, 0)
+
+[sub_resource type="NoiseTexture2D" id="NoiseTexture2D_y6c37"]
+noise = SubResource("FastNoiseLite_j1dju")
+seamless = true
+seamless_blend_skirt = 0.724
+
+[sub_resource type="FastNoiseLite" id="FastNoiseLite_2wlmo"]
+noise_type = 0
+seed = 5
+frequency = 0.0125
+offset = Vector3(64.52, 0, 0)
+
+[sub_resource type="NoiseTexture2D" id="NoiseTexture2D_btdi5"]
+noise = SubResource("FastNoiseLite_2wlmo")
+seamless = true
+seamless_blend_skirt = 0.724
+
+[sub_resource type="FastNoiseLite" id="FastNoiseLite_3oobv"]
+noise_type = 2
+seed = 7
+frequency = 0.0552
+offset = Vector3(64.52, 0, 0)
+
+[sub_resource type="NoiseTexture2D" id="NoiseTexture2D_gsrlf"]
+noise = SubResource("FastNoiseLite_3oobv")
+seamless = true
+seamless_blend_skirt = 0.724
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_gnq0e"]
+resource_local_to_scene = true
+render_priority = 0
+shader = ExtResource("4_xu1x1")
+shader_parameter/noise_texture = SubResource("NoiseTexture2D_gsrlf")
+shader_parameter/noise_overlay = SubResource("NoiseTexture2D_btdi5")
+shader_parameter/noise_albedo_overlay = SubResource("NoiseTexture2D_y6c37")
+shader_parameter/gradient_texture = SubResource("GradientTexture1D_pcrw0")
+shader_parameter/wave_amplitude = 9.05
+shader_parameter/edge_near = 0.02
+shader_parameter/edge_far = 4000.0
+shader_parameter/border_thickness = 5.55
+shader_parameter/border_color = Color(0.9932907, 1.8247963, 0, 1)
+shader_parameter/time = 16.625
+shader_parameter/noise_scale = 0.00200000000768341
+
 [sub_resource type="PlaneMesh" id="PlaneMesh_sltj4"]
 size = Vector2(300, 348.24)
 subdivide_width = 200
 subdivide_depth = 200
+
+[sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_73pva"]
+emission_shape_offset = Vector3(0, -2.55, 0)
+emission_shape_scale = Vector3(43.015, 0.6, 135.445)
+emission_shape = 3
+emission_box_extents = Vector3(1, 1, 1)
+angle_min = -51.99999
+angle_max = 67.500015
+direction = Vector3(0, 1, 0)
+spread = 3.455
+initial_velocity_min = 90.25
+initial_velocity_max = 101.079994
+gravity = Vector3(0, -90, 0)
+collision_mode = 2
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_a4wok"]
+albedo_color = Color(1, 0, 0, 1)
+emission_enabled = true
+emission = Color(1.7602391, 1.7602391, 0.19448778, 1)
+billboard_mode = 3
+particles_anim_h_frames = 1
+particles_anim_v_frames = 1
+particles_anim_loop = false
+use_particle_trails = true
+
+[sub_resource type="RibbonTrailMesh" id="RibbonTrailMesh_pcrw0"]
+material = SubResource("StandardMaterial3D_a4wok")
+shape = 0
+curve = SubResource("Curve_gsrlf")
 
 [sub_resource type="FastNoiseLite" id="FastNoiseLite_n0fyt"]
 
@@ -788,7 +1010,7 @@ curve = SubResource("Curve3D_4faqr")
 [node name="Stars" type="GPUParticles3D" parent="World/SpaceSection"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 188.70079, 746.49414, -6.5502777)
 gi_mode = 0
-amount = 10001
+amount = 1000
 lifetime = 600.0
 explosiveness = 1.0
 visibility_aabb = AABB(-300, -300, -300, 600, 600, 600)
@@ -866,11 +1088,14 @@ material_override = SubResource("ShaderMaterial_wom74")
 material_override = SubResource("ShaderMaterial_pcrw0")
 
 [node name="Portal2" parent="World/Portals" node_paths=PackedStringArray("portal_end") instance=ExtResource("7_73pva")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 295.75247, -21.96624, -119.36207)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 267.2224, -21.96624, -118.625084)
 portal_end = NodePath("../Portal")
 
 [node name="PortalMesh" parent="World/Portals/Portal2" index="1"]
 material_override = SubResource("ShaderMaterial_73pva")
+
+[node name="Distort" parent="World/Portals/Portal2" index="4"]
+material_override = SubResource("ShaderMaterial_a4wok")
 
 [node name="Portal3" parent="World/Portals" node_paths=PackedStringArray("portal_end") instance=ExtResource("7_73pva")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -3.9448318, 8.732124, 136.05095)
@@ -879,12 +1104,18 @@ portal_end = NodePath("../Portal4")
 [node name="PortalMesh" parent="World/Portals/Portal3" index="1"]
 material_override = SubResource("ShaderMaterial_j1dju")
 
+[node name="Distort" parent="World/Portals/Portal3" index="4"]
+material_override = SubResource("ShaderMaterial_2wlmo")
+
 [node name="Portal4" parent="World/Portals" node_paths=PackedStringArray("portal_end") instance=ExtResource("7_73pva")]
 transform = Transform3D(1, 0, 0, 0, 1.0000001, 0, 0, 0, 1.0000001, -3.9448318, 28.386673, 136.05095)
 portal_end = NodePath("../Portal3")
 
 [node name="PortalMesh" parent="World/Portals/Portal4" index="1"]
 material_override = SubResource("ShaderMaterial_y6c37")
+
+[node name="Distort" parent="World/Portals/Portal4" index="4"]
+material_override = SubResource("ShaderMaterial_btdi5")
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="World/Portals"]
 libraries = {
@@ -921,13 +1152,37 @@ shape = SubResource("HeightMapShape3D_sltj4")
 wait_time = 0.02
 autostart = true
 
+[node name="GPUParticles3D" type="GPUParticles3D" parent="World"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 218.27603, -103.473465, -1.9375525)
+amount = 101
+lifetime = 4.0
+use_fixed_seed = true
+seed = 864306236
+visibility_aabb = AABB(-200, -4, -200, 400, 50, 400)
+trail_enabled = true
+trail_lifetime = 0.16
+process_material = SubResource("ParticleProcessMaterial_3oobv")
+draw_pass_1 = SubResource("RibbonTrailMesh_vnatn")
+
+[node name="GPUParticles3D2" type="GPUParticles3D" parent="World"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 218.27603, -103.473465, -1.9375525)
+amount = 50
+lifetime = 2.0
+use_fixed_seed = true
+seed = 864306236
+visibility_aabb = AABB(-200, -4, -200, 400, 50, 400)
+trail_lifetime = 0.2
+process_material = SubResource("ParticleProcessMaterial_lxlnl")
+draw_pass_1 = SubResource("SphereMesh_5j13o")
+
 [node name="Lava3" type="MeshInstance3D" parent="World" groups=["deadly", "lava"]]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.96865845, -3.7657013, -607.96826)
-material_override = SubResource("ShaderMaterial_bbsn4")
+material_override = SubResource("ShaderMaterial_gnq0e")
 cast_shadow = 0
 mesh = SubResource("PlaneMesh_sltj4")
 skeleton = NodePath("../Map")
 script = ExtResource("5_sltj4")
+speed = 0.2
 
 [node name="StaticBody3D" type="Area3D" parent="World/Lava3"]
 collision_layer = 128
@@ -946,6 +1201,22 @@ shape = SubResource("HeightMapShape3D_sltj4")
 [node name="ColliderTimer" type="Timer" parent="World/Lava3"]
 wait_time = 0.02
 autostart = true
+
+[node name="GPUParticles3D3" type="GPUParticles3D" parent="World"]
+transform = Transform3D(0.8264227, 0, -0.56305015, 0, 1, 0, 0.56305015, 0, 0.8264227, -1.9545765, -5.281044, -596.98096)
+amount = 50
+lifetime = 2.0
+use_fixed_seed = true
+seed = 864306236
+visibility_aabb = AABB(-100, -4, -200, 200, 100, 400)
+trail_enabled = true
+trail_lifetime = 0.16
+process_material = SubResource("ParticleProcessMaterial_73pva")
+draw_pass_1 = SubResource("RibbonTrailMesh_pcrw0")
+
+[node name="GPUParticlesCollisionBox3D" type="GPUParticlesCollisionBox3D" parent="World/GPUParticles3D3"]
+transform = Transform3D(1.0000002, 0, 0, 0, 1, 0, 0, 0, 1.0000002, -12.772797, 34.13807, 5.6402283)
+size = Vector3(50.17456, 70.27613, 118.13159)
 
 [node name="Dissolvable" parent="World" instance=ExtResource("4_mx21x")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 210.68053, 33.39438, 124.59393)
