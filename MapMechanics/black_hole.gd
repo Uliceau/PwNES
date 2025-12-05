@@ -1,5 +1,6 @@
 extends Node3D
 
+#Black Hole Gravity Effect
 func _physics_process(delta: float) -> void:
 	if Global.player:
 		var distance_vector := self.global_position - Global.player.global_position

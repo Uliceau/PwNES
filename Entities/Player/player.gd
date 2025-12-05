@@ -43,6 +43,7 @@ var jumps_lefts := 10
 
 var is_crouched := false
 
+#Initialization
 func _ready() -> void:
 	
 	Input.mouse_mode = Input.MOUSE_MODE_CAPTURED
@@ -52,6 +53,7 @@ func _ready() -> void:
 		var new_jump_icon = jump_icon.duplicate()
 		jump_icons.add_child(new_jump_icon)
 
+#Input handling
 func _input(event: InputEvent) -> void:
 	if not is_multiplayer_authority():
 		return
@@ -71,6 +73,7 @@ func _input(event: InputEvent) -> void:
 	if event.is_action_pressed("scrolldown"):
 		change_tool(1)
 
+#Change the currently equipped tool
 func change_tool(direction := 0):
 	current_tool.process_mode = Node.PROCESS_MODE_DISABLED
 	current_tool.tool_hide()
@@ -85,6 +88,7 @@ func change_tool(direction := 0):
 	current_tool.process_mode = Node.PROCESS_MODE_INHERIT
 	current_tool.tool_show()
 
+#Physics processing
 func _physics_process(delta: float) -> void:
 	camera_3d.fov = clamp(75.0 + velocity.length() * 0.3, 75, 100)
 		
@@ -94,7 +98,7 @@ func _physics_process(delta: float) -> void:
 	var input_dir := Input.get_vector("left", "right", "up", "down")
 	var direction := (transform.basis * Vector3(input_dir.x, 0, input_dir.y)).normalized()
 	
-	# FLOOR MOVEMENT
+	# Floor movement
 	if is_on_floor():
 		jumps_lefts = total_jumps
 		if extra_temp_velocity > 1.0 and velocity.length() < 40.0:
@@ -106,22 +110,22 @@ func _physics_process(delta: float) -> void:
 			velocity.z += direction.z * base_speed * action_speed_multiplier
 		velocity.x *= floor_damping
 		velocity.z *= floor_damping
-		wall_velocity = Vector3.ZERO   # reset when grounded
+		wall_velocity = Vector3.ZERO
 
-	# WALL SLIDING
+	# Wall movement
 	elif is_on_wall():
-		# project velocity along the wall so we "stick" instead of losing it
+		# project velocity along the wall
 		var normal = get_wall_normal()
 		if abs(normal.dot(Vector3.UP)) < 0.5 or true:
 			wall_velocity = velocity.slide(normal)
 			velocity = wall_velocity.clamp(Vector3(-100, -100, -100), Vector3(100, 100, 100))
 			extra_temp_velocity = wall_velocity.length() * 0.1
-			velocity.y -= 9.8 * delta  # gravity down slide
+			velocity.y -= 9.8 * delta
 		if input_dir:
 			velocity.x = lerp(velocity.x, direction.x * (base_speed * 10 * extra_temp_velocity), 1.8 * delta)
 			velocity.z = lerp(velocity.z, direction.z * (base_speed * 10 * extra_temp_velocity), 1.8 * delta)
 
-	# AIR MOVEMENT
+	# Air movement
 	else:
 		# If input lerp toward input direction
 		if input_dir:
@@ -164,7 +168,7 @@ func _physics_process(delta: float) -> void:
 				velocity.y = -velocity.y
 				wall_velocity = Vector3.ZERO
 	
-	
+	# Handle crouch
 	if Input.is_action_pressed("crouch"):
 		if not is_crouched and velocity.length() < 20:
 			velocity += direction*10
@@ -172,7 +176,8 @@ func _physics_process(delta: float) -> void:
 		collision_shape_3d.shape.height = 1.3
 		floor_damping = 0.99
 		action_speed_multiplier = 0.1
-		floor_max_angle = 0.05 #0.05*PI
+		floor_max_angle = 0.05
+
 	elif collision_shape_3d.shape.height != 2.0:
 		is_crouched = false
 		collision_shape_3d.shape.height = 2.0
@@ -180,6 +185,7 @@ func _physics_process(delta: float) -> void:
 		action_speed_multiplier = 1.0
 		floor_max_angle = 0.4*PI
 	
+	# Animation handling
 	if animation_player.current_animation == "shoot":
 		pass
 	elif input_dir != Vector2.ZERO and is_on_floor():
@@ -190,17 +196,19 @@ func _physics_process(delta: float) -> void:
 	move_and_slide()
 
 
+#Animation finished handling
 func _on_animation_player_animation_finished(anim_name: StringName) -> void:
 	if anim_name == "shoot":
 		animation_player.play("idle")
 
-
+#Collision handling
 func _on_hitbox_area_entered(area: Area3D) -> void:
 	print("collided")
 	if area.get_parent().is_in_group("deadly"):
 		die()
-	
+
+#Handle player death
 func die():
 	self.global_position = Vector3(-1.2, 82, 1)
-	print("ded")
+	print("dead")
 	

@@ -1,16 +1,20 @@
 @tool
 extends MeshInstance3D
 
+#References
 @onready var collision_shape_3d: CollisionShape3D = $StaticBody3D/CollisionShape3D
 @onready var collision_shape_rigid: CollisionShape3D = $StaticBody3D2/CollisionShapeRigid
 
+#Variables
 @export var mesh_simplify := 4.0
 @export var collision_radius := 20.0
 @export var speed := 0.1
 const Player = preload("uid://c6p3o8fitt0i3")
 
+#Editor button to generate collisions
 @export_tool_button("generate") var test := generate_collisions
 
+#Internal variables
 var noise_texture: NoiseTexture2D
 var noise_overlay: NoiseTexture2D
 var time: float = 0.0
@@ -25,6 +29,7 @@ var sides_x : float
 var sides_y : float
 var last_update_time := 0.0
 var center_position := Vector3.ZERO
+
 
 func _ready() -> void:
 	player = get_tree().get_first_node_in_group("player")
@@ -43,6 +48,7 @@ func _ready() -> void:
 		sides_x = mesh.size.x
 		sides_y = mesh.size.y
 
+#Generate collision heightmap based on lava shader
 func generate_collisions(around_position: Vector3 = Vector3.ZERO) -> void:
 	
 	wave_amplitude = mat.get_shader_parameter("wave_amplitude")
@@ -118,6 +124,7 @@ func generate_collisions(around_position: Vector3 = Vector3.ZERO) -> void:
 	collision_shape_rigid.global_position = collision_shape_3d.global_position
 	collision_shape_rigid.scale = collision_shape_3d.scale
 
+#Sample red channel from texture at given UV coordinates
 func sample_texture(image: Image, uv: Vector2) -> float:
 	var width = image.get_width()
 	var height = image.get_height()
@@ -130,15 +137,15 @@ func sample_texture(image: Image, uv: Vector2) -> float:
 	
 	return image.get_pixel(x, y).r
 
+#Update shader time parameter
 func _process(delta: float) -> void:
 	if Engine.is_editor_hint():
 		return
 	
 	time += delta * speed
 	material_override.set_shader_parameter("time", time)
-	
-	# Update collisions periodically around player
 
+#Check player position and enable/disable collisions accordingly
 func _on_collider_timer_timeout() -> void:
 	var player_vertical_vec := player.global_position
 	var self_vertical_vec := global_position

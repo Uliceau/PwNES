@@ -1,0 +1,10 @@
+[gd_resource type="CanvasTexture" load_steps=3 format=3 uid="uid://cqhhvo67levap"]
+
+[ext_resource type="Texture2D" uid="uid://b1cke6qf2m70w" path="res://assets/tilemap/maps/tilemap.png" id="1_3m15x"]
+[ext_resource type="Texture2D" uid="uid://cmc87tb361l8p" path="res://assets/tilemap/maps/tilemap_n.png" id="2_i5mdc"]
+
+[resource]
+diffuse_texture = ExtResource("1_3m15x")
+normal_texture = ExtResource("2_i5mdc")
+specular_color = Color(0.04, 0.04, 0.04, 1)
+specular_shininess = 0.5

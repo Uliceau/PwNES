@@ -1,0 +1,119 @@
+[gd_scene load_steps=21 format=3 uid="uid://cah2pjv35akik"]
+
+[ext_resource type="Shader" uid="uid://cvad3iv0n0t1p" path="res://External/blend_screen.gdshader" id="1_k0rys"]
+[ext_resource type="Texture2D" uid="uid://ybbopur5ckfp" path="res://External/soft_light.png" id="2_7pd5e"]
+[ext_resource type="Texture2D" uid="uid://cah48rja748a8" path="res://External/godray_detail.png" id="3_2tyhk"]
+[ext_resource type="Texture2D" uid="uid://8pswf0gc5pfw" path="res://External/godray_front.png" id="4_ydtd8"]
+[ext_resource type="Shader" uid="uid://bmeoaj60v04gk" path="res://External/pixelate_shader_align_based.gdshader" id="5_j4dip"]
+[ext_resource type="Script" path="res://assets/shaders/pixelate/pixel_canvas_group.gd" id="6_4r5x8"]
+
+[sub_resource type="Gradient" id="Gradient_dihnl"]
+colors = PackedColorArray(0.41, 0.41, 0.41, 1, 1.0569379, 1.0569379, 1.0569379, 1)
+
+[sub_resource type="FastNoiseLite" id="FastNoiseLite_lq1q5"]
+noise_type = 2
+frequency = 0.508
+
+[sub_resource type="NoiseTexture2D" id="NoiseTexture2D_qyqii"]
+width = 217
+height = 1
+noise = SubResource("FastNoiseLite_lq1q5")
+color_ramp = SubResource("Gradient_dihnl")
+seamless = true
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_qyqii"]
+shader = ExtResource("1_k0rys")
+shader_parameter/enabled = true
+shader_parameter/Blend = ExtResource("2_7pd5e")
+shader_parameter/Intensity = 0.9790000465025
+shader_parameter/Noise = SubResource("NoiseTexture2D_qyqii")
+shader_parameter/NoiseScale = 1.0
+shader_parameter/Rotation = 0.695
+
+[sub_resource type="Gradient" id="Gradient_2tl8w"]
+colors = PackedColorArray(1, 1, 1, 1, 1, 1, 1, 0)
+
+[sub_resource type="GradientTexture2D" id="GradientTexture2D_2x340"]
+gradient = SubResource("Gradient_2tl8w")
+width = 128
+height = 128
+fill = 1
+fill_from = Vector2(0.5, 0.5)
+fill_to = Vector2(0.5, 0)
+
+[sub_resource type="CanvasItemMaterial" id="CanvasItemMaterial_672pt"]
+light_mode = 1
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_2x340"]
+resource_local_to_scene = true
+shader = ExtResource("5_j4dip")
+shader_parameter/pixel_size = 1.0
+
+[sub_resource type="CanvasItemMaterial" id="CanvasItemMaterial_abqf2"]
+light_mode = 1
+
+[sub_resource type="Curve" id="Curve_ta1pc"]
+_data = [Vector2(0, 0), 0.0, 0.0, 0, 0, Vector2(0.39430892, 0.19101131), 0.95311964, 0.95311964, 0, 0, Vector2(0.43495932, 0.92134833), 0.0, 0.0, 0, 0, Vector2(0.5325203, 0.19101131), 0.0, 0.0, 0, 0, Vector2(0.9059829, 0), -0.27759063, 0.0, 0, 0]
+point_count = 5
+
+[sub_resource type="CurveTexture" id="CurveTexture_kg8cg"]
+curve = SubResource("Curve_ta1pc")
+
+[sub_resource type="Gradient" id="Gradient_3twxd"]
+colors = PackedColorArray(0.47397572, 0.47397572, 0.47397572, 1, 1, 1, 1, 1)
+
+[sub_resource type="GradientTexture1D" id="GradientTexture1D_jauyy"]
+gradient = SubResource("Gradient_3twxd")
+
+[sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_07e2q"]
+particle_flag_disable_z = true
+emission_shape_scale = Vector3(21.865, 73.375, 1)
+emission_shape = 3
+emission_box_extents = Vector3(1, 1, 1)
+spread = 0.0
+gravity = Vector3(0, -1, 0)
+tangential_accel_min = 1.0599978
+tangential_accel_max = 1.4099977
+color_initial_ramp = SubResource("GradientTexture1D_jauyy")
+alpha_curve = SubResource("CurveTexture_kg8cg")
+turbulence_noise_speed_random = 1.06
+turbulence_influence_max = 0.30400002
+
+[node name="godray" type="Sprite2D"]
+self_modulate = Color(1.179842, 1.179842, 1.179842, 1)
+z_index = 7
+material = SubResource("ShaderMaterial_qyqii")
+scale = Vector2(0.99999994, 0.99999994)
+texture = ExtResource("3_2tyhk")
+centered = false
+
+[node name="PointLight2D2" type="PointLight2D" parent="."]
+position = Vector2(356, 327.00006)
+scale = Vector2(2.0535727, 1.3736125)
+color = Color(0.94509804, 0.94509804, 0.94509804, 1)
+texture = SubResource("GradientTexture2D_2x340")
+texture_scale = 0.35
+height = 20.0
+
+[node name="GodrayFront" type="Sprite2D" parent="."]
+visible = false
+material = SubResource("CanvasItemMaterial_672pt")
+texture = ExtResource("4_ydtd8")
+centered = false
+
+[node name="CanvasGroup2" type="CanvasGroup" parent="."]
+modulate = Color(6.125226, 6.125226, 6.125226, 1)
+z_index = 1
+material = SubResource("ShaderMaterial_2x340")
+position = Vector2(333, 299.00003)
+script = ExtResource("6_4r5x8")
+camera_based = false
+
+[node name="GPUParticles2D" type="GPUParticles2D" parent="CanvasGroup2"]
+material = SubResource("CanvasItemMaterial_abqf2")
+position = Vector2(-31.000004, -32.000004)
+rotation = -0.78539705
+amount = 10
+lifetime = 2.0
+explosiveness = 0.21
+process_material = SubResource("ParticleProcessMaterial_07e2q")

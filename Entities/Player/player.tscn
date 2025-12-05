@@ -23,7 +23,7 @@ seamless = true
 shader = ExtResource("3_hwwuc")
 shader_parameter/noise_texture = SubResource("NoiseTexture2D_bbsn4")
 shader_parameter/time = 17.31500000000233
-shader_parameter/distortion_strength = 0.00400000019
+shader_parameter/distortion_strength = 0.0
 shader_parameter/distortion_speed = 0.2310000109725
 
 [sub_resource type="Animation" id="Animation_g2faj"]

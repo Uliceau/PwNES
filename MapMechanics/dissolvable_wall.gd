@@ -1,5 +1,6 @@
 extends CSGCombiner3D
 
+#Variables
 @onready var csg_sphere_3d: CSGSphere3D = $DissolvableWall/CSGSphere3D
 @onready var dissolvable_wall: CSGBox3D = $DissolvableWall
 

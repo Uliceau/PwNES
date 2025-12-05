@@ -1,0 +1,65 @@
+[gd_resource type="ShaderMaterial" load_steps=14 format=3 uid="uid://chak37t3iqxgq"]
+
+[ext_resource type="Shader" uid="uid://cv6mlxqpk5bej" path="res://External/tilemap_grass.gdshader" id="1_x45x0"]
+
+[sub_resource type="Gradient" id="Gradient_07e2q"]
+colors = PackedColorArray(0.52620083, 0.7501488, 0, 1, 0.27720562, 0.4713511, 0, 1)
+
+[sub_resource type="FastNoiseLite" id="FastNoiseLite_pc21r"]
+noise_type = 0
+frequency = 1.0
+
+[sub_resource type="NoiseTexture2D" id="NoiseTexture2D_i6s7t"]
+noise = SubResource("FastNoiseLite_pc21r")
+color_ramp = SubResource("Gradient_07e2q")
+seamless = true
+
+[sub_resource type="Gradient" id="Gradient_i6s7t"]
+colors = PackedColorArray(1, 1, 1, 1, 0.5649617, 0.5649616, 0.5649616, 1)
+
+[sub_resource type="GradientTexture2D" id="GradientTexture2D_ikic3"]
+gradient = SubResource("Gradient_i6s7t")
+width = 1
+height = 5
+fill_to = Vector2(0, 1)
+
+[sub_resource type="Gradient" id="Gradient_sc4lo"]
+offsets = PackedFloat32Array(0, 0.997151)
+colors = PackedColorArray(0.663899, 0.9694187, 0.16429242, 1, 0.5882353, 1, 0, 1)
+
+[sub_resource type="GradientTexture1D" id="GradientTexture1D_kdv7j"]
+gradient = SubResource("Gradient_sc4lo")
+
+[sub_resource type="Gradient" id="Gradient_ikic3"]
+offsets = PackedFloat32Array(0.21428572, 1)
+
+[sub_resource type="FastNoiseLite" id="FastNoiseLite_sc4lo"]
+frequency = 0.0062
+
+[sub_resource type="NoiseTexture2D" id="NoiseTexture2D_kdv7j"]
+noise = SubResource("FastNoiseLite_sc4lo")
+color_ramp = SubResource("Gradient_ikic3")
+seamless = true
+
+[sub_resource type="FastNoiseLite" id="FastNoiseLite_mxjs4"]
+frequency = 0.0024
+
+[sub_resource type="NoiseTexture2D" id="NoiseTexture2D_7n3vm"]
+width = 300
+noise = SubResource("FastNoiseLite_mxjs4")
+seamless = true
+
+[resource]
+shader = ExtResource("1_x45x0")
+shader_parameter/tolerance = 0.2870000136325
+shader_parameter/grass_spread = 0.0800000038
+shader_parameter/prev_color = Color(0.34637326, 0.17147952, 0.1070671, 1)
+shader_parameter/deco_tex = SubResource("NoiseTexture2D_i6s7t")
+shader_parameter/tolerance_tex = SubResource("NoiseTexture2D_kdv7j")
+shader_parameter/warp_tex = SubResource("NoiseTexture2D_7n3vm")
+shader_parameter/palette = SubResource("GradientTexture1D_kdv7j")
+shader_parameter/animation_speed = 0.0
+shader_parameter/alpha_intensity = 0.999999977648
+shader_parameter/flower_tex = SubResource("GradientTexture2D_ikic3")
+shader_parameter/spawn_chance = 0.0610000028975
+shader_parameter/density = Vector2(3, 5)

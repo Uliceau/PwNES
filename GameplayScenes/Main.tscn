@@ -1,14 +1,16 @@
-[gd_scene load_steps=104 format=3 uid="uid://bx7fqptkn10rp"]
+[gd_scene load_steps=115 format=3 uid="uid://bx7fqptkn10rp"]
 
 [ext_resource type="Script" uid="uid://b1hp4w8dvknop" path="res://GameplayScenes/world.gd" id="1_ioe3g"]
-[ext_resource type="Texture2D" uid="uid://c5g4hvuff4qt5" path="res://addons/kenney_prototype_textures/dark/texture_04.png" id="2_qpc07"]
 [ext_resource type="Shader" uid="uid://bm4m6vwd310l2" path="res://Materials/dissolve.gdshader" id="3_qpc07"]
+[ext_resource type="Shader" uid="uid://bd4khkiv7gmxx" path="res://External/radial_light.gdshader" id="3_wom74"]
+[ext_resource type="PackedScene" uid="uid://cah2pjv35akik" path="res://External/godray.tscn" id="4_a4wok"]
 [ext_resource type="Shader" uid="uid://chyuj4v6tsxpb" path="res://GameplayScenes/Main.gdshader" id="4_bbsn4"]
 [ext_resource type="PackedScene" uid="uid://bbek1pugcmwm3" path="res://MapElements/dissolvable.tscn" id="4_mx21x"]
 [ext_resource type="Script" uid="uid://cy5cin2fjut82" path="res://MapMechanics/black_hole.gd" id="4_ns814"]
 [ext_resource type="Texture2D" uid="uid://yfgk1ixcvpe8" path="res://addons/kenney_particle_pack/star_06.png" id="4_p4h5m"]
 [ext_resource type="Material" uid="uid://b23o6x4r42m7j" path="res://Materials/ground1.tres" id="4_qpc07"]
 [ext_resource type="Shader" uid="uid://dpoqx5vwq1p5j" path="res://Materials/ripples.gdshader" id="4_xu1x1"]
+[ext_resource type="PackedScene" uid="uid://dts2h1tdx6nq3" path="res://External/ground.tscn" id="5_a4wok"]
 [ext_resource type="PackedScene" uid="uid://dwh4vaq8esl1w" path="res://Entities/Player/player.tscn" id="5_mx21x"]
 [ext_resource type="Script" uid="uid://bjvt0an2jxbon" path="res://MapMechanics/lava_collision.gd" id="5_sltj4"]
 [ext_resource type="PackedScene" uid="uid://ccn0e8q8n6v2n" path="res://MapMechanics/portals/portal.tscn" id="7_73pva"]
@@ -33,9 +35,66 @@ volumetric_fog_length = 20.98
 shading_mode = 0
 albedo_color = Color(0, 0, 0, 1)
 
-[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_xu1x1"]
-albedo_texture = ExtResource("2_qpc07")
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_p4h5m"]
+albedo_color = Color(0.06538986, 0.017993083, 4.512258e-09, 1)
 uv1_triplanar = true
+
+[sub_resource type="ViewportTexture" id="ViewportTexture_p4h5m"]
+viewport_path = NodePath("World/Map/Label3D11/SubViewport")
+
+[sub_resource type="Gradient" id="Gradient_pcrw0"]
+offsets = PackedFloat32Array(0, 0.5116279, 1)
+colors = PackedColorArray(1, 1, 1, 1, 1, 1, 1, 0.9767442, 1, 1, 1, 0)
+
+[sub_resource type="GradientTexture2D" id="GradientTexture2D_j1dju"]
+gradient = SubResource("Gradient_pcrw0")
+width = 128
+height = 128
+fill = 1
+fill_from = Vector2(0.5, 0.5)
+fill_to = Vector2(0.5, 1)
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_3oobv"]
+shader = ExtResource("3_wom74")
+shader_parameter/mask = SubResource("GradientTexture2D_j1dju")
+shader_parameter/repeat_count = 21.995
+shader_parameter/Intensity = 1.0
+shader_parameter/curve = 0.21
+shader_parameter/rotate_speed = 1.0
+shader_parameter/color_speed = 1.0
+shader_parameter/color_interval = 5.37
+
+[sub_resource type="Gradient" id="Gradient_kg8cg"]
+offsets = PackedFloat32Array(0.0990991, 0.43543544, 0.5255255, 0.6006006, 0.9339339)
+colors = PackedColorArray(1, 1, 1, 0, 1, 1, 1, 0.9537572, 1, 1, 1, 1, 1, 1, 1, 0.94117653, 1, 1, 1, 0)
+
+[sub_resource type="GradientTexture2D" id="GradientTexture2D_3twxd"]
+gradient = SubResource("Gradient_kg8cg")
+width = 128
+height = 128
+fill_to = Vector2(0, 1)
+
+[sub_resource type="Gradient" id="Gradient_gsrlf"]
+offsets = PackedFloat32Array(0, 0.5116279, 1)
+colors = PackedColorArray(1, 1, 1, 1, 1, 1, 1, 0.9767442, 1, 1, 1, 0)
+
+[sub_resource type="GradientTexture2D" id="GradientTexture2D_gnq0e"]
+gradient = SubResource("Gradient_gsrlf")
+width = 128
+height = 128
+fill = 1
+fill_from = Vector2(0.5, 0.5)
+fill_to = Vector2(0.5, 1)
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_vnatn"]
+shader = ExtResource("3_wom74")
+shader_parameter/mask = SubResource("GradientTexture2D_gnq0e")
+shader_parameter/repeat_count = 6.0
+shader_parameter/Intensity = 1.0
+shader_parameter/curve = 0.025
+shader_parameter/rotate_speed = 1.565
+shader_parameter/color_speed = 0.275
+shader_parameter/color_interval = 1.225
 
 [sub_resource type="Curve3D" id="Curve3D_sltj4"]
 _data = {
@@ -654,7 +713,7 @@ resource_local_to_scene = true
 render_priority = 0
 shader = ExtResource("3_qpc07")
 shader_parameter/sphere_position = Vector3(0, 0, 0)
-shader_parameter/sphere_radius = 2.735000000000582
+shader_parameter/sphere_radius = 1.0
 shader_parameter/burn_threshold = 0.1
 shader_parameter/noise_texture = SubResource("NoiseTexture2D_mx21x")
 shader_parameter/noise_strength = 1.6350000000093132
@@ -728,9 +787,27 @@ material = SubResource("StandardMaterial3D_4faqr")
 metadata/_edit_lock_ = true
 
 [node name="CSGBox3D2" type="CSGBox3D" parent="World/Map"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 35.12741, 4, 31.088318)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 35.12741, 4, 31.361786)
 operation = 2
-size = Vector3(95.25482, 9, 63.176636)
+size = Vector3(95.25482, 9, 63.72357)
+material = ExtResource("4_qpc07")
+
+[node name="CSGBox3D40" type="CSGBox3D" parent="World/Map"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -35.1354, 4, 28.9702)
+operation = 2
+size = Vector3(52.54538, 9, 11.763824)
+material = ExtResource("4_qpc07")
+
+[node name="CSGBox3D42" type="CSGBox3D" parent="World/Map"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -35.1354, -3.927124, 28.9702)
+operation = 2
+size = Vector3(17.395508, 12.414307, 11.763824)
+material = ExtResource("4_qpc07")
+
+[node name="CSGBox3D41" type="CSGBox3D" parent="World/Map"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -55.664078, 4, 12.5966835)
+operation = 2
+size = Vector3(11.488022, 9, 30.249062)
 material = ExtResource("4_qpc07")
 
 [node name="CSGBox3D7" type="CSGBox3D" parent="World/Map"]
@@ -850,6 +927,11 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 86.16661, -32.18933, 14.65644
 size = Vector3(29.578293, 22, 10.338211)
 material = ExtResource("4_qpc07")
 
+[node name="CSGBox3D43" type="CSGBox3D" parent="World/Map"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 62.739223, -7.060791, 26.012402)
+size = Vector3(6.2064314, 52.24707, 26.16227)
+material = ExtResource("4_qpc07")
+
 [node name="CSGBox3D36" type="CSGBox3D" parent="World/Map"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 302.26434, -32.18933, 507.756)
 size = Vector3(29.578293, 22, 18.883095)
@@ -934,9 +1016,49 @@ size = Vector3(55.06958, 9, 163)
 material = ExtResource("4_qpc07")
 
 [node name="CSGBox3D31" type="CSGBox3D" parent="World/Map"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 24.628819, 1.7705154, 32.351566)
-material_override = SubResource("StandardMaterial3D_xu1x1")
-size = Vector3(2.10352, 1.47864, 66.42798)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 24.628819, 4.803154, 32.351566)
+size = Vector3(2.10352, 7.5439153, 66.42798)
+material = SubResource("StandardMaterial3D_p4h5m")
+
+[node name="Label3D" type="Label3D" parent="World/Map/CSGBox3D31"]
+transform = Transform3D(-4.371139e-08, 0, -1, 0, 1, 0, 1, 0, -4.371139e-08, -1.0582981, -0.030158997, -4.718897)
+pixel_size = 0.012
+text = "Shift Pour s'accroupir"
+font_size = 70
+
+[node name="Label3D11" type="Label3D" parent="World/Map"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.4089527, 7.3527756, -0.44919586)
+pixel_size = 0.012
+text = "Démos de mes shaders 2d:"
+font_size = 70
+
+[node name="Sprite3D" type="Sprite3D" parent="World/Map/Label3D11"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 8.208361, -3.3030853, 0.016166687)
+pixel_size = 0.042
+texture_filter = 0
+texture = SubResource("ViewportTexture_p4h5m")
+
+[node name="SubViewport" type="SubViewport" parent="World/Map/Label3D11"]
+canvas_item_default_texture_filter = 0
+size = Vector2i(670, 200)
+
+[node name="Sprite2D3" type="Sprite2D" parent="World/Map/Label3D11/SubViewport"]
+modulate = Color(1, 0, 0, 1)
+material = SubResource("ShaderMaterial_3oobv")
+position = Vector2(80, 106)
+texture = SubResource("GradientTexture2D_3twxd")
+
+[node name="Sprite2D4" type="Sprite2D" parent="World/Map/Label3D11/SubViewport"]
+modulate = Color(1, 0, 0, 1)
+material = SubResource("ShaderMaterial_vnatn")
+position = Vector2(200.355, 106)
+texture = SubResource("GradientTexture2D_3twxd")
+
+[node name="godray" parent="World/Map/Label3D11/SubViewport" instance=ExtResource("4_a4wok")]
+position = Vector2(88.88, -153.96)
+
+[node name="Ground" parent="World/Map/Label3D11/SubViewport" instance=ExtResource("5_a4wok")]
+position = Vector2(400, 100)
 
 [node name="CSGPolygon3D" type="CSGPolygon3D" parent="World/Map"]
 transform = Transform3D(-4.371139e-08, 0, 1, 0, 1, 0, -1, 0, -4.371139e-08, 394.6199, -38.12003, 124.091446)
@@ -1005,6 +1127,74 @@ material = ExtResource("4_qpc07")
 [node name="Path3D" type="Path3D" parent="World/Map/CSGPolygon3D5"]
 curve = SubResource("Curve3D_4faqr")
 
+[node name="Label3D" type="Label3D" parent="World/Map"]
+transform = Transform3D(-1, 0, -8.742278e-08, 0, 1, 0, 8.742278e-08, 0, -1, -55.619408, 3.7245026, 16.791124)
+pixel_size = 0.012
+text = "WASD Pour se déplacer"
+font_size = 70
+
+[node name="Label3D2" type="Label3D" parent="World/Map"]
+transform = Transform3D(1.3113416e-07, 0, -1, 0, 1, 0, 1, 0, 1.3113416e-07, -32.188927, 3.7245026, 29.048319)
+pixel_size = 0.012
+text = "Space Pour sauter"
+font_size = 70
+
+[node name="Label3D3" type="Label3D" parent="World/Map"]
+transform = Transform3D(-0.9999999, 0, -1.6391276e-07, -1.6391277e-07, -4.371139e-08, 0.99999994, -7.164854e-15, 0.99999994, 4.371138e-08, -4.498762, -0.46775055, 107.64335)
+pixel_size = 0.012
+text = "Trous de vers fonctionnels"
+font_size = 225
+
+[node name="Label3D5" type="Label3D" parent="World/Map"]
+transform = Transform3D(4.371138e-08, 1, 7.164854e-15, -1.6391277e-07, 5.9604645e-08, 1, 0.9999999, -4.3711385e-08, 1.6391276e-07, 100.51239, -40.480923, 44.3657)
+pixel_size = 0.0675
+text = "Lave"
+font_size = 295
+
+[node name="Label3D10" type="Label3D" parent="World/Map"]
+transform = Transform3D(-0.07846206, 0.9968718, 0.009493371, 0, 0.009522729, -0.9999547, -0.9969171, -0.07845851, -0.000747173, 202.06604, 675.78174, 12.348541)
+pixel_size = 0.0675
+billboard = 1
+text = "Trou noir"
+font_size = 295
+
+[node name="Label3D9" type="Label3D" parent="World/Map"]
+transform = Transform3D(-0.8480295, -0.42575186, 0.31556475, 1.5793708e-08, 0.59546256, 0.80338305, -0.5299489, 0.68129253, -0.5049699, 51.076447, 35.867584, -707.1409)
+pixel_size = 0.0675
+text = "Acide"
+font_size = 295
+
+[node name="Label3D8" type="Label3D" parent="World/Map"]
+transform = Transform3D(0.9999999, -4.371138e-08, 2.0762414e-07, 4.371139e-08, 1, -4.371138e-08, -2.0762415e-07, 1.0331603e-07, 1, 266.09534, -9.403725, -118.65091)
+pixel_size = 0.0675
+billboard = 2
+text = "Vers le trou noir"
+font_size = 95
+
+[node name="Label3D6" type="Label3D" parent="World/Map"]
+transform = Transform3D(-0.9999999, 4.371139e-08, -1.2020138e-07, 4.371139e-08, 1, -4.371138e-08, 1.2020139e-07, -1.0331603e-07, -1, 207.37622, 22.6232, 122.50491)
+pixel_size = 0.0675
+text = "Mur destructible"
+font_size = 70
+
+[node name="Label3D7" type="Label3D" parent="World/Map"]
+transform = Transform3D(1.6391277e-07, -1.0331603e-07, -1, 4.371139e-08, 1, -4.371138e-08, 0.9999999, -4.3711385e-08, 1.6391277e-07, 65.489426, 41.43447, 243.3885)
+pixel_size = 0.0675
+text = "Mur destructible"
+font_size = 45
+
+[node name="Label3D4" type="Label3D" parent="World/Map"]
+transform = Transform3D(2.0762414e-07, 0, -0.9999999, 0, 1, 0, 0.9999999, 0, 2.0762414e-07, 59.53407, 11.269951, 18.615076)
+pixel_size = 0.012
+text = "Scroll Pour changer d'outils
+M1 Pour utiliser l'outil
+
+- Outil vert: Grappin simple
+- Outil mauve: Grappin de suspension
+- Outil étoilé: Destructeur de murs blancs"
+font_size = 70
+horizontal_alignment = 0
+
 [node name="SpaceSection" type="Node3D" parent="World"]
 
 [node name="Stars" type="GPUParticles3D" parent="World/SpaceSection"]
@@ -1072,7 +1262,7 @@ material_override = SubResource("StandardMaterial3D_ns814")
 mesh = SubResource("SphereMesh_p4h5m")
 
 [node name="Camera3D" type="Camera3D" parent="World/SpaceSection"]
-transform = Transform3D(-0.9414266, 0.013507111, 0.33694747, 0, 0.9991975, -0.040054534, -0.33721808, -0.037708398, -0.9406711, 148.72023, 669.154, -28.701195)
+transform = Transform3D(-0.9786743, 0.039356314, 0.20161271, 0, 0.98147494, -0.19159128, -0.20541811, -0.18750544, -0.96054417, 45.249165, 43.027206, 236.97855)
 current = true
 
 [node name="Portals" type="Node3D" parent="World"]
@@ -1577,7 +1767,7 @@ material_override = SubResource("StandardMaterial3D_qpc07")
 mesh = SubResource("SphereMesh_mx21x")
 
 [node name="Player" parent="." instance=ExtResource("5_mx21x")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1.2820386, 82.71687, 1.0355759)
+transform = Transform3D(-1, 0, -8.742278e-08, 0, 1, 0, 8.742278e-08, 0, -1, -55.530537, 82.71687, 2.865015)
 
 [connection signal="area_entered" from="World/Lava2/StaticBody3D" to="World/Lava2" method="_on_static_body_3d_area_entered"]
 [connection signal="timeout" from="World/Lava2/ColliderTimer" to="World/Lava2" method="_on_collider_timer_timeout"]

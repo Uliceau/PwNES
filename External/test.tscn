@@ -1,0 +1,40 @@
+[gd_scene load_steps=7 format=3 uid="uid://dnrbxkoitiof3"]
+
+[ext_resource type="Shader" uid="uid://bd4khkiv7gmxx" path="res://External/radial_light.gdshader" id="1_ilcxd"]
+
+[sub_resource type="Gradient" id="Gradient_672pt"]
+offsets = PackedFloat32Array(0, 0.5116279, 1)
+colors = PackedColorArray(1, 1, 1, 1, 1, 1, 1, 0.9767442, 1, 1, 1, 0)
+
+[sub_resource type="GradientTexture2D" id="GradientTexture2D_abqf2"]
+gradient = SubResource("Gradient_672pt")
+width = 128
+height = 128
+fill = 1
+fill_from = Vector2(0.5, 0.5)
+fill_to = Vector2(0.5, 1)
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_ta1pc"]
+shader = ExtResource("1_ilcxd")
+shader_parameter/mask = SubResource("GradientTexture2D_abqf2")
+shader_parameter/repeat_count = 21.995
+shader_parameter/Intensity = 1.0
+shader_parameter/curve = 0.635
+shader_parameter/rotate_speed = 1.0
+shader_parameter/color_speed = 1.0
+shader_parameter/color_interval = 1.0
+
+[sub_resource type="Gradient" id="Gradient_kg8cg"]
+offsets = PackedFloat32Array(0.0990991, 0.43543544, 0.5255255, 0.6006006, 0.9339339)
+colors = PackedColorArray(1, 1, 1, 0, 1, 1, 1, 0.9537572, 1, 1, 1, 1, 1, 1, 1, 0.94117653, 1, 1, 1, 0)
+
+[sub_resource type="GradientTexture2D" id="GradientTexture2D_3twxd"]
+gradient = SubResource("Gradient_kg8cg")
+width = 128
+height = 128
+fill_to = Vector2(0, 1)
+
+[node name="Sprite2D3" type="Sprite2D"]
+modulate = Color(1, 0, 0, 1)
+material = SubResource("ShaderMaterial_ta1pc")
+texture = SubResource("GradientTexture2D_3twxd")
