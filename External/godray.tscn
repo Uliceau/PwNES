@@ -1,11 +1,10 @@
-[gd_scene load_steps=21 format=3 uid="uid://cah2pjv35akik"]
+[gd_scene load_steps=20 format=3 uid="uid://cah2pjv35akik"]
 
 [ext_resource type="Shader" uid="uid://cvad3iv0n0t1p" path="res://External/blend_screen.gdshader" id="1_k0rys"]
 [ext_resource type="Texture2D" uid="uid://ybbopur5ckfp" path="res://External/soft_light.png" id="2_7pd5e"]
 [ext_resource type="Texture2D" uid="uid://cah48rja748a8" path="res://External/godray_detail.png" id="3_2tyhk"]
 [ext_resource type="Texture2D" uid="uid://8pswf0gc5pfw" path="res://External/godray_front.png" id="4_ydtd8"]
 [ext_resource type="Shader" uid="uid://bmeoaj60v04gk" path="res://External/pixelate_shader_align_based.gdshader" id="5_j4dip"]
-[ext_resource type="Script" path="res://assets/shaders/pixelate/pixel_canvas_group.gd" id="6_4r5x8"]
 
 [sub_resource type="Gradient" id="Gradient_dihnl"]
 colors = PackedColorArray(0.41, 0.41, 0.41, 1, 1.0569379, 1.0569379, 1.0569379, 1)
@@ -106,8 +105,6 @@ modulate = Color(6.125226, 6.125226, 6.125226, 1)
 z_index = 1
 material = SubResource("ShaderMaterial_2x340")
 position = Vector2(333, 299.00003)
-script = ExtResource("6_4r5x8")
-camera_based = false
 
 [node name="GPUParticles2D" type="GPUParticles2D" parent="CanvasGroup2"]
 material = SubResource("CanvasItemMaterial_abqf2")

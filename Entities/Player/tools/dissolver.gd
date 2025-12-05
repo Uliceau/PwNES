@@ -16,7 +16,7 @@ var delay := 2.5
 func interact_start() -> void:
 	if player.ray_cast_3d.is_colliding() and can_shoot:
 		var collider := player.ray_cast_3d.get_collider()
-		print(collider.name)
+		#print(collider.name)
 		if not collider is CSGShape3D:
 			return
 		if collider is DissolvableWall:

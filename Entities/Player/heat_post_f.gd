@@ -21,7 +21,7 @@ func _on_timer_timeout() -> void:
 			var distance_y :float= player.global_position.y - closest_lava.global_position.y
 			if distance_y < 40:
 				var new_value := (remap(distance_y, 0, 40, 0.0, 0.01)*-1) + 0.01
-				print(new_value)
+				#print(new_value)
 				self.material.set("shader_parameter/distortion_strength", new_value)
 			else:
 				self.material.set("shader_parameter/distortion_strength", 0.0)

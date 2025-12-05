@@ -3,7 +3,8 @@
 [ext_resource type="Shader" uid="uid://cv6mlxqpk5bej" path="res://External/tilemap_grass.gdshader" id="1_x45x0"]
 
 [sub_resource type="Gradient" id="Gradient_07e2q"]
-colors = PackedColorArray(0.52620083, 0.7501488, 0, 1, 0.27720562, 0.4713511, 0, 1)
+offsets = PackedFloat32Array(0, 0.9968553)
+colors = PackedColorArray(0.33363274, 0.48338085, 1.92523e-07, 1, 0.12635499, 0.23234156, 0, 1)
 
 [sub_resource type="FastNoiseLite" id="FastNoiseLite_pc21r"]
 noise_type = 0
@@ -24,8 +25,8 @@ height = 5
 fill_to = Vector2(0, 1)
 
 [sub_resource type="Gradient" id="Gradient_sc4lo"]
-offsets = PackedFloat32Array(0, 0.997151)
-colors = PackedColorArray(0.663899, 0.9694187, 0.16429242, 1, 0.5882353, 1, 0, 1)
+offsets = PackedFloat32Array(0, 0.9874214)
+colors = PackedColorArray(0.663899, 0.9694187, 0.16429242, 1, 0.5844635, 0.99381286, 1.540184e-06, 1)
 
 [sub_resource type="GradientTexture1D" id="GradientTexture1D_kdv7j"]
 gradient = SubResource("Gradient_sc4lo")
@@ -51,8 +52,8 @@ seamless = true
 
 [resource]
 shader = ExtResource("1_x45x0")
-shader_parameter/tolerance = 0.2870000136325
-shader_parameter/grass_spread = 0.0800000038
+shader_parameter/tolerance = 0.162000007695
+shader_parameter/grass_spread = 0.0450000021375
 shader_parameter/prev_color = Color(0.34637326, 0.17147952, 0.1070671, 1)
 shader_parameter/deco_tex = SubResource("NoiseTexture2D_i6s7t")
 shader_parameter/tolerance_tex = SubResource("NoiseTexture2D_kdv7j")
@@ -61,5 +62,5 @@ shader_parameter/palette = SubResource("GradientTexture1D_kdv7j")
 shader_parameter/animation_speed = 0.0
 shader_parameter/alpha_intensity = 0.999999977648
 shader_parameter/flower_tex = SubResource("GradientTexture2D_ikic3")
-shader_parameter/spawn_chance = 0.0610000028975
+shader_parameter/spawn_chance = 0.3510000166725
 shader_parameter/density = Vector2(3, 5)

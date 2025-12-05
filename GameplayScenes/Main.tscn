@@ -1039,7 +1039,10 @@ texture_filter = 0
 texture = SubResource("ViewportTexture_p4h5m")
 
 [node name="SubViewport" type="SubViewport" parent="World/Map/Label3D11"]
+transparent_bg = true
+use_hdr_2d = true
 canvas_item_default_texture_filter = 0
+oversampling = false
 size = Vector2i(670, 200)
 
 [node name="Sprite2D3" type="Sprite2D" parent="World/Map/Label3D11/SubViewport"]

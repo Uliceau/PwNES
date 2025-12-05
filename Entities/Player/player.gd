@@ -203,12 +203,12 @@ func _on_animation_player_animation_finished(anim_name: StringName) -> void:
 
 #Collision handling
 func _on_hitbox_area_entered(area: Area3D) -> void:
-	print("collided")
+	#print("collided")
 	if area.get_parent().is_in_group("deadly"):
 		die()
 
 #Handle player death
 func die():
 	self.global_position = Vector3(-1.2, 82, 1)
-	print("dead")
+	#print("dead")
 	
