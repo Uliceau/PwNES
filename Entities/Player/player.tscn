@@ -152,7 +152,6 @@ target_position = Vector3(0, 0, -50)
 
 [node name="MainHand" type="Node3D" parent="Camera3D"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.382142, -0.29827404, -0.151892)
-visible = false
 
 [node name="Grapple" parent="Camera3D/MainHand" instance=ExtResource("4_7a1se")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.034788996, -0.029127777, -0.288543)
