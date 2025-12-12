@@ -3,8 +3,8 @@ shader_type canvas_item;
 uniform sampler2D mask;
 uniform float repeat_count = 5.0;
 
-uniform sampler2D Blend;  //Blending mode texture
-uniform float Intensity : hint_range(0, 1) = 1.0;  //Default should be 1 but syntax doesn't allow it currently?
+uniform sampler2D Blend;
+uniform float Intensity : hint_range(0, 1) = 1.0;
 uniform float curve = 0.0;
 uniform float rotate_speed = 1.0;
 uniform float color_speed = 1.0;
@@ -63,8 +63,7 @@ void fragment(){
     vec2 tex_size = vec2(textureSize(TEXTURE, 0));
     vec2 uv = UV;
 	vec3 new_col = rgb2hsv(vertex_color.rgb);
-	//new_col.r = sin(TIME*0.1);
-    // Snap to the original texture's pixel grid BEFORE scaling
+    //snap to the original texture's pixel grid
     uv = (floor(uv * tex_size) + 0.5) / tex_size;
 
 	vec2 polar_uv = polar_coordinates(uv.xy, vec2(0.5), 0.3, repeat_count);
@@ -72,8 +71,3 @@ void fragment(){
 
 	COLOR = vec4(hsv2rgb(new_col), 1.0) *  texture(TEXTURE, polar_uv) * output * texture(mask, uv);
 }
-
-//void light() {
-//	// Called for every pixel for every light affecting the CanvasItem.
-//	// Uncomment to replace the default light processing function with this one.
-//}

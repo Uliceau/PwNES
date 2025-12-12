@@ -13,6 +13,7 @@ var delay := 2.5
 
 @onready var ui_indicator: TextureProgressBar = $UiIndicator
 
+
 func interact_start() -> void:
 	if player.ray_cast_3d.is_colliding() and can_shoot:
 		var collider := player.ray_cast_3d.get_collider()

@@ -3,8 +3,8 @@ render_mode unshaded;
 uniform sampler2D screen_texture : hint_screen_texture;
 
 uniform bool enabled;
-uniform sampler2D Blend;  //Blending mode texture
-uniform float Intensity : hint_range(0, 1) = 1.0;  //Default should be 1 but syntax doesn't allow it currently?
+uniform sampler2D Blend;
+uniform float Intensity : hint_range(0, 1) = 1.0;
 uniform sampler2D Noise;
 uniform float NoiseScale = 1.0;
 uniform float Rotation = 0.0;
@@ -31,7 +31,7 @@ void fragment() {
 		
 		vec2 uv = UV;
 		vec2 tex_size = vec2(textureSize(TEXTURE, 0));
-		// Snap to the original texture's pixel grid BEFORE scaling
+		//snap to the original texture's pixel grid
 		uv = (floor(uv * tex_size) + 0.5) / tex_size;
 		
 		vec2 rotated_uv;

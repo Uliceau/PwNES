@@ -17,15 +17,12 @@ vec3 calculate_neon_effect(float value, vec3 base_color) {
     float ramp = clamp(value, 0.0, 1.0);
     vec3 neon_color = vec3(0.0);
 
-    // Layer 1: Intense core
     ramp = ramp * ramp;
     neon_color += pow(base_color, vec3(4.0)) * ramp;
 
-    // Layer 2: Mid intensity
     ramp = ramp * ramp;
     neon_color += base_color * ramp;
 
-    // Layer 3: Bright center
     ramp = ramp * ramp;
     neon_color += vec3(1.0) * ramp;
 
@@ -58,7 +55,6 @@ void fragment(){
 	    float burn_noise = texture(noise_texture, noise_uv * 2.0).r * 0.5;
 	    burn_factor = mix(burn_factor, burn_factor * (1.0 + burn_noise), 0.5);
 
-	    // Calculate and apply neon effect
 	    vec3 neon = calculate_neon_effect(1.0 - burn_factor, neon_base_color);
 	    EMISSION = neon * 2.0;
 	}
